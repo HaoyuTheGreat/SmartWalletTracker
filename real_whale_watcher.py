@@ -1,7 +1,25 @@
+"""
+这个脚本的作用：Publisher（发布者），负责监听 Solana 链上 USDC 交易，并把捕获到的交易数据发送到 Pub/Sub Topic。
+
+它本身不存数据、不做分析，只管往 Topic 里扔消息。
+Topic 收到消息后会自动分发给下游的所有订阅（BigQuery存储、Pull调试等），跟这个脚本无关。
+
+工作流程：
+  1. 通过 WebSocket 连接 Solana 主网 RPC 节点
+  2. 订阅所有涉及 USDC 的链上交易日志
+  3. 每捕获一笔交易，打包成 JSON（包含签名、日志等）
+  4. 调用 publisher.publish() 发送到 Topic (SolanaWhaleTracker)
+
+整体架构：
+  Solana主网 ──WebSocket──→ 本脚本 ──Pub/Sub──→ Topic (SolanaWhaleTracker)
+                                                    ├── saver-to-bigquery-v2 (自动存BigQuery)
+                                                    └── pull_test (test_sub.py 调试用)
+"""
+
 import asyncio
 import os
 import json
-#importing Google Cloud Pub/Sub Python client library. 
+#importing Google Cloud Pub/Sub Python client library.
 #We are using this for: 
 # 1. Create the publisherClient(the publisher client); 
 # 2. Build the topic_path, which is pointing to my SolonaWhaleTracker topic; 
@@ -22,6 +40,8 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "key.json"
 
 
 project_id = "angular-theorem-486301-n3" 
+
+
 topic_id = "SolanaWhaleTracker"       
 
 # Creates a Pub/Sub publisher client-an object that knows how to send messages to Pub/Sub
