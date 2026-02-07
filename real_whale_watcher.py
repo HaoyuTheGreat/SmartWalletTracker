@@ -41,8 +41,7 @@ async def main():
     #async with ... as websocket: ensures the connection is properly closed when the code exits or an error occurs
     async with connect("wss://api.mainnet-beta.solana.com") as websocket:
         
-        # --- 修正了这里的订阅逻辑 ---
-        # 新版 solana-py 要求必须构建一个 Filter 对象
+        #Creates a filter object that tells the Solana WebSocket subscription" only send me transaction logs that mention this specific address"
         usdc_filter = RpcTransactionLogsFilterMentions(USDC_MINT)
         
         await websocket.logs_subscribe(
@@ -50,7 +49,7 @@ async def main():
             commitment=Commitment("confirmed") # 确认级别：confirmed
         )
         
-        print("✅ 监听已启动！等待链上数据...")
+        print("Monitoring begins, waiting for on-chain data....")
 
         async for message in websocket:
             try:
