@@ -9,3 +9,10 @@
 #Transaction: A single action on the blockchain- for example, "Alice sends 500 USDC to Bob". Each transaction has a unique signature(like a receipt ID).
 #Validator: The node that processes transactions and produces blocks. For example, On Solana, validators take turns being the "leader" who builds the next block. 
 #they verify that transactions are valid before including them.
+
+#----------------------------------------------WebSocket---------------------------------------
+#What is WebSocket: 
+#--It is a communication protocol that provides a persistent, two-way connection between a client and a server.
+#The problem is solves:
+#--With regular HTTP, communication works by polling, meaning that the client will as the server over and over again, and server answers.
+#Since WebSocket is persistent and two way connection, its connection stays open unlike HTTP opens and closes each time.
