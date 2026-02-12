@@ -46,18 +46,18 @@ import os
 import json
 import random
 
-#importing Google Cloud Pub/Sub Python client library.
-#We are using this for: 
-# 1. Create the publisherClient(the publisher client); 
-# 2. Build the topic_path, which is pointing to my SolonaWhaleTracker topic; 
+# importing Google Cloud Pub/Sub Python client library.
+# We are using this for:
+# 1. Create the publisherClient(the publisher client);
+# 2. Build the topic_path, which is pointing to my SolonaWhaleTracker topic;
 # 3. Call publisher.publish() to push the captured transaction data to Pub/Sub
 from google.cloud import pubsub_v1
 
-#Provides the WebSocket client to connect to a Solona RPC node(wss://api.mainnet-beta.solana.com), which is how we get a real-time stream of on-chain events
+# Provides the WebSocket client to connect to a Solona RPC node(wss://api.mainnet-beta.solana.com), which is how we get a real-time stream of on-chain events
 from solana.rpc.websocket_api import connect
 from solana.rpc.commitment import Commitment
 from solders.pubkey import Pubkey
-from solders.rpc.config import RpcTransactionLogsFilterMentions 
+from solders.rpc.config import RpcTransactionLogsFilterMentions
 
 from datetime import datetime, timezone
 from solana.rpc.async_api import AsyncClient
@@ -65,24 +65,24 @@ from solders.signature import Signature
 
 
 # Sets an environment variable(GOOGLE_APPLICATION_CREDENTIALS) to point to a file called key.json in the current working directory.
-# It tells the Google Cloud client library(the pubsub_v1) how to authenticate. 
-# key.json is a service account key file we have downloaded from the GCP console, which contains credentials(project ID, private key, client email, etc) 
+# It tells the Google Cloud client library(the pubsub_v1) how to authenticate.
+# key.json is a service account key file we have downloaded from the GCP console, which contains credentials(project ID, private key, client email, etc)
 # that allow the script to publish messages to my Pub/Sub topic.
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "key.json"
 
 
-project_id = "angular-theorem-486301-n3" 
+project_id = "angular-theorem-486301-n3"
 
 
-topic_id = "SolanaWhaleTracker"       
+topic_id = "SolanaWhaleTracker"
 
 # Creates a Pub/Sub publisher client-an object that knows how to send messages to Pub/Sub
 publisher = pubsub_v1.PublisherClient()
 topic_path = publisher.topic_path(project_id, topic_id)
 
-#Creates a Solana Pubkey object from the USDC mint address string.
-#EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v is the official on-chain address of the USDC token on Solana
-#Pubkey.from_string() converts that human-readable base58 string into a proper Pubkey object that the Solana libraries can work with
+# Creates a Solana Pubkey object from the USDC mint address string.
+# EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v is the official on-chain address of the USDC token on Solana
+# Pubkey.from_string() converts that human-readable base58 string into a proper Pubkey object that the Solana libraries can work with
 # Stablecoin mint addresses on Solana
 USDC_MINT_STR = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
 USDT_MINT_STR = "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB"
@@ -100,13 +100,19 @@ STABLECOIN_MAP = {
 }
 
 HELIUS_KEY = "13d0159a-4cb2-4668-a95d-faa268f0e0fb"
-SOLANA_RPC_URL = "https://mainnet.helius-rpc.com/?api-key=13d0159a-4cb2-4668-a95d-faa268f0e0fb"
-SOLANA_WS_URL = "wss://mainnet.helius-rpc.com/?api-key=13d0159a-4cb2-4668-a95d-faa268f0e0fb"
+SOLANA_RPC_URL = (
+    "https://mainnet.helius-rpc.com/?api-key=13d0159a-4cb2-4668-a95d-faa268f0e0fb"
+)
+SOLANA_WS_URL = (
+    "wss://mainnet.helius-rpc.com/?api-key=13d0159a-4cb2-4668-a95d-faa268f0e0fb"
+)
 
 # Rate limiting: only allow 2 concurrent HTTP requests to avoid 429 errors
 # The free public RPC has strict rate limits
 MAX_CONCURRENT_REQUESTS = 10
 http_semaphore = asyncio.Semaphore(MAX_CONCURRENT_REQUESTS)
+
+MIN_AMOUNT_USD = 5000
 
 print("Connecting Solana main network, preparing to capture big whale.....")
 
@@ -124,7 +130,7 @@ async def parse_stablecoin_transfers(http_client, sig_str):
         sig,
         encoding="jsonParsed",
         max_supported_transaction_version=0,
-        commitment=Commitment("confirmed")
+        commitment=Commitment("confirmed"),
     )
 
     tx = resp.value
@@ -176,14 +182,16 @@ async def parse_stablecoin_transfers(http_client, sig_str):
 
         for sender, sent_amount in senders.items():
             for receiver, received_amount in receivers.items():
-                amount = abs(sent_amount) / (10 ** STABLECOIN_DECIMALS)
-                transfers.append({
-                    "sender": sender,
-                    "receiver": receiver,
-                    "token": token_name,
-                    "amount": amount,
-                    "timestamp": timestamp,
-                })
+                amount = abs(sent_amount) / (10**STABLECOIN_DECIMALS)
+                transfers.append(
+                    {
+                        "sender": sender,
+                        "receiver": receiver,
+                        "token": token_name,
+                        "amount": amount,
+                        "timestamp": timestamp,
+                    }
+                )
                 break
 
     return transfers
@@ -214,22 +222,12 @@ async def process_transaction(http_client, signature):
                         raise
 
             if not transfers:
-                # Could not parse transfers, publish raw data as fallback
-                payload = {
-                    "source": "Solana_Mainnet",
-                    "token": "unknown",
-                    "signature": signature,
-                    "sender": None,
-                    "receiver": None,
-                    "amount": None,
-                    "timestamp": None,
-                }
-                data_bytes = json.dumps(payload).encode("utf-8")
-                publisher.publish(topic_path, data_bytes)
                 return
 
-            # Publish each parsed transfer to Pub/Sub
+            # Publish each parsed transfer to Pub/Sub (only whales >= $30k)
             for t in transfers:
+                if t["amount"] < MIN_AMOUNT_USD:
+                    continue
                 payload = {
                     "source": "Solana_Mainnet",
                     "token": t["token"],
@@ -265,19 +263,17 @@ async def main():
                     usdt_filter = RpcTransactionLogsFilterMentions(USDT_MINT)
 
                     await websocket.logs_subscribe(
-                        filter_=usdc_filter,
-                        commitment=Commitment("confirmed")
+                        filter_=usdc_filter, commitment=Commitment("confirmed")
                     )
                     await websocket.logs_subscribe(
-                        filter_=usdt_filter,
-                        commitment=Commitment("confirmed")
+                        filter_=usdt_filter, commitment=Commitment("confirmed")
                     )
 
                     print("Connected to Helius! Monitoring USDC + USDT...")
 
                     async for message in websocket:
                         try:
-                            if not hasattr(message[0], 'result'):
+                            if not hasattr(message[0], "result"):
                                 continue
 
                             value = message[0].result.value
