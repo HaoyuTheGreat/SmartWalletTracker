@@ -1,3 +1,6 @@
+# === Windows 保留名（防止误创建导致 git 报错）===
+nul
+
 # === MacOS 垃圾文件 ===
 .DS_Store
 
