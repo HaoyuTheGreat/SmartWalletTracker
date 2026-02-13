@@ -478,6 +478,6 @@ if __name__ == "__main__":
     filtered = filter_traders(traders)
 
     # 第五步：保存候选钱包列表到 data/pump_traders.json，并打印表格
-    save_results(filtered, token_symbol=TOKEN_SYMBOL)
+     save_results(filtered, token_symbol=TOKEN_SYMBOL)
 
     print(f"\n 完成！下一步用 analyze_traders.py 对候选钱包做 PnL 分析")
