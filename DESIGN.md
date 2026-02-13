@@ -47,7 +47,6 @@
 | `real_whale_watcher.py` | 实时监控 USDC/USDT 大额转账，发布到 Pub/Sub | 已完成 |
 | `wallet_autopsy.py` | 分析单个钱包的交易历史，计算 PnL/胜率 | 已完成 (V3) |
 | `fetch_holdings.py` | 查询钱包当前持仓和价值 | 已完成 |
-| `grid_backtest.py` | BTC 网格交易回测 | 已完成（独立项目） |
 | `smart_wallet_finder.py` | 自动发现聪明钱包的核心流水线 | **待开发** |
 
 ---
