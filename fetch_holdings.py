@@ -1,8 +1,8 @@
 import requests
 import time
+from config import API_KEY
 
-API_KEY = "13d0159a-4cb2-4668-a95d-faa268f0e0fb"
-TARGET_WALLET = "2o8UXRk7iwaaW36FGNvMTxbUctftnRcYvrKwA13Mdj2K"
+TARGET_WALLET = "A3vFkGBrj4MRugemEXWdSFztWgBXi9eQPtD3V28Va7WH"
 
 # 跳过 Wrapped SOL（会在 SOL 余额里体现）
 SKIP_MINTS = {
