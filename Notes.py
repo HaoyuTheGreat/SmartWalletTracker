@@ -39,3 +39,5 @@
 #   JOIN transactions ON (receiver = next sender) AND (same amount) AND (within 5 min window)
 #   This links individual hops into a full chain, revealing the true origin and final destination.
 #   Wallets that only exist as pass-throughs (receive and immediately forward the same amount) are likely bot-controlled.
+
+#Analyzing and learning the python code:

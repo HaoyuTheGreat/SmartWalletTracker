@@ -20,3 +20,4 @@ env/
 config.py      # 如果你的密码写在 config 里
 gcp-key.json
 service_account.json
+Solana_config_info.py
