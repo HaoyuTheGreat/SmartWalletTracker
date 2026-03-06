@@ -3,10 +3,10 @@ import pandas as pd
 import time
 import json as _json
 from datetime import datetime, timedelta
-
+from config import API_KEY
 # === ⚙️ 配置区 ===
-API_KEY = "13d0159a-4cb2-4668-a95d-faa268f0e0fb"
-TARGET_WALLET = "2o8UXRk7iwaaW36FGNvMTxbUctftnRcYvrKwA13Mdj2K"
+
+TARGET_WALLET = "A3vFkGBrj4MRugemEXWdSFztWgBXi9eQPtD3V28Va7WH"
 START_DAY = 90
 END_DAY = 0
 MIN_SOL_THRESHOLD = 0.005
