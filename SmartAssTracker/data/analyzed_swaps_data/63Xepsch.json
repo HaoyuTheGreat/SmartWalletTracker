@@ -1,0 +1,1275 @@
+[
+  {
+    "time": "2025-09-27 21:08:26-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-27 21:08:26-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-27 21:09:04-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-27 21:09:04-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-28 07:26:56-07:00",
+    "sol_spent": 0.041625165,
+    "sol_received": 5.756924717,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 400308.066701
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:26:56-07:00",
+    "sol_spent": 0.041625165,
+    "sol_received": 5.756924717,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 400308.066701
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:26:56-07:00",
+    "sol_spent": 0.041625165,
+    "sol_received": 5.756924717,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 400308.066701
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:03-07:00",
+    "sol_spent": 0.040919774,
+    "sol_received": 3.304151447,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 385001.43658
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:03-07:00",
+    "sol_spent": 0.040919774,
+    "sol_received": 3.304151447,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 385001.43658
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:03-07:00",
+    "sol_spent": 0.040919774,
+    "sol_received": 3.304151447,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 385001.43658
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:10-07:00",
+    "sol_spent": 2.496132407,
+    "sol_received": 6.240331017,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 386369.522593
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:10-07:00",
+    "sol_spent": 2.496132407,
+    "sol_received": 6.240331017,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 386369.522593
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:10-07:00",
+    "sol_spent": 2.496132407,
+    "sol_received": 6.240331017,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 386369.522593
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:15-07:00",
+    "sol_spent": 0.039887452,
+    "sol_received": 1.105897853,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 381941.737836
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:15-07:00",
+    "sol_spent": 0.039887452,
+    "sol_received": 1.105897853,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 381941.737836
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:15-07:00",
+    "sol_spent": 0.039887452,
+    "sol_received": 1.105897853,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 381941.737836
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:20-07:00",
+    "sol_spent": 0.039180771,
+    "sol_received": 3.40766564,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 372203.247768
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:20-07:00",
+    "sol_spent": 0.039180771,
+    "sol_received": 3.40766564,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 372203.247768
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:20-07:00",
+    "sol_spent": 0.039180771,
+    "sol_received": 3.40766564,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 500000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 372203.247768
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:34-07:00",
+    "sol_spent": 0.062036267,
+    "sol_received": 6.550182975,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 800000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 581958.477037
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:34-07:00",
+    "sol_spent": 0.062036267,
+    "sol_received": 6.550182975,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 800000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 581958.477037
+      }
+    ]
+  },
+  {
+    "time": "2025-09-28 07:27:34-07:00",
+    "sol_spent": 0.062036267,
+    "sol_received": 6.550182975,
+    "token_spent": [
+      {
+        "mint": "BwTu5zJqEyLYawwYoGTWT7UxC85eLYQWRcta1GiEbonk",
+        "symbol": "BwTu5zJq",
+        "amount": 800000.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "5ThrLJDFpJqaFL36AvAX8ECZmz6n4vZvqMYvpHHkpump",
+        "symbol": "nl",
+        "amount": 581958.477037
+      }
+    ]
+  },
+  {
+    "time": "2025-09-29 11:53:23-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-29 11:53:23-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-29 11:53:23-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-29 13:56:40-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-29 13:56:40-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-29 13:56:40-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-29 13:57:11-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-29 13:57:11-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-29 13:57:11-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-29 16:26:44-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-29 16:26:44-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-29 16:26:44-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-30 23:10:03-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-30 23:10:03-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-30 23:10:03-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-09-30 23:10:10-07:00",
+    "sol_spent": 43.956,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 505032.950835398
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:10-07:00",
+    "sol_spent": 43.956,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 505032.950835398
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:10-07:00",
+    "sol_spent": 43.956,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 505032.950835398
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:19-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 529643.791268375
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:19-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 529643.791268375
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:19-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 529643.791268375
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:28-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 514831.724761408
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:28-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 514831.724761408
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:28-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 514831.724761408
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:36-07:00",
+    "sol_spent": 45.4545,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 489712.189831746
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:36-07:00",
+    "sol_spent": 45.4545,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 489712.189831746
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:36-07:00",
+    "sol_spent": 45.4545,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 489712.189831746
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:50-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 508102.042850216
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:50-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 508102.042850216
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:10:50-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 508102.042850216
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:01-07:00",
+    "sol_spent": 5.994,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 513772.608011169
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:01-07:00",
+    "sol_spent": 5.994,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 513772.608011169
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:01-07:00",
+    "sol_spent": 5.994,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 513772.608011169
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:14-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 515689.587959412
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:14-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 515689.587959412
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:14-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 515689.587959412
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:24-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 514618.369467454
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:24-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 514618.369467454
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:24-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 514618.369467454
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:34-07:00",
+    "sol_spent": 44.4555,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 508918.537739503
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:34-07:00",
+    "sol_spent": 44.4555,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 508918.537739503
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:34-07:00",
+    "sol_spent": 44.4555,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 508918.537739503
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:42-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 486761.512454134
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:42-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 486761.512454134
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:11:42-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 486761.512454134
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:12:09-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 507855.16531627
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:12:09-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 507855.16531627
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:12:09-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 507855.16531627
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:12:19-07:00",
+    "sol_spent": 43.956,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 504116.003500388
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:12:19-07:00",
+    "sol_spent": 43.956,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 504116.003500388
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:12:19-07:00",
+    "sol_spent": 43.956,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 504116.003500388
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:12:50-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 495097.081826673
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:12:50-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 495097.081826673
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:12:50-07:00",
+    "sol_spent": 0.05,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 495097.081826673
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:13:09-07:00",
+    "sol_spent": 0.0059,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 55767.381726673
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:13:09-07:00",
+    "sol_spent": 0.0059,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 55767.381726673
+      }
+    ]
+  },
+  {
+    "time": "2025-09-30 23:13:09-07:00",
+    "sol_spent": 0.0059,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 55767.381726673
+      }
+    ]
+  },
+  {
+    "time": "2025-10-04 21:26:46-07:00",
+    "sol_spent": 0.01126243,
+    "sol_received": 6.091657176,
+    "token_spent": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 180000.0
+      }
+    ],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-04 21:26:46-07:00",
+    "sol_spent": 0.01126243,
+    "sol_received": 6.091657176,
+    "token_spent": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 180000.0
+      }
+    ],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-04 21:26:46-07:00",
+    "sol_spent": 0.01126243,
+    "sol_received": 6.091657176,
+    "token_spent": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 180000.0
+      }
+    ],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-06 21:11:00-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-06 21:11:00-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-06 21:11:00-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-07 07:46:54-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-07 07:46:54-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-07 07:46:54-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-07 12:24:54-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 4666409.141114345
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "symbol": "EPjFWdd5",
+        "amount": 42573.91283
+      }
+    ]
+  },
+  {
+    "time": "2025-10-07 12:24:54-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 4666409.141114345
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "symbol": "EPjFWdd5",
+        "amount": 42573.91283
+      }
+    ]
+  },
+  {
+    "time": "2025-10-07 12:24:54-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [
+      {
+        "mint": "DdcvRiEs4k2fXbHqeJBS5jgGD93rj1wu6u8WTL4vmBLV",
+        "symbol": "DdcvRiEs",
+        "amount": 4666409.141114345
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "symbol": "EPjFWdd5",
+        "amount": 42573.91283
+      }
+    ]
+  },
+  {
+    "time": "2025-10-11 19:23:14-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-11 19:23:14-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-11 19:23:14-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-11 19:23:26-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-11 19:23:26-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2025-10-11 19:23:26-07:00",
+    "sol_spent": 0,
+    "sol_received": 0,
+    "token_spent": [],
+    "token_received": []
+  },
+  {
+    "time": "2026-02-05 14:14:51-08:00",
+    "sol_spent": 0.17727222,
+    "sol_received": 20.439420626,
+    "token_spent": [
+      {
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "symbol": "EPjFWdd5",
+        "amount": 33.025565
+      },
+      {
+        "mint": "mysticrSzUfD2pz4RayXF5oEHGfNNAFsSY3z5hTQZSN",
+        "symbol": "mysticrS",
+        "amount": 2130.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "symbol": "EPjFWdd5",
+        "amount": 33.025565
+      }
+    ]
+  },
+  {
+    "time": "2026-02-05 14:14:51-08:00",
+    "sol_spent": 0.17727222,
+    "sol_received": 20.439420626,
+    "token_spent": [
+      {
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "symbol": "EPjFWdd5",
+        "amount": 33.025565
+      },
+      {
+        "mint": "mysticrSzUfD2pz4RayXF5oEHGfNNAFsSY3z5hTQZSN",
+        "symbol": "mysticrS",
+        "amount": 2130.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "symbol": "EPjFWdd5",
+        "amount": 33.025565
+      }
+    ]
+  },
+  {
+    "time": "2026-02-05 14:14:51-08:00",
+    "sol_spent": 0.17727222,
+    "sol_received": 20.439420626,
+    "token_spent": [
+      {
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "symbol": "EPjFWdd5",
+        "amount": 33.025565
+      },
+      {
+        "mint": "mysticrSzUfD2pz4RayXF5oEHGfNNAFsSY3z5hTQZSN",
+        "symbol": "mysticrS",
+        "amount": 2130.0
+      }
+    ],
+    "token_received": [
+      {
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "symbol": "EPjFWdd5",
+        "amount": 33.025565
+      }
+    ]
+  }
+]

@@ -12,10 +12,18 @@ url = f"https://mainnet.helius-rpc.com/?api-key={HELIUS_API_KEY}"
 
 
 def load_swaps():
-    with open("swap_data.json", "r", encoding="utf-8") as file:
-        swaps = json.load(file)
-    print(f"total of {len(swaps)} swaps")
-    return swaps
+    swap_loaders = "data/wallets_swap_data"
+    filenames = os.listdir(swap_loaders)
+    all_wallets = {}
+    for swap_json_file in filenames:
+        filepath = os.path.join(swap_loaders, swap_json_file)
+        with open(filepath, "r", encoding="utf-8") as file:
+            swaps = json.load(file)
+        wallet_ids = swap_json_file.replace(".json", "")
+        all_wallets[wallet_ids] = swaps
+        #print(f"[{wallet_ids}] {len(swaps)} 条 SWAP")
+    #print(f"total of {len(swaps)} swaps")
+    return all_wallets
 
 
 def parse_swap(tx):
@@ -95,65 +103,81 @@ def resolve_token_symbol(all_mints):
         }
         response = requests.post(url, json=payload, timeout=10)
         symbol_result = response.json()
-        symbol = symbol_result["result"]["content"]["metadata"]["symbol"]
+        symbol = symbol_result.get("result", {}).get("content", {}).get("metadata", {}).get("symbol", mint[:8])
         # adding the key-value pair to the dict.
         symbol_names[mint] = symbol
     return symbol_names
 
 
 if __name__ == "__main__":
-    swaps = load_swaps()
+    all_wallets = load_swaps()
+    #检查是否有这个repo，这个repo包含所有分析好的钱包。
+    os.makedirs("data/analyzed_swaps_data", exist_ok = True)
+
     pacificTime = pytz.timezone("America/Los_Angeles")
 
-    parsed_swaps = [parse_swap(tx) for tx in swaps]
-    sorted_time_asc = sorted(parsed_swaps, key=lambda x: x["timestamp"])
-    all_mints = collect_mints(parsed_swaps)
-    token_names = resolve_token_symbol(all_mints)
-
     output_swaps_tx = []
-    try:
+    #在开始找token的symbol和地址之前先读取已有的（token_names.json)
+    if os.path.exists("token_names.json"):
+            with open("token_names.json", "r") as f:
+                all_token_names = json.load(f)
+    else:
+            all_token_names = {}
+            
+    for wallet_ids, swaps in all_wallets.items():
+        output_path = f"data/analyzed_swaps_data/{wallet_ids}.json"
+        if os.path.exists(output_path):
+            print(f"[{wallet_ids}] exists, skip")
+            continue
+        print(f"Analyzing [{wallet_ids}].........")
+        parsed_swaps = [parse_swap(tx) for tx in swaps]
+        sorted_time_asc = sorted(parsed_swaps, key=lambda x: x["timestamp"])
+        all_mints = collect_mints(parsed_swaps)
+        token_names = resolve_token_symbol(all_mints)
+        #把新的token地址和symbol加进去
+        all_token_names.update(token_names)
+        output_swaps_tx = []
+        
         # 在这个swap_data.json里：
         # nativeInput = SOL I paid; nativeOutput = SOL I received; tokenInputs = the token I paid; tokenOutputs = the token I received.
-        with open("sorted_swap.json", "w", encoding="utf-8") as f:
-            for parsed in sorted_time_asc:
-                converted_time = datetime.fromtimestamp(parsed["timestamp"], tz=pacificTime)
-                trade = {
-                    "time": str(converted_time),
-                    "sol_spent": parsed["sol_spent"],
-                    "sol_received": parsed["sol_received"],
-                }
-                token_spent = []
-                for mint, amount in parsed["token_spent"].items():
-                    token_spent.append(
-                        {
-                            "mint": mint,
-                            "symbol": token_names[mint],
-                            "amount": amount,
-                        }
-                    )
-                token_received = []
-                for mint, amount in parsed["token_received"].items():
-                    token_received.append(
-                        {
-                            "mint": mint,
-                            "symbol": token_names[mint],
-                            "amount": amount,
-                        }
-                    )
-                trade["token_spent"] = token_spent
-                trade["token_received"] = token_received
-                output_swaps_tx.append(trade)
+        for parsed in sorted_time_asc:
+            converted_time = datetime.fromtimestamp(parsed["timestamp"], tz=pacificTime)
+            trade = {
+                "time": str(converted_time),
+                "sol_spent": parsed["sol_spent"],
+                "sol_received": parsed["sol_received"],
+            }
+            token_spent = []
+            for mint, amount in parsed["token_spent"].items():
+                token_spent.append(
+                    {
+                        "mint": mint,
+                        "symbol": token_names[mint],
+                        "amount": amount,
+                    }
+                )
+            token_received = []
+            for mint, amount in parsed["token_received"].items():
+                token_received.append(
+                    {
+                        "mint": mint,
+                        "symbol": token_names[mint],
+                        "amount": amount,
+                    }
+                )
+            trade["token_spent"] = token_spent
+            trade["token_received"] = token_received
+            output_swaps_tx.append(trade)
+        with open(f"data/analyzed_swaps_data/{wallet_ids}.json", "w", encoding = "utf-8") as f:
             json.dump(output_swaps_tx, f, indent=2)
-            print(f"sorted_swaps.json saved successfully.")
-    except Exception as e:
-        print(f"Failed to save sorted_swaps.json: {e}")
+        print(f"[{wallet_ids}].json saved successfully.")
 
     # This part is write a json file that will contains the token's address and names.
     # By doing this, for the next time we are trying to find the symbol of a token, we can first search for it in this file,
     # so that we do not have to request API pull again.
     try:
         with open("token_names.json", "w", encoding="utf-8") as file:
-            json.dump(token_names, file, indent=2)
+            json.dump(all_token_names, file, indent=2)
         print(f"The token_names file is saved")
     except Exception as e:
         print(f"Failed to save the token_names: {e}")
