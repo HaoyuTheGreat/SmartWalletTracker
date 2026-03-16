@@ -77,7 +77,7 @@
     "token_spent": [
       {
         "mint": "moonThZEkkTVoNB7v6YVCQiT56JYDZ1oN185ba3WizL",
-        "symbol": "moonThZE",
+        "symbol": "MF",
         "amount": 30.564
       }
     ],
@@ -134,7 +134,7 @@
     "token_spent": [
       {
         "mint": "moonThZEkkTVoNB7v6YVCQiT56JYDZ1oN185ba3WizL",
-        "symbol": "moonThZE",
+        "symbol": "MF",
         "amount": 100.0
       }
     ],
@@ -153,7 +153,7 @@
     "token_spent": [
       {
         "mint": "9LzCMqDgTKYz9Drzqnpgee3SGa89up3a247ypMj2xrqM",
-        "symbol": "9LzCMqDg",
+        "symbol": "AUDIO",
         "amount": 9601.43893052
       }
     ],
@@ -185,7 +185,7 @@
     "token_spent": [
       {
         "mint": "moonThZEkkTVoNB7v6YVCQiT56JYDZ1oN185ba3WizL",
-        "symbol": "moonThZE",
+        "symbol": "MF",
         "amount": 100.0
       }
     ],
@@ -204,7 +204,7 @@
     "token_spent": [
       {
         "mint": "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3",
-        "symbol": "SKRbvo6G",
+        "symbol": "SKR",
         "amount": 1.0
       }
     ],
@@ -223,7 +223,7 @@
     "token_spent": [
       {
         "mint": "moonThZEkkTVoNB7v6YVCQiT56JYDZ1oN185ba3WizL",
-        "symbol": "moonThZE",
+        "symbol": "MF",
         "amount": 100.0
       }
     ],
@@ -269,7 +269,7 @@
     "token_received": [
       {
         "mint": "AoR5LncBpmpv6WwxCqiEM96Z9Lwiim2bSAyZAHt9MudA",
-        "symbol": "AoR5LncB",
+        "symbol": "AOR",
         "amount": 25384.848129
       }
     ]
@@ -281,7 +281,7 @@
     "token_spent": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 2.668439
       }
     ],
@@ -294,7 +294,7 @@
     "token_spent": [
       {
         "mint": "8opvqaWysX1oYbXuTL8PHaoaTiXD69VFYAX4smPebonk",
-        "symbol": "8opvqaWy",
+        "symbol": "WAR",
         "amount": 29.677026
       }
     ],
@@ -352,7 +352,7 @@
     "token_spent": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 153.168853
       }
     ],
@@ -371,7 +371,7 @@
     "token_spent": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 152.75
       }
     ],
@@ -390,14 +390,14 @@
     "token_spent": [
       {
         "mint": "jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL",
-        "symbol": "jtojtome",
+        "symbol": "JTO",
         "amount": 1684.495470956
       }
     ],
     "token_received": [
       {
         "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
-        "symbol": "JUPyiwrY",
+        "symbol": "JUP",
         "amount": 2649.727495
       }
     ]
@@ -443,7 +443,7 @@
     "token_received": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 3.043477
       }
     ]
@@ -455,7 +455,7 @@
     "token_spent": [
       {
         "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
-        "symbol": "JUPyiwrY",
+        "symbol": "JUP",
         "amount": 0.4
       }
     ],
@@ -577,7 +577,7 @@
     "token_received": [
       {
         "mint": "FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump",
-        "symbol": "FeR8VBqN",
+        "symbol": "jellyjelly",
         "amount": 25.09806
       }
     ]
@@ -622,7 +622,7 @@
     "token_spent": [
       {
         "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
-        "symbol": "JUPyiwrY",
+        "symbol": "JUP",
         "amount": 0.4
       }
     ],
@@ -641,14 +641,14 @@
     "token_spent": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 4.0
       }
     ],
     "token_received": [
       {
         "mint": "3z2tRjNuQjoq6UDcw4zyEPD1Eb5KXMPYb4GWFzVT1DPg",
-        "symbol": "3z2tRjNu",
+        "symbol": "SURGE",
         "amount": 219.64323283
       }
     ]
@@ -673,7 +673,7 @@
     "token_spent": [
       {
         "mint": "9GhjesUhxmVo9x4UHpdS6NVi4TGzcx8BtGckUqFrjupx",
-        "symbol": "9GhjesUh",
+        "symbol": "HOOPX",
         "amount": 170.974178
       }
     ],
@@ -687,7 +687,7 @@
     "token_received": [
       {
         "mint": "AoR5LncBpmpv6WwxCqiEM96Z9Lwiim2bSAyZAHt9MudA",
-        "symbol": "AoR5LncB",
+        "symbol": "AOR",
         "amount": 25229.193623
       }
     ]
@@ -719,7 +719,7 @@
     "token_received": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 23.942871
       }
     ]
@@ -770,14 +770,14 @@
     "token_spent": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 278.077152
       }
     ],
     "token_received": [
       {
         "mint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
-        "symbol": "2b1kV6Dk",
+        "symbol": "PYUSD",
         "amount": 278.039833
       }
     ]
@@ -802,7 +802,7 @@
     "token_spent": [
       {
         "mint": "METAwkXcqyXKy1AtsSgJ8JiUHwGCafnZL38n3vYmeta",
-        "symbol": "METAwkXc",
+        "symbol": "META",
         "amount": 20.0
       }
     ],
@@ -834,7 +834,7 @@
     "token_spent": [
       {
         "mint": "moonThZEkkTVoNB7v6YVCQiT56JYDZ1oN185ba3WizL",
-        "symbol": "moonThZE",
+        "symbol": "MF",
         "amount": 29.4725
       }
     ],
@@ -879,7 +879,7 @@
     "token_received": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 205.280339
       }
     ]
@@ -983,7 +983,7 @@
     "token_received": [
       {
         "mint": "3wtnog8YQ4zoY13p8tqwgL9GWz2fxNyQQVJY2kSok7au",
-        "symbol": "3wtnog8Y",
+        "symbol": "$BALL",
         "amount": 147010.208312015
       }
     ]
@@ -1002,7 +1002,7 @@
     "token_received": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 4900.002798
       }
     ]
@@ -1053,7 +1053,7 @@
     "token_spent": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 2.25
       }
     ],
@@ -1086,7 +1086,7 @@
     "token_received": [
       {
         "mint": "WLFinEv6ypjkczcS83FZqFpgFZYwQXutRbxGe7oC16g",
-        "symbol": "WLFinEv6",
+        "symbol": "WLFI",
         "amount": 1010.251346
       }
     ]
@@ -1203,14 +1203,14 @@
     "token_spent": [
       {
         "mint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
-        "symbol": "2b1kV6Dk",
+        "symbol": "PYUSD",
         "amount": 278.03771
       }
     ],
     "token_received": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 278.070475
       }
     ]
@@ -1222,14 +1222,14 @@
     "token_spent": [
       {
         "mint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
-        "symbol": "2b1kV6Dk",
+        "symbol": "PYUSD",
         "amount": 278.03771
       }
     ],
     "token_received": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 278.070475
       }
     ]
@@ -1326,7 +1326,7 @@
     "token_received": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 0.999414
       }
     ]
@@ -1345,7 +1345,7 @@
     "token_received": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 0.999414
       }
     ]
@@ -1390,7 +1390,7 @@
     "token_received": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 1.000047
       }
     ]
@@ -1409,7 +1409,7 @@
     "token_received": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 1.000047
       }
     ]
@@ -1428,7 +1428,7 @@
     "token_received": [
       {
         "mint": "DoBAMMqcedjoWV3m7JEU1pAzZjkQqeQzbdLUA2etbonk",
-        "symbol": "DoBAMMqc",
+        "symbol": "OILLESS",
         "amount": 90429.434141
       }
     ]
@@ -1447,7 +1447,7 @@
     "token_received": [
       {
         "mint": "DoBAMMqcedjoWV3m7JEU1pAzZjkQqeQzbdLUA2etbonk",
-        "symbol": "DoBAMMqc",
+        "symbol": "OILLESS",
         "amount": 90429.434141
       }
     ]
@@ -1466,7 +1466,7 @@
     "token_received": [
       {
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "symbol": "Es9vMFrz",
+        "symbol": "USDT",
         "amount": 52.002994
       }
     ]

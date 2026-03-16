@@ -26,7 +26,7 @@ def load_swaps():
     return all_wallets
 
 
-def parse_swap(tx):
+def parse_jupiter(tx):
     timestamp = tx.get("timestamp")
     swap_event = tx.get("events", {}).get("swap", {})
 
@@ -73,7 +73,15 @@ def parse_swap(tx):
         "token_spent": non_native_tokens_sold,
         "token_received": non_native_token_bought,
     }
-
+    
+def parse_swap(tx):
+    #Getting "source" from the swap json file to know which platform of those transactions took place.
+    source = tx.get("source")
+    if source == "JUPITER":
+        return parse_jupiter(tx)
+    else:
+        print("It is other platform")
+        return None
 
 # This function is to collect all the mint addresses of the tokens.
 def collect_mints(parsed_swaps):
@@ -131,6 +139,7 @@ if __name__ == "__main__":
             continue
         print(f"Analyzing [{wallet_ids}].........")
         parsed_swaps = [parse_swap(tx) for tx in swaps]
+        parsed_swaps = [p for p in parsed_swaps if p is not None]
         sorted_time_asc = sorted(parsed_swaps, key=lambda x: x["timestamp"])
         all_mints = collect_mints(parsed_swaps)
         token_names = resolve_token_symbol(all_mints)

@@ -1,26 +1,5 @@
 [
   {
-    "time": "2025-09-10 01:26:00-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-10 01:26:00-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-10 01:26:00-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
     "time": "2025-09-10 05:49:38-07:00",
     "sol_spent": 0,
     "sol_received": 0.107926222,
@@ -57,27 +36,6 @@
         "amount": 2633296.479853
       }
     ],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-10 05:49:57-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-10 05:49:57-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-10 05:49:57-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
     "token_received": []
   },
   {
@@ -165,7 +123,7 @@
     "token_spent": [
       {
         "mint": "d4VVNcnhYwenMzJJk7QgZsxVbLQSijPSLB8m7gKMGFM",
-        "symbol": "d4VVNcnh",
+        "symbol": "GANG",
         "amount": 42898.541621535
       }
     ],
@@ -178,7 +136,7 @@
     "token_spent": [
       {
         "mint": "d4VVNcnhYwenMzJJk7QgZsxVbLQSijPSLB8m7gKMGFM",
-        "symbol": "d4VVNcnh",
+        "symbol": "GANG",
         "amount": 42898.541621535
       }
     ],
@@ -191,7 +149,7 @@
     "token_spent": [
       {
         "mint": "d4VVNcnhYwenMzJJk7QgZsxVbLQSijPSLB8m7gKMGFM",
-        "symbol": "d4VVNcnh",
+        "symbol": "GANG",
         "amount": 42898.541621535
       }
     ],
@@ -204,7 +162,7 @@
     "token_spent": [
       {
         "mint": "7jBFRT1feBu1iNKG8MPfRidLCqjiRACsNV8ju9PZpump",
-        "symbol": "7jBFRT1f",
+        "symbol": "BORED",
         "amount": 1929566.908048
       }
     ],
@@ -217,7 +175,7 @@
     "token_spent": [
       {
         "mint": "7jBFRT1feBu1iNKG8MPfRidLCqjiRACsNV8ju9PZpump",
-        "symbol": "7jBFRT1f",
+        "symbol": "BORED",
         "amount": 1929566.908048
       }
     ],
@@ -230,391 +188,13 @@
     "token_spent": [
       {
         "mint": "7jBFRT1feBu1iNKG8MPfRidLCqjiRACsNV8ju9PZpump",
-        "symbol": "7jBFRT1f",
+        "symbol": "BORED",
         "amount": 1929566.908048
       }
     ],
     "token_received": []
   },
   {
-    "time": "2025-09-12 20:50:30-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:50:30-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:50:30-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:51:43-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:51:43-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:51:43-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:52:44-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:52:44-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:52:44-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:53:42-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:53:42-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:53:42-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:54:43-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:54:43-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:54:43-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:55:35-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:55:35-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:55:35-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:56:36-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:56:36-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:56:36-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:57:33-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:57:33-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:57:33-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:58:36-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:58:36-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:58:36-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:59:37-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:59:37-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 20:59:37-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:00:38-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:00:38-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:00:38-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:01:39-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:01:39-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:01:39-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:02:40-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:02:40-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:02:40-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:03:36-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:03:36-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:03:36-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:04:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:04:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:04:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:05:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:05:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:05:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:06:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:06:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:06:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:07:43-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:07:43-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:07:43-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
     "time": "2025-09-12 21:08:41-07:00",
     "sol_spent": 5.0,
     "sol_received": 0,
@@ -652,27 +232,6 @@
         "amount": 228221.222475
       }
     ]
-  },
-  {
-    "time": "2025-09-12 21:09:51-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:09:51-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 21:09:51-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
   },
   {
     "time": "2025-10-04 22:54:26-07:00",
@@ -738,7 +297,7 @@
     "token_spent": [
       {
         "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
-        "symbol": "J1toso1u",
+        "symbol": "JitoSOL",
         "amount": 7.0
       }
     ],
@@ -757,7 +316,7 @@
     "token_spent": [
       {
         "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
-        "symbol": "J1toso1u",
+        "symbol": "JitoSOL",
         "amount": 7.0
       }
     ],
@@ -776,7 +335,7 @@
     "token_spent": [
       {
         "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
-        "symbol": "J1toso1u",
+        "symbol": "JitoSOL",
         "amount": 7.0
       }
     ],
@@ -795,7 +354,7 @@
     "token_spent": [
       {
         "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
-        "symbol": "J1toso1u",
+        "symbol": "JitoSOL",
         "amount": 4.0
       }
     ],
@@ -814,7 +373,7 @@
     "token_spent": [
       {
         "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
-        "symbol": "J1toso1u",
+        "symbol": "JitoSOL",
         "amount": 4.0
       }
     ],
@@ -833,7 +392,7 @@
     "token_spent": [
       {
         "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
-        "symbol": "J1toso1u",
+        "symbol": "JitoSOL",
         "amount": 4.0
       }
     ],
@@ -958,33 +517,5 @@
         "amount": 157066.467807
       }
     ]
-  },
-  {
-    "time": "2025-11-13 23:29:32-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-13 23:29:32-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-13 23:29:32-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-13 23:29:32-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
   }
 ]

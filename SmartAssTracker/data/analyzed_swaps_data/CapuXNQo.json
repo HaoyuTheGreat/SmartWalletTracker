@@ -32,7 +32,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 161.8433
       }
     ],
@@ -45,7 +45,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 161.8433
       }
     ],
@@ -58,7 +58,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 161.8433
       }
     ],
@@ -318,7 +318,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 42.89
       }
     ],
@@ -350,7 +350,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 42.89
       }
     ],
@@ -382,7 +382,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 42.89
       }
     ],
@@ -480,7 +480,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00352513
       }
     ]
@@ -493,7 +493,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00352513
       }
     ]
@@ -506,7 +506,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00352513
       }
     ]
@@ -519,7 +519,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00387124
       }
     ]
@@ -532,7 +532,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00387124
       }
     ]
@@ -545,7 +545,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00387124
       }
     ]
@@ -557,7 +557,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 76.1371
       }
     ],
@@ -570,7 +570,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 76.1371
       }
     ],
@@ -583,7 +583,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 76.1371
       }
     ],
@@ -597,7 +597,7 @@
     "token_received": [
       {
         "mint": "DoBAMMqcedjoWV3m7JEU1pAzZjkQqeQzbdLUA2etbonk",
-        "symbol": "DoBAMMqc",
+        "symbol": "OILLESS",
         "amount": 3281.846669
       }
     ]
@@ -610,7 +610,7 @@
     "token_received": [
       {
         "mint": "DoBAMMqcedjoWV3m7JEU1pAzZjkQqeQzbdLUA2etbonk",
-        "symbol": "DoBAMMqc",
+        "symbol": "OILLESS",
         "amount": 3281.846669
       }
     ]
@@ -623,7 +623,7 @@
     "token_received": [
       {
         "mint": "DoBAMMqcedjoWV3m7JEU1pAzZjkQqeQzbdLUA2etbonk",
-        "symbol": "DoBAMMqc",
+        "symbol": "OILLESS",
         "amount": 3281.846669
       }
     ]
@@ -636,7 +636,7 @@
     "token_received": [
       {
         "mint": "8opvqaWysX1oYbXuTL8PHaoaTiXD69VFYAX4smPebonk",
-        "symbol": "8opvqaWy",
+        "symbol": "WAR",
         "amount": 1426.254099
       }
     ]
@@ -649,7 +649,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 143.155089
       }
     ]
@@ -662,7 +662,7 @@
     "token_received": [
       {
         "mint": "8opvqaWysX1oYbXuTL8PHaoaTiXD69VFYAX4smPebonk",
-        "symbol": "8opvqaWy",
+        "symbol": "WAR",
         "amount": 1426.254099
       }
     ]
@@ -675,7 +675,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 143.155089
       }
     ]
@@ -688,7 +688,7 @@
     "token_received": [
       {
         "mint": "8opvqaWysX1oYbXuTL8PHaoaTiXD69VFYAX4smPebonk",
-        "symbol": "8opvqaWy",
+        "symbol": "WAR",
         "amount": 1426.254099
       }
     ]
@@ -701,7 +701,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 143.155089
       }
     ]
@@ -735,7 +735,7 @@
     "token_received": [
       {
         "mint": "iUdvUaxyRHh8PYVcmkgBpSJu5evpW6jsSLv8RCpmoon",
-        "symbol": "iUdvUaxy",
+        "symbol": "WORTHLESS",
         "amount": 106942.735984
       }
     ]
@@ -748,7 +748,7 @@
     "token_received": [
       {
         "mint": "iUdvUaxyRHh8PYVcmkgBpSJu5evpW6jsSLv8RCpmoon",
-        "symbol": "iUdvUaxy",
+        "symbol": "WORTHLESS",
         "amount": 106942.735984
       }
     ]
@@ -761,7 +761,7 @@
     "token_received": [
       {
         "mint": "iUdvUaxyRHh8PYVcmkgBpSJu5evpW6jsSLv8RCpmoon",
-        "symbol": "iUdvUaxy",
+        "symbol": "WORTHLESS",
         "amount": 106942.735984
       }
     ]
@@ -774,7 +774,7 @@
     "token_received": [
       {
         "mint": "iUdvUaxyRHh8PYVcmkgBpSJu5evpW6jsSLv8RCpmoon",
-        "symbol": "iUdvUaxy",
+        "symbol": "WORTHLESS",
         "amount": 106942.735984
       }
     ]
@@ -838,7 +838,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 97.018
       }
     ],
@@ -851,7 +851,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 97.018
       }
     ],
@@ -864,7 +864,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 97.018
       }
     ],
@@ -877,7 +877,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 97.018
       }
     ],
@@ -891,7 +891,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00215677
       }
     ]
@@ -904,7 +904,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00215677
       }
     ]
@@ -917,7 +917,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00215677
       }
     ]
@@ -930,7 +930,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00215677
       }
     ]
@@ -1019,7 +1019,7 @@
     "token_received": [
       {
         "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-        "symbol": "27G8MtK7",
+        "symbol": "JLP",
         "amount": 5.427784
       }
     ]
@@ -1032,7 +1032,7 @@
     "token_received": [
       {
         "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-        "symbol": "27G8MtK7",
+        "symbol": "JLP",
         "amount": 5.427784
       }
     ]
@@ -1045,7 +1045,7 @@
     "token_received": [
       {
         "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-        "symbol": "27G8MtK7",
+        "symbol": "JLP",
         "amount": 5.427784
       }
     ]
@@ -1058,7 +1058,7 @@
     "token_received": [
       {
         "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-        "symbol": "27G8MtK7",
+        "symbol": "JLP",
         "amount": 5.427784
       }
     ]
@@ -1070,7 +1070,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 20.0
       }
     ],
@@ -1083,7 +1083,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 20.0
       }
     ],
@@ -1096,7 +1096,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 20.0
       }
     ],
@@ -1109,7 +1109,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 20.0
       }
     ],
@@ -1190,7 +1190,7 @@
     "token_received": [
       {
         "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-        "symbol": "27G8MtK7",
+        "symbol": "JLP",
         "amount": 83.660445
       }
     ]
@@ -1203,7 +1203,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00171257
       }
     ]
@@ -1216,7 +1216,7 @@
     "token_received": [
       {
         "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-        "symbol": "27G8MtK7",
+        "symbol": "JLP",
         "amount": 83.660445
       }
     ]
@@ -1229,7 +1229,7 @@
     "token_received": [
       {
         "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
-        "symbol": "cbbtcf3a",
+        "symbol": "cbBTC",
         "amount": 0.00171257
       }
     ]
@@ -1242,7 +1242,7 @@
     "token_received": [
       {
         "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-        "symbol": "27G8MtK7",
+        "symbol": "JLP",
         "amount": 83.660445
       }
     ]
@@ -1254,7 +1254,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 7.43
       }
     ],
@@ -1274,7 +1274,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 214.01642
       }
     ]
@@ -1299,7 +1299,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 100.0
       }
     ],

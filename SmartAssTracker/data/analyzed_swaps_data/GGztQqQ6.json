@@ -354,7 +354,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 9.103167
       }
     ]
@@ -367,7 +367,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 9.103167
       }
     ]
@@ -380,7 +380,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 9.103167
       }
     ]
@@ -432,7 +432,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 143.155089
       }
     ]
@@ -445,7 +445,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 143.155089
       }
     ]
@@ -458,7 +458,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 143.155089
       }
     ]
@@ -470,14 +470,14 @@
     "token_spent": [
       {
         "mint": "F6gmgZzHt9xQxytPF2cBcYPZVKacBn9D9jXFtodqyWiC",
-        "symbol": "F6gmgZzH",
+        "symbol": "TACO",
         "amount": 141278.0
       }
     ],
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 6.470698
       }
     ]
@@ -489,14 +489,14 @@
     "token_spent": [
       {
         "mint": "F6gmgZzHt9xQxytPF2cBcYPZVKacBn9D9jXFtodqyWiC",
-        "symbol": "F6gmgZzH",
+        "symbol": "TACO",
         "amount": 141278.0
       }
     ],
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 6.470698
       }
     ]
@@ -508,14 +508,14 @@
     "token_spent": [
       {
         "mint": "F6gmgZzHt9xQxytPF2cBcYPZVKacBn9D9jXFtodqyWiC",
-        "symbol": "F6gmgZzH",
+        "symbol": "TACO",
         "amount": 141278.0
       }
     ],
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 6.470698
       }
     ]
@@ -587,14 +587,14 @@
     "token_spent": [
       {
         "mint": "CGcajCM54hqgiWLKoio4gyBc7PMN1Sm7uw7MG17Ppump",
-        "symbol": "CGcajCM5",
+        "symbol": "Messenger",
         "amount": 1316352.682356
       }
     ],
     "token_received": [
       {
         "mint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
-        "symbol": "4k3Dyjzv",
+        "symbol": "RAY",
         "amount": 65.457704
       }
     ]
@@ -606,14 +606,14 @@
     "token_spent": [
       {
         "mint": "CGcajCM54hqgiWLKoio4gyBc7PMN1Sm7uw7MG17Ppump",
-        "symbol": "CGcajCM5",
+        "symbol": "Messenger",
         "amount": 1316352.682356
       }
     ],
     "token_received": [
       {
         "mint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
-        "symbol": "4k3Dyjzv",
+        "symbol": "RAY",
         "amount": 65.457704
       }
     ]
@@ -625,14 +625,14 @@
     "token_spent": [
       {
         "mint": "CGcajCM54hqgiWLKoio4gyBc7PMN1Sm7uw7MG17Ppump",
-        "symbol": "CGcajCM5",
+        "symbol": "Messenger",
         "amount": 1316352.682356
       }
     ],
     "token_received": [
       {
         "mint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
-        "symbol": "4k3Dyjzv",
+        "symbol": "RAY",
         "amount": 65.457704
       }
     ]
@@ -840,7 +840,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 82.752593
       }
     ]
@@ -853,7 +853,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 82.752593
       }
     ]
@@ -866,7 +866,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 82.752593
       }
     ]
@@ -1016,7 +1016,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 16.89
       }
     ],
@@ -1030,7 +1030,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 172.071288
       }
     ]
@@ -1043,7 +1043,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 740.679137
       }
     ]
@@ -1055,7 +1055,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 16.89
       }
     ],
@@ -1069,7 +1069,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 172.071288
       }
     ]
@@ -1082,7 +1082,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 740.679137
       }
     ]
@@ -1094,7 +1094,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 16.89
       }
     ],
@@ -1108,7 +1108,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 172.071288
       }
     ]
@@ -1121,7 +1121,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 740.679137
       }
     ]
@@ -1133,7 +1133,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 80.2955
       }
     ],
@@ -1146,7 +1146,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 80.2955
       }
     ],
@@ -1159,7 +1159,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 80.2955
       }
     ],
@@ -1172,7 +1172,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 80.2955
       }
     ],
@@ -1289,7 +1289,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 13.43216
       }
     ],
@@ -1308,7 +1308,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 13.43216
       }
     ],
@@ -1327,7 +1327,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 13.43216
       }
     ],
@@ -1346,7 +1346,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 13.43216
       }
     ],
@@ -1365,7 +1365,7 @@
     "token_spent": [
       {
         "mint": "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn",
-        "symbol": "pumpCmXq",
+        "symbol": "PUMP",
         "amount": 128.503778
       }
     ],

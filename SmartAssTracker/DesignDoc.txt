@@ -1,0 +1,2 @@
+In this document, I will take notes of my thought process: 
+Why I used this for this part; What technique can be used to improve the project; What is the pitfall; What is the obstacle; How I will solve those obstacles.

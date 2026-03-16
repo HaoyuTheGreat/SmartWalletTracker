@@ -338,7 +338,7 @@
     "token_spent": [
       {
         "mint": "So11111111111111111111111111111111111111112",
-        "symbol": "So111111",
+        "symbol": "SOL",
         "amount": 751.0
       }
     ],
@@ -357,7 +357,7 @@
     "token_spent": [
       {
         "mint": "So11111111111111111111111111111111111111112",
-        "symbol": "So111111",
+        "symbol": "SOL",
         "amount": 751.0
       }
     ],
@@ -376,7 +376,7 @@
     "token_spent": [
       {
         "mint": "So11111111111111111111111111111111111111112",
-        "symbol": "So111111",
+        "symbol": "SOL",
         "amount": 756.0
       }
     ],
@@ -395,7 +395,7 @@
     "token_spent": [
       {
         "mint": "So11111111111111111111111111111111111111112",
-        "symbol": "So111111",
+        "symbol": "SOL",
         "amount": 756.0
       }
     ],
@@ -414,7 +414,7 @@
     "token_spent": [
       {
         "mint": "So11111111111111111111111111111111111111112",
-        "symbol": "So111111",
+        "symbol": "SOL",
         "amount": 775.0
       }
     ],
@@ -433,7 +433,7 @@
     "token_spent": [
       {
         "mint": "So11111111111111111111111111111111111111112",
-        "symbol": "So111111",
+        "symbol": "SOL",
         "amount": 775.0
       }
     ],
@@ -573,7 +573,7 @@
     "token_received": [
       {
         "mint": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
-        "symbol": "7xKXtg2C",
+        "symbol": "SAMO",
         "amount": 1714078.721684987
       }
     ]
@@ -592,7 +592,7 @@
     "token_received": [
       {
         "mint": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
-        "symbol": "7xKXtg2C",
+        "symbol": "SAMO",
         "amount": 1714078.721684987
       }
     ]
@@ -1601,7 +1601,7 @@
     "token_received": [
       {
         "mint": "So11111111111111111111111111111111111111112",
-        "symbol": "So111111",
+        "symbol": "SOL",
         "amount": 12.137401154
       }
     ]
@@ -1620,7 +1620,7 @@
     "token_received": [
       {
         "mint": "So11111111111111111111111111111111111111112",
-        "symbol": "So111111",
+        "symbol": "SOL",
         "amount": 12.137401154
       }
     ]
@@ -1639,7 +1639,7 @@
     "token_received": [
       {
         "mint": "So11111111111111111111111111111111111111112",
-        "symbol": "So111111",
+        "symbol": "SOL",
         "amount": 12.137401154
       }
     ]

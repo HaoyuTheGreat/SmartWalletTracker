@@ -52,34 +52,6 @@
     "token_received": []
   },
   {
-    "time": "2025-10-15 13:35:33-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-10-15 13:35:33-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-10-15 13:35:33-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-10-15 13:35:33-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
     "time": "2025-10-15 13:36:42-07:00",
     "sol_spent": 0,
     "sol_received": 196.043817104,
@@ -314,34 +286,6 @@
   },
   {
     "time": "2025-10-19 08:40:57-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-10-20 15:42:31-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-10-20 15:42:31-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-10-20 15:42:31-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-10-20 15:42:31-07:00",
     "sol_spent": 0,
     "sol_received": 0,
     "token_spent": [],
@@ -1389,40 +1333,5 @@
         "amount": 559439.918209
       }
     ]
-  },
-  {
-    "time": "2025-11-11 12:17:13-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-11 12:17:13-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-11 12:17:13-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-11 12:17:13-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-11 12:17:13-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
   }
 ]

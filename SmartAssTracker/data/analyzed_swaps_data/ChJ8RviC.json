@@ -1,44 +1,5 @@
 [
   {
-    "time": "2025-08-08 22:27:47-07:00",
-    "sol_spent": 520.456491204,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": [
-      {
-        "mint": "25hAyBQfoDhfWx9ay6rarbgvWGwDdNqcHsXS3jQ3mTDJ",
-        "symbol": "MANEKI",
-        "amount": 76835628.82172
-      }
-    ]
-  },
-  {
-    "time": "2025-08-08 22:27:47-07:00",
-    "sol_spent": 520.456491204,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": [
-      {
-        "mint": "25hAyBQfoDhfWx9ay6rarbgvWGwDdNqcHsXS3jQ3mTDJ",
-        "symbol": "MANEKI",
-        "amount": 76835628.82172
-      }
-    ]
-  },
-  {
-    "time": "2025-08-08 22:27:47-07:00",
-    "sol_spent": 520.456491204,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": [
-      {
-        "mint": "25hAyBQfoDhfWx9ay6rarbgvWGwDdNqcHsXS3jQ3mTDJ",
-        "symbol": "MANEKI",
-        "amount": 76835628.82172
-      }
-    ]
-  },
-  {
     "time": "2025-08-10 21:36:16-07:00",
     "sol_spent": 0,
     "sol_received": 0,
@@ -52,7 +13,7 @@
     "token_received": [
       {
         "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
+        "symbol": "UFD",
         "amount": 745778.165699
       }
     ]
@@ -71,7 +32,7 @@
     "token_received": [
       {
         "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
+        "symbol": "UFD",
         "amount": 745778.165699
       }
     ]
@@ -90,7 +51,7 @@
     "token_received": [
       {
         "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
+        "symbol": "UFD",
         "amount": 745778.165699
       }
     ]
@@ -102,14 +63,14 @@
     "token_spent": [
       {
         "mint": "Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump",
-        "symbol": "Df6yfrKC",
+        "symbol": "CHILLGUY",
         "amount": 400000.0
       }
     ],
     "token_received": [
       {
         "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
+        "symbol": "UFD",
         "amount": 567669.754512
       }
     ]
@@ -121,14 +82,14 @@
     "token_spent": [
       {
         "mint": "Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump",
-        "symbol": "Df6yfrKC",
+        "symbol": "CHILLGUY",
         "amount": 400000.0
       }
     ],
     "token_received": [
       {
         "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
+        "symbol": "UFD",
         "amount": 567669.754512
       }
     ]
@@ -140,14 +101,14 @@
     "token_spent": [
       {
         "mint": "Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump",
-        "symbol": "Df6yfrKC",
+        "symbol": "CHILLGUY",
         "amount": 400000.0
       }
     ],
     "token_received": [
       {
         "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
+        "symbol": "UFD",
         "amount": 567669.754512
       }
     ]
@@ -166,7 +127,7 @@
     "token_received": [
       {
         "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
+        "symbol": "UFD",
         "amount": 431584.515843
       }
     ]
@@ -185,7 +146,7 @@
     "token_received": [
       {
         "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
+        "symbol": "UFD",
         "amount": 431584.515843
       }
     ]
@@ -204,72 +165,12 @@
     "token_received": [
       {
         "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
+        "symbol": "UFD",
         "amount": 431584.515843
       }
     ]
   },
   {
-    "time": "2025-08-10 22:53:15-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-08-10 22:53:15-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-08-10 22:53:15-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-08-11 15:30:50-07:00",
-    "sol_spent": 0,
-    "sol_received": 468.98907924,
-    "token_spent": [
-      {
-        "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
-        "amount": 2034677.045079
-      }
-    ],
-    "token_received": []
-  },
-  {
-    "time": "2025-08-11 15:30:50-07:00",
-    "sol_spent": 0,
-    "sol_received": 468.98907924,
-    "token_spent": [
-      {
-        "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
-        "amount": 2034677.045079
-      }
-    ],
-    "token_received": []
-  },
-  {
-    "time": "2025-08-11 15:30:50-07:00",
-    "sol_spent": 0,
-    "sol_received": 468.98907924,
-    "token_spent": [
-      {
-        "mint": "eL5fUxj2J4CiQsmW85k5FG9DvuQjjUoBHoQBi2Kpump",
-        "symbol": "eL5fUxj2",
-        "amount": 2034677.045079
-      }
-    ],
-    "token_received": []
-  },
-  {
     "time": "2025-11-23 18:16:02-08:00",
     "sol_spent": 0,
     "sol_received": 0,
@@ -398,34 +299,6 @@
     ]
   },
   {
-    "time": "2026-01-02 08:31:51-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2026-01-02 08:31:51-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2026-01-02 08:31:51-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2026-01-02 08:31:51-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
     "time": "2026-01-23 21:46:37-08:00",
     "sol_spent": 0,
     "sol_received": 0,
@@ -1564,41 +1437,6 @@
         "amount": 38137.81152026
       }
     ]
-  },
-  {
-    "time": "2026-03-06 23:44:23-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2026-03-06 23:44:23-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2026-03-06 23:44:23-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2026-03-06 23:44:23-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2026-03-06 23:44:23-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
   },
   {
     "time": "2026-03-06 23:44:38-08:00",

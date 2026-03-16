@@ -1,169 +1,5 @@
 [
   {
-    "time": "2025-08-24 12:42:09-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-08-24 12:42:09-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-08-24 12:42:09-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-08-24 12:42:09-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-08-29 16:42:42-07:00",
-    "sol_spent": 61.810468218,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": [
-      {
-        "mint": "GtDZKAqvMZMnti46ZewMiXCa4oXF4bZxwQPoKzXPFxZn",
-        "symbol": "GtDZKAqv",
-        "amount": 436952.086679704
-      }
-    ]
-  },
-  {
-    "time": "2025-08-29 16:42:42-07:00",
-    "sol_spent": 61.810468218,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": [
-      {
-        "mint": "GtDZKAqvMZMnti46ZewMiXCa4oXF4bZxwQPoKzXPFxZn",
-        "symbol": "GtDZKAqv",
-        "amount": 436952.086679704
-      }
-    ]
-  },
-  {
-    "time": "2025-08-29 16:42:42-07:00",
-    "sol_spent": 61.810468218,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": [
-      {
-        "mint": "GtDZKAqvMZMnti46ZewMiXCa4oXF4bZxwQPoKzXPFxZn",
-        "symbol": "GtDZKAqv",
-        "amount": 436952.086679704
-      }
-    ]
-  },
-  {
-    "time": "2025-08-29 16:42:42-07:00",
-    "sol_spent": 61.810468218,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": [
-      {
-        "mint": "GtDZKAqvMZMnti46ZewMiXCa4oXF4bZxwQPoKzXPFxZn",
-        "symbol": "GtDZKAqv",
-        "amount": 436952.086679704
-      }
-    ]
-  },
-  {
-    "time": "2025-09-04 15:39:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-04 15:39:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-04 15:39:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-04 15:39:41-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-05 00:39:13-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-05 00:39:13-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-05 00:39:13-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-05 00:39:13-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-05 00:46:49-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-05 00:46:49-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-05 00:46:49-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-05 00:46:49-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
     "time": "2025-09-08 13:33:14-07:00",
     "sol_spent": 0,
     "sol_received": 63.187873996,
@@ -188,118 +24,6 @@
     "time": "2025-09-08 13:33:14-07:00",
     "sol_spent": 0,
     "sol_received": 63.187873996,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 01:29:06-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 01:29:06-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 01:29:06-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-12 01:29:06-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:20:08-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:20:08-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:20:08-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:20:08-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:26:42-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:26:42-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:26:42-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:26:42-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:27:22-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:27:22-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:27:22-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-09-14 03:27:22-07:00",
-    "sol_spent": 0,
-    "sol_received": 0,
     "token_spent": [],
     "token_received": []
   },
@@ -419,14 +143,14 @@
       },
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 12.459527
       }
     ],
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 24919.055568
       }
     ]
@@ -443,14 +167,14 @@
       },
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 12.459527
       }
     ],
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 24919.055568
       }
     ]
@@ -467,14 +191,14 @@
       },
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 12.459527
       }
     ],
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 24919.055568
       }
     ]
@@ -491,129 +215,17 @@
       },
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 12.459527
       }
     ],
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 24919.055568
       }
     ]
-  },
-  {
-    "time": "2025-11-12 07:27:24-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-12 07:27:24-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-12 07:27:24-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-12 07:27:24-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-12 07:49:38-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-12 07:49:38-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-12 07:49:38-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-12 07:49:38-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-12 07:50:47-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-12 07:50:47-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-12 07:50:47-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-12 07:50:47-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-13 04:43:24-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-13 04:43:24-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-13 04:43:24-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2025-11-13 04:43:24-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
   },
   {
     "time": "2025-11-23 03:13:04-08:00",
@@ -778,7 +390,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 55.136737
       },
       {
@@ -790,7 +402,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 55.136737
       }
     ]
@@ -802,7 +414,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 55.136737
       },
       {
@@ -814,7 +426,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 55.136737
       }
     ]
@@ -826,7 +438,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 55.136737
       },
       {
@@ -838,7 +450,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 55.136737
       }
     ]
@@ -850,7 +462,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 55.136737
       },
       {
@@ -862,7 +474,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 55.136737
       }
     ]
@@ -874,7 +486,7 @@
     "token_spent": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 55.136737
       },
       {
@@ -886,7 +498,7 @@
     "token_received": [
       {
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "symbol": "EPjFWdd5",
+        "symbol": "USDC",
         "amount": 55.136737
       }
     ]
@@ -954,41 +566,6 @@
         "amount": 7561069.212843
       }
     ],
-    "token_received": []
-  },
-  {
-    "time": "2026-02-23 21:16:01-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2026-02-23 21:16:01-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2026-02-23 21:16:01-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2026-02-23 21:16:01-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
-    "token_received": []
-  },
-  {
-    "time": "2026-02-23 21:16:01-08:00",
-    "sol_spent": 0,
-    "sol_received": 0,
-    "token_spent": [],
     "token_received": []
   },
   {
