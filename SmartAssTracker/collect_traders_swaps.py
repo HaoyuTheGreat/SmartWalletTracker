@@ -12,7 +12,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 HELIUS_API_KEY = os.getenv("HELIUS_API_KEY")
 
 def load_wallets():
-  with open("wallets_list.json", "r", encoding = "utf-8") as f:
+  with open("data/wallets_list.json", "r", encoding = "utf-8") as f:
     wallets = json.load(f)
   return wallets
 
@@ -35,27 +35,32 @@ def connect_Helius():
   
 
 if __name__ == "__main__":
+    #This wallets variable is a list, because load_wallets() returned a list.
     wallets = load_wallets()
     os.makedirs("data/wallets_swap_data", exist_ok = True)
     os.makedirs("data/failed_wallets", exist_ok = True)
     failed_wallets = []
+    #Iterating over every wallet in the list of wallets
     for wallet_info in wallets:
+      #Getting the address from each wallet. Using ["KEY"] gets the corresponding value in dict.
       address = wallet_info["address"]
+      
       output_path = f"data/wallets_swap_data/{address[:8]}.json"
+      #Checking if the wallet already exists.
       if os.path.exists(output_path):
         print(f"[{address[:8]}] exists, skip")
         continue
       if os.path.exists(f"data/failed_wallets/{address[:8]}.json"):
         print(f"[{address[:8]}] previously failed, skip")
         continue
-      #每个钱包独立的收集容器
+ 
       data_pages = []
-      #每个钱包独立的分页标记
+
       before = None
-      while len(data_pages) < 100:
+      while len(data_pages) < 500:
         url = f"https://api-mainnet.helius-rpc.com/v0/addresses/{address}/transactions/?api-key={HELIUS_API_KEY}&type=SWAP&limit=100"
         if before:
-          url += f"&before = {before}"
+          url += f"&before={before}"
         try:
             response = requests.get(url, timeout=30)
             page = response.json()
@@ -70,7 +75,7 @@ if __name__ == "__main__":
         data_pages.extend(page)
         before = page[-1]["signature"]
         time.sleep(1)
-      data = data_pages[:100]
+      data = data_pages[:500]
       print(f"[{address[:8]}] Received total of {len(data)}swap transactions")
       if data:
         with open(f"data/wallets_swap_data/{address[:8]}.json", "w", encoding="utf-8") as f:

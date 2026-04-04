@@ -1,0 +1,320 @@
+[
+  {
+    "wallet": "5QNhwHKr",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包仅有买入交易记录，完全没有卖出交易，不符合做市商需要频繁买卖平衡的特征，更像是单向的大额投资或资金转入行为。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "ERkhuJ22",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：否\n\n原因：交易次数严重不平衡（卖出1次，买入12次），持有时间极长（跨越一年），交易频率低，不符合做市商的任何特征。",
+    "swap_count": 13
+  },
+  {
+    "wallet": "5FnCqqet",
+    "is_market_maker": false,
+    "claude_response": "否\n\n原因：买卖次数严重不平衡（买入远超卖出），卖出交易极少且分散在不同时期，不符合做市商的特征。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "6TYDxGmV",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包仅存在买入交易（无卖出交易），不符合做市商买卖平衡的基本特征，表现为单向的持币积累行为。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "CpxFT284",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买入交易远多于卖出交易（25笔买入vs3笔卖出），且卖出金额极小（总计9602.1），明显是单向建仓而非做市商的双向高频交易特征。",
+    "swap_count": 27
+  },
+  {
+    "wallet": "G8p5wwV4",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买入交易远超卖出交易（买入约500笔，卖出仅约10笔），且交易间隔跨度长达一年多，完全不符合做市商的高频、双向平衡交易特征，属于典型的长期持仓投资者。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "9nnLbotN",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：买入次数远远多于卖出次数（买入约600笔，卖出仅约30笔），且卖出的代币与持续买入的USDT/USDC等稳定币不匹配，呈现典型的单向投资而非做市行为。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "ExA1mQUv",
+    "is_market_maker": false,
+    "claude_response": "否\n\n原因：该钱包以大额SOL买入和小额山寨币投机为主，卖出次数极少（仅5笔），买卖极度不平衡，交易持仓时间长达数周，典型的散户投资者而非做市商。",
+    "swap_count": 456
+  },
+  {
+    "wallet": "DkaA821P",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包在2024年4月11日进行了大量密集买入交易（约550笔），但卖出交易极少（仅3笔在8月份，1笔在2025年5月份），买卖严重不平衡，不符合做市商的特征。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "2HZceknw",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包仅有买入交易记录，完全没有卖出记录，不符合做市商\"买卖平衡\"的基本特征，更像是投资者或持有者的单向积累行为。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "99nd7ih7",
+    "is_market_maker": false,
+    "claude_response": "否\n\n原因：该钱包主要以单向买入为主（仅2次卖出对应数百次买入），持有时间长达数小时甚至跨越月份，明显是零售投资者的投资和投机行为，而非做市商的双向高频交易模式。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "8mVv6jHu",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买卖次数严重不平衡（买入远大于卖出），持有时间从数小时到数月不等，交易模式为长期投机性投资而非高频做市。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "DiHjT1dA",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包仅有买入交易无卖出交易，不符合做市商\"买卖次数极度平衡\"的基本特征，且缺少反复快速买卖的成对交易模式。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "ErgumyqT",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买卖极度不平衡（仅1次卖出vs 33次买入），持有时间跨度长达10个月，交易频率低且无反复快速买卖同一代币的pattern，明显是普通投资者而非做市商。",
+    "swap_count": 35
+  },
+  {
+    "wallet": "9zbBuq67",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包仅有买入交易，完全没有卖出交易，不符合做市商买卖平衡的特征，而是典型的单向持续买入行为。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "8wWW9nkf",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包极度不平衡，包含大量单向买入交易（尤其是$WIF和USDC），仅有1笔卖出（JUP），不符合做市商买卖平衡的基本特征，表现为典型的投资者而非做市商行为。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "HbjRwJqF",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：否\n\n原因：交易记录显示买入仅2次（USDT、USDC各1000），卖出3次但金额均为0，买卖数量严重不平衡，且卖出代币与买入代币完全不同，不符合做市商的特征。",
+    "swap_count": 9
+  },
+  {
+    "wallet": "Ddo2UErZ",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：否\n\n原因：该钱包主要进行单向买入操作（仅1笔卖出），买卖严重不平衡，交易频率虽高但缺乏做市商的核心特征（快速反复对倒同一代币），更符合投机或长期持仓投资者的行为模式。",
+    "swap_count": 136
+  },
+  {
+    "wallet": "G1Fttxq6",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包仅进行了6笔卖出交易而进行了数百笔买入交易，买卖严重不平衡，且卖出交易集中在2024年5月才出现，这是典型的单向持币钱包而非做市商。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "A4PzGUim",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**是**\n\n原因：该钱包在短时间内（19:25-21:15）进行了大量USDC卖出交易穿插SOL买入交易，交易频率极高（几秒到几分钟），持有时间极短，且金额标准化（每笔约27.5 USDC，每笔SOL约999），明显是高频做市交易行为。",
+    "swap_count": 100
+  },
+  {
+    "wallet": "8cSR7F2C",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买入次数远超卖出次数（约50:2），持有时间普遍较长（从几小时到一个月），交易频率不均匀，且大额交易离散分布，不符合做市商的高频对冲特征。",
+    "swap_count": 58
+  },
+  {
+    "wallet": "Hq8MmCBF",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：否\n\n原因：该钱包仅包含买入交易，完全没有卖出交易，不符合做市商买卖平衡的基本特征。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "9w2e3kpt",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买卖极度不平衡（买入远超卖出），且大部分代币买入后长期持有未售出，不符合做市商高频率平衡买卖的特征，反而呈现典型的投机/风险投资者模式。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "J6q6LiUi",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买卖极度不平衡（几乎全是买入，仅有3笔卖出），且主要是长期持有各种代币（特别是大量USDT和SOL），交易模式更符合普通投资者或可能被黑客控制的钱包特征，不符合做市商的平衡买卖特征。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "FmNwhc7j",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包仅包含买入交易，完全没有卖出交易，不符合做市商\"买卖平衡\"的基本特征，反而表现为单向持续买入的散户或投资者行为。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "9Huhh48A",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买卖极度不平衡（买入27笔、卖出仅3笔），且大额持续单向买入SOL，明显是看涨投资者而非做市商。",
+    "swap_count": 29
+  },
+  {
+    "wallet": "D6FN73mc",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：否\n\n原因：该钱包主要进行单向买入操作（57笔买入，仅3笔卖出且卖出金额极小），缺乏做市商的买卖平衡特征，且交易跨度长达4个多月，不符合做市商高频、快速买卖的特征。",
+    "swap_count": 71
+  },
+  {
+    "wallet": "DCfMe74p",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：交易次数极少（仅3笔）且均为买入无卖出，持有时间长（跨越数月），完全不符合做市商的高频率、快速对冲特征。",
+    "swap_count": 3
+  },
+  {
+    "wallet": "6nAPxb1e",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**是**\n\n原因：该钱包展现出典型的做市商特征——大量代币的买卖次数高度平衡（如WASB、RizzmasCTO、ai16z等数十个代币都是买入后数秒到数分钟内立即卖出），交易频率极高（两个月内超过500笔交易），持仓时间极短，明显是在通过快速买卖赚取价差。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "Dd1k91cW",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：虽然前期USDT交易频繁且买卖相对平衡，但后期出现大量USDC单向买入（金额从几元到数千万不等），买卖严重失衡，且交易模式从高频小额转变为大额单向操作，不符合做市商特征。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "AjACU2Ai",
+    "is_market_maker": false,
+    "claude_response": "否\n\n原因：该钱包买卖不平衡（买入远多于卖出）、持有时间长（多数交易间隔数小时至数月）、交易频率不高且无明显的同币种高频往返交易模式，是典型的散户投机者而非做市商。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "AWq2gEnE",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：虽然交易频率较高且主要集中在mSOL和SOL，但买卖不平衡（卖出金额远低于买入金额），持有时间从几分钟到数天不等，不符合做市商的典型特征。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "GP8StUXN",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：买入交易远远多于卖出交易（卖出仅约40次，买入超过800次），不符合做市商买卖平衡的核心特征，更像是激进的投机或扫货行为。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "D4PDeD5j",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：虽然存在高频交易特征，但主要问题是买卖严重不平衡（卖出boden 121次 vs 买入JUP和MELANIA各1次），不符合做市商的核心特征\"买卖次数极度平衡\"。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "DjMVxbEx",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：买卖次数极度不平衡（买入17次vs卖出7次），持有时间极长（跨越2年多），交易频率低且不连续，不符合做市商的任何特征。",
+    "swap_count": 25
+  },
+  {
+    "wallet": "CapuXNQo",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：卖出交易极少（仅约30笔），买入交易约470笔，买卖严重不平衡，明显是单向买入型投资者而非做市商。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "63Xepsch",
+    "is_market_maker": false,
+    "claude_response": "否\n\n原因：该钱包主要进行长期持有的投机交易，买入远多于卖出（买入约380次，卖出仅约30次），且大多数代币持有时间为数天至数月，不符合做市商的高频、平衡、短期持有特征。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "58teLVHa",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：交易记录中完全没有卖出交易，只有买入操作，不符合做市商买卖平衡的特征。",
+    "swap_count": 9
+  },
+  {
+    "wallet": "CreQJ2t9",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包仅有买入交易无卖出交易，完全不符合做市商买卖平衡的核心特征，表现为单向累积投资而非流动性提供。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "6FzAoR31",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包交易极度不平衡（卖出仅1笔，买入超过100笔），持有时间从数月到数年，且主要表现为单向持续买入，不符合做市商的特征。",
+    "swap_count": 204
+  },
+  {
+    "wallet": "BQ72nSv9",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买入交易远远超过卖出交易（买入约900次，卖出仅约30次），严重不平衡，且大量买入的是小币种和零成本代币，表现为典型的盲目扫货/撸毛行为而非做市商的对冲交易模式。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "6BM5nFmM",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包主要进行大额一次性买入（集中在2025年1月5日），卖出交易极少且零散分布在数月后，不符合做市商频繁平衡买卖、持仓时间短的特征，反而呈现典型的投资者或套利者的交易模式。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "BpRCt7JK",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：否\n\n原因：交易记录中仅包含买入操作，完全没有卖出记录，不符合做市商买卖平衡的基本特征。",
+    "swap_count": 86
+  },
+  {
+    "wallet": "ChJ8RviC",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买卖不平衡（买入远超卖出），主要是长期持仓策略，缺乏做市商的高频对冲特征，更像是散户投资者的投机/投资行为。",
+    "swap_count": 214
+  },
+  {
+    "wallet": "6bAM7hbo",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**是**\n\n原因：该钱包在2024年3月11日短时间内进行了大量stSOL买卖交易（超过100次卖出，间隔仅几秒到几分钟），卖出金额高度一致（均为1.78-1.79），体现出典型的做市商高频、小额、快速对冲的交易特征。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "FwdDPPg9",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买入次数远远多于卖出次数（买入约450次，卖出仅约30次），持有时间跨度长达15个月，交易模式为典型的投资者而非做市商。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "FBrRa74z",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包仅存在买入交易，没有任何卖出记录，不符合做市商的核心特征（买卖平衡）。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "FJPHACc6",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：否\n\n原因：交易记录中仅有买入操作，完全没有卖出记录，不符合做市商\"买卖平衡\"的核心特征。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "6V2GoJqV",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包几乎全是买入交易（仅1笔卖出），交易间隔从数分钟到数月不等，不符合做市商的高频对冲特征，更像是长期持仓的投资者。",
+    "swap_count": 500
+  },
+  {
+    "wallet": "AVCsVc2c",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买入交易远超卖出交易（买入约170笔，卖出仅8笔），且大量交易集中在UST和SOL的单向买入，缺乏做市商典型的高频双向交易特征，更像是投资者在进行长期持仓。",
+    "swap_count": 249
+  },
+  {
+    "wallet": "Fe8z9Th1",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包仅有3笔卖出交易对比25笔买入交易，买卖严重不平衡，且交易间隔从几秒到数月不等，不符合做市商的频繁平衡交易特征。",
+    "swap_count": 29
+  },
+  {
+    "wallet": "6AkVuGtT",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：否\n\n原因：该钱包仅显示买入交易记录，完全缺少卖出交易，不符合做市商买卖平衡的特征，表现为普通投资者的单向购买行为。",
+    "swap_count": 6
+  },
+  {
+    "wallet": "DXuH9hNW",
+    "is_market_maker": true,
+    "claude_response": "是否做市商：**否**\n\n原因：该钱包买卖极度不平衡（买入约550笔、卖出约30笔），主要进行大额USDC买入和SOL买入操作，缺乏做市商典型的频繁对冲特征，更像是投资者或资金管理账户。",
+    "swap_count": 500
+  }
+]

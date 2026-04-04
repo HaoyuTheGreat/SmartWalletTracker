@@ -4,26 +4,41 @@ import pytz
 import requests
 import os
 from dotenv import load_dotenv
-
 load_dotenv()
 
 HELIUS_API_KEY = os.getenv("HELIUS_API_KEY")
 url = f"https://mainnet.helius-rpc.com/?api-key={HELIUS_API_KEY}"
-
+VERSION = 5
 
 def load_swaps():
     swap_loaders = "data/wallets_swap_data"
+    #getting the filenames of every file in the directory of wallets_swap_data. 
+    #os.listdir() return a list of string, in this case, a list of filenames.
     filenames = os.listdir(swap_loaders)
     all_wallets = {}
+    
+    #Iterating over each file name in a list of file names.
     for swap_json_file in filenames:
+        #if a file does not end with .json, skip this file and go for the next loop.
+        if not swap_json_file.endswith(".json"):
+            continue
+        #Joining the parent directory of those files with those file names to have a whole file path.
+        #open() only accept the whole file path, can not directly open and load a whole directory.
         filepath = os.path.join(swap_loaders, swap_json_file)
+        #Open and load every file in wallets_swap_data
         with open(filepath, "r", encoding="utf-8") as file:
             swaps = json.load(file)
+        #Getting the wallets' ids by replacing each json file's ".json" with empty string.
         wallet_ids = swap_json_file.replace(".json", "")
+        #Using the wallets' ids as the key from above to get the swap data(value).
         all_wallets[wallet_ids] = swaps
         #print(f"[{wallet_ids}] {len(swaps)} 条 SWAP")
     #print(f"total of {len(swaps)} swaps")
-    return all_wallets
+    #Return a dict of all wallets. wallet ids are the keys and their swap data is the value.
+    with open("data/wallets_list.json", "r", encoding="utf-8") as f:
+        wallets_list = json.load(f)
+    id_to_address = {w["address"][:8]: w["address"] for w in wallets_list}
+    return all_wallets, id_to_address
 
 
 def parse_jupiter(tx):
@@ -74,14 +89,51 @@ def parse_jupiter(tx):
         "token_received": non_native_token_bought,
     }
     
-def parse_swap(tx):
+def parse_by_token_transfers(tx, wallet_address):
+    timestamp = tx.get("timestamp")
+    token_spent = {}
+    token_received = {}
+
+    for tt in tx.get("tokenTransfers", []):
+        mint = tt.get("mint")
+        amount = tt.get("tokenAmount", 0)
+
+        if tt.get("fromUserAccount") == wallet_address:
+            # 钱包花出去的
+            if mint in token_spent:
+                token_spent[mint] += amount
+            else:
+                token_spent[mint] = amount
+
+        elif tt.get("toUserAccount") == wallet_address:
+            # 钱包收到的
+            if mint in token_received:
+                token_received[mint] += amount
+            else:
+                token_received[mint] = amount
+        # 其他的（手续费等）跳过
+
+    return {
+        "timestamp": timestamp,
+        "sol_spent": 0,
+        "sol_received": 0,
+        "token_spent": token_spent,
+        "token_received": token_received,
+    }
+
+
+def parse_swap(tx, wallet_address):
     #Getting "source" from the swap json file to know which platform of those transactions took place.
     source = tx.get("source")
     if source == "JUPITER":
-        return parse_jupiter(tx)
+        result = parse_jupiter(tx)
+        if not result["token_spent"] and not result["token_received"] and result["sol_spent"] == 0 and result["sol_received"] == 0:
+            return parse_by_token_transfers(tx, wallet_address)
+        return result
+    elif source == "PUMP_AMM":
+        return parse_by_token_transfers(tx, wallet_address)
     else:
-        print("It is other platform")
-        return None
+        return parse_by_token_transfers(tx, wallet_address)
 
 # This function is to collect all the mint addresses of the tokens.
 def collect_mints(parsed_swaps):
@@ -118,16 +170,14 @@ def resolve_token_symbol(all_mints):
 
 
 if __name__ == "__main__":
-    all_wallets = load_swaps()
-    #检查是否有这个repo，这个repo包含所有分析好的钱包。
+    all_wallets, id_to_address = load_swaps()
     os.makedirs("data/analyzed_swaps_data", exist_ok = True)
-
     pacificTime = pytz.timezone("America/Los_Angeles")
 
     output_swaps_tx = []
-    #在开始找token的symbol和地址之前先读取已有的（token_names.json)
-    if os.path.exists("token_names.json"):
-            with open("token_names.json", "r") as f:
+    #Before searching for token's symbol, see if the token is already stored in token_names.json
+    if os.path.exists("data/token_names.json"):
+            with open("data/token_names.json", "r") as f:
                 all_token_names = json.load(f)
     else:
             all_token_names = {}
@@ -135,10 +185,14 @@ if __name__ == "__main__":
     for wallet_ids, swaps in all_wallets.items():
         output_path = f"data/analyzed_swaps_data/{wallet_ids}.json"
         if os.path.exists(output_path):
-            print(f"[{wallet_ids}] exists, skip")
-            continue
+            with open(output_path, "r") as f:
+                existing = json.load(f)
+            if isinstance(existing, dict) and existing.get("version") == VERSION:
+                print(f"[{wallet_ids}] up to date, skip")
+                continue
         print(f"Analyzing [{wallet_ids}].........")
-        parsed_swaps = [parse_swap(tx) for tx in swaps]
+        wallet_address = id_to_address.get(wallet_ids, "")
+        parsed_swaps = [parse_swap(tx, wallet_address) for tx in swaps]
         parsed_swaps = [p for p in parsed_swaps if p is not None]
         sorted_time_asc = sorted(parsed_swaps, key=lambda x: x["timestamp"])
         all_mints = collect_mints(parsed_swaps)
@@ -177,15 +231,19 @@ if __name__ == "__main__":
             trade["token_spent"] = token_spent
             trade["token_received"] = token_received
             output_swaps_tx.append(trade)
+        output_data = {
+            "version": VERSION,
+            "swaps": output_swaps_tx
+        }
         with open(f"data/analyzed_swaps_data/{wallet_ids}.json", "w", encoding = "utf-8") as f:
-            json.dump(output_swaps_tx, f, indent=2)
+            json.dump(output_data, f, indent=2)
         print(f"[{wallet_ids}].json saved successfully.")
 
     # This part is write a json file that will contains the token's address and names.
     # By doing this, for the next time we are trying to find the symbol of a token, we can first search for it in this file,
     # so that we do not have to request API pull again.
     try:
-        with open("token_names.json", "w", encoding="utf-8") as file:
+        with open("data/token_names.json", "w", encoding="utf-8") as file:
             json.dump(all_token_names, file, indent=2)
         print(f"The token_names file is saved")
     except Exception as e:
