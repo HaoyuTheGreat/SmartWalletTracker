@@ -70713,7 +70713,7 @@
     }
   },
   {
-    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 24.348192421 SOL for 88434.158574 $WIF",
+    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 24.348192421 SOL for 88434.158574 EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
     "type": "SWAP",
     "source": "RAYDIUM",
     "fee": 1540384,
@@ -70729,7 +70729,7 @@
         "toUserAccount": "HU23r7UoZbqTUuh3vA7emAGztFtqwTeVips789vqxxBw",
         "tokenAmount": 63.417596,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "pfYNtYP15JvZGboNYSwNMiKeZQnj1YRpXnzru4h7H6v",
@@ -70738,7 +70738,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 126771.774886,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "59v2cSbCsnyaWymLnsq6TWzE6cEN5KJYNTBNrcP4smRH",
@@ -70747,7 +70747,7 @@
         "toUserAccount": "D39QbGSiymeKR1eegDk5ztADUKWL5aFAz6BSpGEptBFc",
         "tokenAmount": 87472.524671,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "3hXcMGW7dgts37qbuzSKwHQJDiHN3p9uuRAZiDz9fdji",
@@ -70756,7 +70756,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 88434.158574,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "59v2cSbCsnyaWymLnsq6TWzE6cEN5KJYNTBNrcP4smRH",
@@ -70765,7 +70765,7 @@
         "toUserAccount": "8cjeuVV3KQ9k8RqW1JUyCfey2TDAhuo7f4hPDMeGfxv",
         "tokenAmount": 35496.096968,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "3vmfn3EHsmAaEXpuN6NxfitMnJFCsrUD3NBvXwKjZzjw",
@@ -70774,7 +70774,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 35893.779556,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "59v2cSbCsnyaWymLnsq6TWzE6cEN5KJYNTBNrcP4smRH",
@@ -70783,7 +70783,7 @@
         "toUserAccount": "BWBHrYqfcjAh5dSiRwzPnY4656cApXVXmkeDmAfwBKQG",
         "tokenAmount": 3803.153247,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "AAamGhyPfpQJWfZHTq944NM1cFvoVLDrQxt7HGjeRQUS",
@@ -70792,7 +70792,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 3800.650684,
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "4mdQgodP1CZsx6fZEQWesU7BtPpGdYn69gCCGYAEYqUj",
@@ -70801,7 +70801,7 @@
         "toUserAccount": "Hc3DCcYyN7m2Wasf4Zhe8FMQ9qf9PiBiMJ9vqwSqB42h",
         "tokenAmount": 3800.650684,
         "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "GUicRosQyLJCYG8hjYcbiGKAVAmT1puQTVmJjFxJmdMK",
@@ -70810,7 +70810,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 24.348192421,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "7x4VcEX8aLd3kFsNWULTp1qFgVtDwyWSxpTGQkoMM6XX",
@@ -70819,7 +70819,7 @@
         "toUserAccount": "5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1",
         "tokenAmount": 24.348192421,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "7UYZ4vX13mmGiopayLZAduo8aie77yZ3o8FMzTeAX8uJ",
@@ -70828,7 +70828,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 3842.93931,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "HgSC6VYwwGCUwY8Qg3VvwQNxJ1LMpD8PPtrrkVXugkcP",
@@ -70837,7 +70837,7 @@
         "toUserAccount": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1",
         "tokenAmount": 128170.87744,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "",
@@ -70846,7 +70846,7 @@
         "toUserAccount": "CbYf9QNrkVgNRCMTDiVdvzMqSzXh8AAgnrKAoTfEACdh",
         "tokenAmount": 0.000474658,
         "mint": "2e6NAJy1qaKMq8PaswP2uzimMDvbr71Tbw38G6q9SNZ2",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       }
     ],
     "nativeTransfers": [],
@@ -71619,7 +71619,7 @@
     }
   },
   {
-    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 139023.516095 USDC for 128627.186044 Fartcoin ",
+    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 139023.516095 EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v for 128627.186044 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
     "type": "SWAP",
     "source": "JUPITER",
     "fee": 210961,
@@ -71635,7 +71635,7 @@
         "toUserAccount": "BQ72nSv9f3PRyRKCBnHLVrerrv37CYTHm5h3s9VSGQDV",
         "tokenAmount": 139023.516095,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "7u7cD7NxcZEuzRCBaYo8uVpotRdqZwez47vvuwzCov43",
@@ -71644,7 +71644,7 @@
         "toUserAccount": "CaThRVRVSse76ABbdJxcz3LSNcnoXoHqxc3DLm53LKuQ",
         "tokenAmount": 18072.986222,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "8s7cKoc4KcqAcF4hytaSM14CoVWr4UZ9gR3H7Za4gr95",
@@ -71653,7 +71653,7 @@
         "toUserAccount": "BQ72nSv9f3PRyRKCBnHLVrerrv37CYTHm5h3s9VSGQDV",
         "tokenAmount": 16727,
         "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "7u7cD7NxcZEuzRCBaYo8uVpotRdqZwez47vvuwzCov43",
@@ -71662,7 +71662,7 @@
         "toUserAccount": "FeLULW5RCKDT2NuThu4vrAQ8BjH5YbU2Y7GbiZXYohm8",
         "tokenAmount": 108438.342554,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "8tpF5NrzaWYU1RjbtjuToMWMRebgqGfiMRYRf46ih9Rc",
@@ -71671,7 +71671,7 @@
         "toUserAccount": "BQ72nSv9f3PRyRKCBnHLVrerrv37CYTHm5h3s9VSGQDV",
         "tokenAmount": 100313.661793,
         "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "7u7cD7NxcZEuzRCBaYo8uVpotRdqZwez47vvuwzCov43",
@@ -71680,7 +71680,7 @@
         "toUserAccount": "AHhiY6GAKfBkvseQDQbBC7qp3fTRNpyZccuEdYSdPFEf",
         "tokenAmount": 12512.116449,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "Cu6yvJiPeLxV6FDoyD8P8NxaSjz5iC2zr6i9GfjyyN5f",
@@ -71689,7 +71689,7 @@
         "toUserAccount": "BQ72nSv9f3PRyRKCBnHLVrerrv37CYTHm5h3s9VSGQDV",
         "tokenAmount": 81.232759721,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "8ctcHN52LY21FEipCjr1MVWtoZa1irJQTPyAaTj72h7S",
@@ -71698,7 +71698,7 @@
         "toUserAccount": "C9U2Ksk6KKWvLEeo5yUQ7Xu46X7NzeBJtd9PBfuXaUSM",
         "tokenAmount": 81.232759721,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "5ex8weR6VjuwTrE4aP7juXcGWPTiD9PJeMZiwZZderqc",
@@ -71707,7 +71707,7 @@
         "toUserAccount": "BQ72nSv9f3PRyRKCBnHLVrerrv37CYTHm5h3s9VSGQDV",
         "tokenAmount": 11586.524251,
         "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "BNHyjcN9ZrxwvGXjKgorDZc3nvLgezHkQJ6NT6Q4sJYE",
@@ -71716,7 +71716,7 @@
         "toUserAccount": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1",
         "tokenAmount": 128627.186044,
         "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       }
     ],
     "nativeTransfers": [
@@ -72508,7 +72508,7 @@
         "toUserAccount": "6eQ5VuJ34paoxr9gtCZ2XUM9pZi6LhycSLnCWSdzUM3H",
         "tokenAmount": 123350.092592,
         "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "4JLttVTDDALSkMHPNNJYYY2tJDsfg1WyWcnLAhmypgbm",
@@ -72517,7 +72517,7 @@
         "toUserAccount": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1",
         "tokenAmount": 139023.516095,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       }
     ],
     "nativeTransfers": [
@@ -72759,7 +72759,7 @@
     "events": {}
   },
   {
-    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 24.765392719 SOL for 7915.115524 $WIF",
+    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 24.765392719 SOL for 7915.115524 EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
     "type": "SWAP",
     "source": "RAYDIUM",
     "fee": 655948,
@@ -72775,7 +72775,7 @@
         "toUserAccount": "2MFoS3MPtvyQ4Wh4M9pdfPjz6UhVoNbFbGJAskCPCj3h",
         "tokenAmount": 67653.76104,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "JSvtokJbtGsYhneKomFBjnJh4djEQLdHV2kAeS43bBZ",
@@ -72784,7 +72784,7 @@
         "toUserAccount": "8cjeuVV3KQ9k8RqW1JUyCfey2TDAhuo7f4hPDMeGfxv",
         "tokenAmount": 8118.451324,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "3vmfn3EHsmAaEXpuN6NxfitMnJFCsrUD3NBvXwKjZzjw",
@@ -72793,7 +72793,7 @@
         "toUserAccount": "2MFoS3MPtvyQ4Wh4M9pdfPjz6UhVoNbFbGJAskCPCj3h",
         "tokenAmount": 7915.115524,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "JSvtokJbtGsYhneKomFBjnJh4djEQLdHV2kAeS43bBZ",
@@ -72802,7 +72802,7 @@
         "toUserAccount": "D39QbGSiymeKR1eegDk5ztADUKWL5aFAz6BSpGEptBFc",
         "tokenAmount": 55476.084052,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "3hXcMGW7dgts37qbuzSKwHQJDiHN3p9uuRAZiDz9fdji",
@@ -72811,7 +72811,7 @@
         "toUserAccount": "2MFoS3MPtvyQ4Wh4M9pdfPjz6UhVoNbFbGJAskCPCj3h",
         "tokenAmount": 54072.114798,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "JSvtokJbtGsYhneKomFBjnJh4djEQLdHV2kAeS43bBZ",
@@ -72820,7 +72820,7 @@
         "toUserAccount": "AM2ufuongTfRXoNF2v4FXu9shAD4caLpEi6maPTVmyPV",
         "tokenAmount": 4059.225664,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "7i5MmHTJNZ5wdLu7zcj9RvYfD1rg37sYFWrWXqBjySUd",
@@ -72829,7 +72829,7 @@
         "toUserAccount": "2MFoS3MPtvyQ4Wh4M9pdfPjz6UhVoNbFbGJAskCPCj3h",
         "tokenAmount": 24.765392719,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "H1qQ6Hent1C5wa4Hc3GK2V1sgg4grvDBbmKd5H8dsTmo",
@@ -72838,7 +72838,7 @@
         "toUserAccount": "5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1",
         "tokenAmount": 24.765392719,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "7UYZ4vX13mmGiopayLZAduo8aie77yZ3o8FMzTeAX8uJ",
@@ -72847,7 +72847,7 @@
         "toUserAccount": "2MFoS3MPtvyQ4Wh4M9pdfPjz6UhVoNbFbGJAskCPCj3h",
         "tokenAmount": 3957.70962,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "D4EwnPB4tYV93Jo1uMQXiaPtjGa3ii97pYfaWY2XktAA",
@@ -72856,7 +72856,7 @@
         "toUserAccount": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1",
         "tokenAmount": 65944.939942,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       }
     ],
     "nativeTransfers": [
@@ -73462,7 +73462,7 @@
     }
   },
   {
-    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 1735783.299147 USELESS for 20117.191162 Fartcoin ",
+    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 1735783.299147 Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk for 20117.191162 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
     "type": "SWAP",
     "source": "JUPITER",
     "fee": 361364,
@@ -73478,7 +73478,7 @@
         "toUserAccount": "GpMZbSM2GgvTKHJirzeGfMFoaZ8UR2X7F4v8vHTvxFbL",
         "tokenAmount": 208293.995897,
         "mint": "Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "HgNPDD8bpbSrGyHegiCT5xrYxHTfwLfZydwGkjNCJRKA",
@@ -73487,7 +73487,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 19.936862802,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "FfNFuBR5H7qHN7mtgEsKY1UjLXPkGj92Uos3BTCCx5xG",
@@ -73496,7 +73496,7 @@
         "toUserAccount": "BBXyTX5UfbASibLRo3iaptuwF5846njxm7M4xFQTQz3d",
         "tokenAmount": 1423342.305302,
         "mint": "Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "D14U3chDJ98Bq7vbr945NBt9p2BGYdncUwASoJgTHikg",
@@ -73505,7 +73505,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 135.894958156,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "Ben6jrFoFWN7YbGcYQR7E8ewsv4EJexR78QXCPhq5nGc",
@@ -73514,7 +73514,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 1735783.299147,
         "mint": "Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "FfNFuBR5H7qHN7mtgEsKY1UjLXPkGj92Uos3BTCCx5xG",
@@ -73523,7 +73523,7 @@
         "toUserAccount": "HsQGWEh3ib6w59rBh5n1jXmi8VXFBqKEjxozL6PGfcgb",
         "tokenAmount": 104146.997948,
         "mint": "Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "6u3WgGqEEMaMpPWKKvYchsN5VdmNvNgYGHMgnDqV3gcZ",
@@ -73532,7 +73532,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 9.957418741,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "7x4VcEX8aLd3kFsNWULTp1qFgVtDwyWSxpTGQkoMM6XX",
@@ -73541,7 +73541,7 @@
         "toUserAccount": "5guD4Uz462GT4Y4gEuqyGsHZ59JGxFN4a3rF6KWguMcJ",
         "tokenAmount": 165.789239699,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "48KLHQiGNAUjvsbEk8hFQomg2C7ZZfx69y7LUYGYbBnp",
@@ -73550,7 +73550,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 28428.635898,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "59v2cSbCsnyaWymLnsq6TWzE6cEN5KJYNTBNrcP4smRH",
@@ -73559,7 +73559,7 @@
         "toUserAccount": "FeLULW5RCKDT2NuThu4vrAQ8BjH5YbU2Y7GbiZXYohm8",
         "tokenAmount": 28428.635898,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "8tpF5NrzaWYU1RjbtjuToMWMRebgqGfiMRYRf46ih9Rc",
@@ -73568,7 +73568,7 @@
         "toUserAccount": "6U91aKa8pmMxkJwBCfPTmUEfZi6dHe7DcFq2ALvB2tbB",
         "tokenAmount": 20137.32849,
         "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "89YMNsMDmHeMhT3BiDTcryRuxWSn24B31Gf5H9N2Z8Zu",
@@ -73577,7 +73577,7 @@
         "toUserAccount": "CapuXNQoDviLvU1PxFiizLgPNQCxrsag1uMeyk6zLVps",
         "tokenAmount": 20.137328,
         "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "89YMNsMDmHeMhT3BiDTcryRuxWSn24B31Gf5H9N2Z8Zu",
@@ -73586,7 +73586,7 @@
         "toUserAccount": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1",
         "tokenAmount": 20117.191162,
         "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       }
     ],
     "nativeTransfers": [],
@@ -74531,7 +74531,7 @@
     }
   },
   {
-    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 5594.4 $WIF for 32.87926248 SOL",
+    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 5594.4 EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm for 32.87926248 SOL",
     "type": "SWAP",
     "source": "RAYDIUM",
     "fee": 524304,
@@ -74547,7 +74547,7 @@
         "toUserAccount": "GpMZbSM2GgvTKHJirzeGfMFoaZ8UR2X7F4v8vHTvxFbL",
         "tokenAmount": 44.68053392,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "9xsCiNwYQXM3ZeHFSVj9JQdP1vREJREpN23f6wvxA1ty",
@@ -74556,7 +74556,7 @@
         "toUserAccount": "6LXutJvKUw8Q5ue2gCgKHQdAN4suWW8awzFVC6XCguFx",
         "tokenAmount": 339626.746267,
         "mint": "Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "BuqEDKUwyAotZuK37V4JYEykZVKY8qo1zKbpfU9gkJMo",
@@ -74565,7 +74565,7 @@
         "toUserAccount": "BBXyTX5UfbASibLRo3iaptuwF5846njxm7M4xFQTQz3d",
         "tokenAmount": 72.899818502,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "9vg3o51vjDBojZc4pYzUpMqxxtuPa4kBEyznWkJkMGmQ",
@@ -74574,7 +74574,7 @@
         "toUserAccount": "6LXutJvKUw8Q5ue2gCgKHQdAN4suWW8awzFVC6XCguFx",
         "tokenAmount": 555055.48827,
         "mint": "Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "9FcdPHdwKYpFTPayf2KrCyCwQaBegUx1R9MAjSwKKkdG",
@@ -74583,7 +74583,7 @@
         "toUserAccount": "6LXutJvKUw8Q5ue2gCgKHQdAN4suWW8awzFVC6XCguFx",
         "tokenAmount": 20,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "9FcdPHdwKYpFTPayf2KrCyCwQaBegUx1R9MAjSwKKkdG",
@@ -74592,7 +74592,7 @@
         "toUserAccount": "6LXutJvKUw8Q5ue2gCgKHQdAN4suWW8awzFVC6XCguFx",
         "tokenAmount": 19980,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "8PbAgMN73p1FMaDLqNyoSPeyh5uUTVFDdK5XanufXSZo",
@@ -74601,7 +74601,7 @@
         "toUserAccount": "5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1",
         "tokenAmount": 5594.4,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "7e9ExBAvDvuJP3GE6eKL5aSMi4RfXv3LkQaiNZBPmffR",
@@ -74610,7 +74610,7 @@
         "toUserAccount": "6LXutJvKUw8Q5ue2gCgKHQdAN4suWW8awzFVC6XCguFx",
         "tokenAmount": 32.87926248,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "8PbAgMN73p1FMaDLqNyoSPeyh5uUTVFDdK5XanufXSZo",
@@ -74619,7 +74619,7 @@
         "toUserAccount": "3vmfn3EHsmAaEXpuN6NxfitMnJFCsrUD3NBvXwKjZzjw",
         "tokenAmount": 14385.6,
         "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "8cjeuVV3KQ9k8RqW1JUyCfey2TDAhuo7f4hPDMeGfxv",
@@ -74628,7 +74628,7 @@
         "toUserAccount": "6LXutJvKUw8Q5ue2gCgKHQdAN4suWW8awzFVC6XCguFx",
         "tokenAmount": 14410.997579,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "G4CD7aqqZZ6QKCNHrc1MPdS9Aw8BWmQ5ZkDd54W6mAEG",
@@ -74637,7 +74637,7 @@
         "toUserAccount": "AHhiY6GAKfBkvseQDQbBC7qp3fTRNpyZccuEdYSdPFEf",
         "tokenAmount": 14410.997579,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "Cu6yvJiPeLxV6FDoyD8P8NxaSjz5iC2zr6i9GfjyyN5f",
@@ -74646,7 +74646,7 @@
         "toUserAccount": "6LXutJvKUw8Q5ue2gCgKHQdAN4suWW8awzFVC6XCguFx",
         "tokenAmount": 84.701089942,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "8SNLRDuUYnvsD5Cj5RzSR3sg5rkuptgRtqYSNbvHXggX",
@@ -74655,7 +74655,7 @@
         "toUserAccount": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1",
         "tokenAmount": 894682.234537,
         "mint": "Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       }
     ],
     "nativeTransfers": [],
@@ -75433,7 +75433,7 @@
     }
   },
   {
-    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 1.01857334 WBTC for 108542.493174 USDC",
+    "description": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1 swapped 1.01857334 3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh for 108542.493174 EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
     "type": "SWAP",
     "source": "JUPITER",
     "fee": 206946,
@@ -75449,7 +75449,7 @@
         "toUserAccount": "4kdxjt8pKEW4qV4ji4HANixwswDJw3Egn8L4x2BEWQqT",
         "tokenAmount": 0.10185735,
         "mint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "3fmSwzBY2TYStZwtdzBmGkdAHcTThsuowSKLVCgqLMXx",
@@ -75458,7 +75458,7 @@
         "toUserAccount": "CapuXNQoDviLvU1PxFiizLgPNQCxrsag1uMeyk6zLVps",
         "tokenAmount": 62.910415633,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "6M9RJwWJ4msYQgKnepDLA8KQPZUvCp2wJg9D3iU9mmCs",
@@ -75467,7 +75467,7 @@
         "toUserAccount": "CapuXNQoDviLvU1PxFiizLgPNQCxrsag1uMeyk6zLVps",
         "tokenAmount": 1.01857334,
         "mint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "2vfxhTAgQYJTojyRELrUEdcP2Frshb4L43rYooR1sZtJ",
@@ -75476,7 +75476,7 @@
         "toUserAccount": "CapuXNQoDviLvU1PxFiizLgPNQCxrsag1uMeyk6zLVps",
         "tokenAmount": 21727.092442,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "CeuxCEs6k8LMsM8q4F4JEkXK2G5QYXYUUU5Q5XE26D66",
@@ -75485,7 +75485,7 @@
         "toUserAccount": "DNkx5wNGDkLyDk37HtEdocxayyes9K7dWtg4XsFkuiUV",
         "tokenAmount": 0.203714,
         "mint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "CeuxCEs6k8LMsM8q4F4JEkXK2G5QYXYUUU5Q5XE26D66",
@@ -75494,7 +75494,7 @@
         "toUserAccount": "6LDKXn2hqEtdW1r9jH2ykv5j4y3n4EPt1ZHDn5iVZgck",
         "tokenAmount": 0.71300133,
         "mint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "Cs6fWK5XJLDJ5icEfY5x1b8RSpHw92uJTZyv9ihqhtkV",
@@ -75503,7 +75503,7 @@
         "toUserAccount": "CapuXNQoDviLvU1PxFiizLgPNQCxrsag1uMeyk6zLVps",
         "tokenAmount": 76058.60222,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "91bUbswo6Di8235jAPwim1At4cPZLbG2pkpneyqKg4NQ",
@@ -75512,7 +75512,7 @@
         "toUserAccount": "AHhiY6GAKfBkvseQDQbBC7qp3fTRNpyZccuEdYSdPFEf",
         "tokenAmount": 62.910415633,
         "mint": "So11111111111111111111111111111111111111112",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "3cUAyfvugAibjb2USudpRUjx4JNzWchDWaLnaBok6BEy",
@@ -75521,7 +75521,7 @@
         "toUserAccount": "CapuXNQoDviLvU1PxFiizLgPNQCxrsag1uMeyk6zLVps",
         "tokenAmount": 10865.449656,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "Gjmjory7TWKJXD2Jc6hKzAG991wWutFhtbXudzJqgx3p",
@@ -75530,7 +75530,7 @@
         "toUserAccount": "CapuXNQoDviLvU1PxFiizLgPNQCxrsag1uMeyk6zLVps",
         "tokenAmount": 108.651144,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       },
       {
         "fromTokenAccount": "Gjmjory7TWKJXD2Jc6hKzAG991wWutFhtbXudzJqgx3p",
@@ -75539,7 +75539,7 @@
         "toUserAccount": "Ddo2UErZ9NnjVZxHCE198iES3rDikPka4oYLHdmcWFZ1",
         "tokenAmount": 108542.493174,
         "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-        "tokenStandard": "Fungible"
+        "tokenStandard": "UnknownStandard"
       }
     ],
     "nativeTransfers": [],

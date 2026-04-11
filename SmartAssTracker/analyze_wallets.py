@@ -1,4 +1,5 @@
 import json
+import time
 from datetime import datetime, timezone
 import pytz
 import requests
@@ -161,11 +162,21 @@ def resolve_token_symbol(all_mints):
                 "id": mint
             },  # Telling the server we are pulling the mint address of that asset.
         }
-        response = requests.post(url, json=payload, timeout=10)
-        symbol_result = response.json()
-        symbol = symbol_result.get("result", {}).get("content", {}).get("metadata", {}).get("symbol", mint[:8])
-        # adding the key-value pair to the dict.
-        symbol_names[mint] = symbol
+        # Retry up to 3 times in case of network timeout
+        for attempt in range(3):
+            try:
+                response = requests.post(url, json=payload, timeout=15)
+                symbol_result = response.json()
+                symbol = symbol_result.get("result", {}).get("content", {}).get("metadata", {}).get("symbol", mint[:8])
+                symbol_names[mint] = symbol
+                break
+            except requests.exceptions.RequestException as e:
+                if attempt < 2:
+                    print(f"  Retry {attempt + 1}/3 for {mint[:8]}... ({e})")
+                    time.sleep(2)
+                else:
+                    print(f"  Failed to resolve {mint[:8]} after 3 attempts, using mint prefix")
+                    symbol_names[mint] = mint[:8]
     return symbol_names
 
 

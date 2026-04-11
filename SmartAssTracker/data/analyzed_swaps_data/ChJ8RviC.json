@@ -3766,6 +3766,200 @@
           "amount": 27909.909157
         }
       ]
+    },
+    {
+      "time": "2026-03-28 08:23:34-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+          "symbol": "JLP",
+          "amount": 7178.569084
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+          "symbol": "arc",
+          "amount": 506174.41893
+        }
+      ]
+    },
+    {
+      "time": "2026-04-02 05:09:49-07:00",
+      "sol_spent": 0,
+      "sol_received": 0.36720684,
+      "token_spent": [
+        {
+          "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+          "symbol": "arc",
+          "amount": 510.0
+        }
+      ],
+      "token_received": []
+    },
+    {
+      "time": "2026-04-02 19:06:31-07:00",
+      "sol_spent": 63.155272583,
+      "sol_received": 12.60566,
+      "token_spent": [
+        {
+          "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "symbol": "USDC",
+          "amount": 5000.0
+        },
+        {
+          "mint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+          "symbol": "USD1",
+          "amount": 997.309645
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+          "symbol": "USD1",
+          "amount": 997.309645
+        },
+        {
+          "mint": "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+          "symbol": "GRIFFAIN",
+          "amount": 406813.012987
+        }
+      ]
+    },
+    {
+      "time": "2026-04-02 19:06:49-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "symbol": "USDC",
+          "amount": 5000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+          "symbol": "GRIFFAIN",
+          "amount": 404527.149024
+        }
+      ]
+    },
+    {
+      "time": "2026-04-02 19:07:05-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "symbol": "USDC",
+          "amount": 5000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+          "symbol": "GRIFFAIN",
+          "amount": 403697.100704
+        }
+      ]
+    },
+    {
+      "time": "2026-04-02 19:07:27-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "symbol": "USDC",
+          "amount": 5000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+          "symbol": "GRIFFAIN",
+          "amount": 404318.00083
+        }
+      ]
+    },
+    {
+      "time": "2026-04-02 19:07:39-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "symbol": "USDC",
+          "amount": 4391.242838
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+          "symbol": "GRIFFAIN",
+          "amount": 354587.103382
+        }
+      ]
+    },
+    {
+      "time": "2026-04-02 19:07:52-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "symbol": "USDC",
+          "amount": 4391.242839
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+          "symbol": "GRIFFAIN",
+          "amount": 353620.884611
+        }
+      ]
+    },
+    {
+      "time": "2026-04-03 12:24:48-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+          "symbol": "GRIFFAIN",
+          "amount": 290945.406442
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+          "symbol": "arc",
+          "amount": 62543.9918
+        }
+      ]
+    },
+    {
+      "time": "2026-04-03 12:24:54-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+          "symbol": "GRIFFAIN",
+          "amount": 290945.406443
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+          "symbol": "arc",
+          "amount": 62477.821017
+        }
+      ]
     }
   ]
 }

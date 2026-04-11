@@ -928,6 +928,25 @@
         {
           "mint": "38PgzpJYu2HkiYvV8qePFakB8tuobPdGm2FFEn7Dpump",
           "symbol": "gork",
+          "amount": 216240.530086
+        }
+      ]
+    },
+    {
+      "time": "2025-05-02 19:32:58-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "So11111111111111111111111111111111111111112",
+          "symbol": "SOL",
+          "amount": 98.999999999
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "38PgzpJYu2HkiYvV8qePFakB8tuobPdGm2FFEn7Dpump",
+          "symbol": "gork",
           "amount": 217671.782623
         }
       ]
@@ -948,25 +967,6 @@
           "mint": "38PgzpJYu2HkiYvV8qePFakB8tuobPdGm2FFEn7Dpump",
           "symbol": "gork",
           "amount": 218063.116039
-        }
-      ]
-    },
-    {
-      "time": "2025-05-02 19:32:58-07:00",
-      "sol_spent": 0,
-      "sol_received": 0,
-      "token_spent": [
-        {
-          "mint": "So11111111111111111111111111111111111111112",
-          "symbol": "SOL",
-          "amount": 98.999999999
-        }
-      ],
-      "token_received": [
-        {
-          "mint": "38PgzpJYu2HkiYvV8qePFakB8tuobPdGm2FFEn7Dpump",
-          "symbol": "gork",
-          "amount": 216240.530086
         }
       ]
     },
@@ -2579,7 +2579,7 @@
         {
           "mint": "CiuFxkcreYVzM7eoQk1tLeTH6pjM7gznbePi7Bw5pump",
           "symbol": "DOTSO",
-          "amount": 41083547.885815
+          "amount": 47709666.584317
         }
       ]
     },
@@ -2592,7 +2592,7 @@
         {
           "mint": "CiuFxkcreYVzM7eoQk1tLeTH6pjM7gznbePi7Bw5pump",
           "symbol": "DOTSO",
-          "amount": 47709666.584317
+          "amount": 41083547.885815
         }
       ]
     },
@@ -3789,7 +3789,7 @@
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 5.083252314
+          "amount": 5.09619783
         }
       ]
     },
@@ -3808,7 +3808,7 @@
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 5.09619783
+          "amount": 5.083252314
         }
       ]
     },
@@ -4112,7 +4112,7 @@
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 4.942120314
+          "amount": 4.957303537
         }
       ]
     },
@@ -4131,7 +4131,7 @@
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 4.957303537
+          "amount": 4.942120314
         }
       ]
     },
@@ -4853,7 +4853,7 @@
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 5.068035469
+          "amount": 5.029334505
         }
       ]
     },
@@ -4872,7 +4872,7 @@
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 5.029334505
+          "amount": 5.068035469
         }
       ]
     },
@@ -5283,14 +5283,14 @@
         {
           "mint": "H1aoUqmp2vJu5o8w3o8LjrN6jKyWErS69PtYxGhfoXxf",
           "symbol": "YAPPER",
-          "amount": 41471.64796367101
+          "amount": 42629.862190121
         }
       ],
       "token_received": [
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 4.726552737
+          "amount": 4.850116661
         }
       ]
     },
@@ -5302,14 +5302,14 @@
         {
           "mint": "H1aoUqmp2vJu5o8w3o8LjrN6jKyWErS69PtYxGhfoXxf",
           "symbol": "YAPPER",
-          "amount": 42629.862190121
+          "amount": 41471.64796367101
         }
       ],
       "token_received": [
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 4.850116661
+          "amount": 4.726552737
         }
       ]
     },
@@ -5340,14 +5340,14 @@
         {
           "mint": "H1aoUqmp2vJu5o8w3o8LjrN6jKyWErS69PtYxGhfoXxf",
           "symbol": "YAPPER",
-          "amount": 43736.710883202
+          "amount": 43441.539612205
         }
       ],
       "token_received": [
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 5.04375913
+          "amount": 5.01794506
         }
       ]
     },
@@ -5359,14 +5359,14 @@
         {
           "mint": "H1aoUqmp2vJu5o8w3o8LjrN6jKyWErS69PtYxGhfoXxf",
           "symbol": "YAPPER",
-          "amount": 43441.539612205
+          "amount": 43736.710883202
         }
       ],
       "token_received": [
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 5.01794506
+          "amount": 5.04375913
         }
       ]
     },
@@ -5480,7 +5480,7 @@
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 4.934025421
+          "amount": 4.926063407
         }
       ]
     },
@@ -5499,26 +5499,7 @@
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 4.926063407
-        }
-      ]
-    },
-    {
-      "time": "2025-05-14 17:59:09-07:00",
-      "sol_spent": 0,
-      "sol_received": 0,
-      "token_spent": [
-        {
-          "mint": "H1aoUqmp2vJu5o8w3o8LjrN6jKyWErS69PtYxGhfoXxf",
-          "symbol": "YAPPER",
-          "amount": 43695.618786904
-        }
-      ],
-      "token_received": [
-        {
-          "mint": "So11111111111111111111111111111111111111112",
-          "symbol": "SOL",
-          "amount": 5.023044932
+          "amount": 4.934025421
         }
       ]
     },
@@ -5538,6 +5519,25 @@
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
           "amount": 5.000243401
+        }
+      ]
+    },
+    {
+      "time": "2025-05-14 17:59:09-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "H1aoUqmp2vJu5o8w3o8LjrN6jKyWErS69PtYxGhfoXxf",
+          "symbol": "YAPPER",
+          "amount": 43695.618786904
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "So11111111111111111111111111111111111111112",
+          "symbol": "SOL",
+          "amount": 5.023044932
         }
       ]
     },
@@ -5587,14 +5587,14 @@
         {
           "mint": "H1aoUqmp2vJu5o8w3o8LjrN6jKyWErS69PtYxGhfoXxf",
           "symbol": "YAPPER",
-          "amount": 43616.424979776995
+          "amount": 43869.119524839
         }
       ],
       "token_received": [
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 4.847221438
+          "amount": 4.867442696
         }
       ]
     },
@@ -5606,14 +5606,14 @@
         {
           "mint": "H1aoUqmp2vJu5o8w3o8LjrN6jKyWErS69PtYxGhfoXxf",
           "symbol": "YAPPER",
-          "amount": 43869.119524839
+          "amount": 43616.424979776995
         }
       ],
       "token_received": [
         {
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
-          "amount": 4.867442696
+          "amount": 4.847221438
         }
       ]
     },
@@ -8205,6 +8205,25 @@
       ]
     },
     {
+      "time": "2025-07-17 20:16:25-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "So11111111111111111111111111111111111111112",
+          "symbol": "SOL",
+          "amount": 0.792
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "5XKvHT1vYWp46eQ6TXhkkhpKtuDkb4kaHA6W8dxKbonk",
+          "symbol": "buildware",
+          "amount": 25097527.070913
+        }
+      ]
+    },
+    {
       "time": "2025-07-20 14:32:08-07:00",
       "sol_spent": 0,
       "sol_received": 0,
@@ -8798,6 +8817,25 @@
           "mint": "So11111111111111111111111111111111111111112",
           "symbol": "SOL",
           "amount": 11.082338413
+        }
+      ]
+    },
+    {
+      "time": "2025-08-07 16:59:57-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5XKvHT1vYWp46eQ6TXhkkhpKtuDkb4kaHA6W8dxKbonk",
+          "symbol": "buildware",
+          "amount": 25097527.070913
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "So11111111111111111111111111111111111111112",
+          "symbol": "SOL",
+          "amount": 0.836857909
         }
       ]
     }

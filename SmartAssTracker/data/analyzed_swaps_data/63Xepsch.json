@@ -2,6 +2,1890 @@
   "version": 5,
   "swaps": [
     {
+      "time": "2023-09-03 02:20:50-07:00",
+      "sol_spent": 129.98761673,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+          "symbol": "USDT",
+          "amount": 2519.486596
+        }
+      ]
+    },
+    {
+      "time": "2023-12-29 00:32:29-08:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+          "symbol": "mSOL",
+          "amount": 1728.737961293
+        }
+      ],
+      "token_received": []
+    },
+    {
+      "time": "2024-01-20 15:48:33-08:00",
+      "sol_spent": 200.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "B9pmGiVoXPyPKFViY6se32qtRGX85qv4mYB7Gp1os4w4",
+          "symbol": "RICKROLL",
+          "amount": 8107820.938590031
+        }
+      ]
+    },
+    {
+      "time": "2024-01-20 15:59:48-08:00",
+      "sol_spent": 100.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "B9pmGiVoXPyPKFViY6se32qtRGX85qv4mYB7Gp1os4w4",
+          "symbol": "RICKROLL",
+          "amount": 4918527.644580004
+        }
+      ]
+    },
+    {
+      "time": "2024-01-20 16:00:46-08:00",
+      "sol_spent": 100.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "B9pmGiVoXPyPKFViY6se32qtRGX85qv4mYB7Gp1os4w4",
+          "symbol": "RICKROLL",
+          "amount": 4358861.751664614
+        }
+      ]
+    },
+    {
+      "time": "2024-01-20 16:26:22-08:00",
+      "sol_spent": 100.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "B9pmGiVoXPyPKFViY6se32qtRGX85qv4mYB7Gp1os4w4",
+          "symbol": "RICKROLL",
+          "amount": 4987946.914237333
+        }
+      ]
+    },
+    {
+      "time": "2024-01-20 16:38:20-08:00",
+      "sol_spent": 100.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "B9pmGiVoXPyPKFViY6se32qtRGX85qv4mYB7Gp1os4w4",
+          "symbol": "RICKROLL",
+          "amount": 5661135.278946734
+        }
+      ]
+    },
+    {
+      "time": "2024-01-26 16:18:53-08:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "B9pmGiVoXPyPKFViY6se32qtRGX85qv4mYB7Gp1os4w4",
+          "symbol": "RICKROLL",
+          "amount": 5892586.458728428
+        }
+      ]
+    },
+    {
+      "time": "2024-01-26 16:19:12-08:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "B9pmGiVoXPyPKFViY6se32qtRGX85qv4mYB7Gp1os4w4",
+          "symbol": "RICKROLL",
+          "amount": 5004235.261469409
+        }
+      ]
+    },
+    {
+      "time": "2024-01-26 16:19:27-08:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "B9pmGiVoXPyPKFViY6se32qtRGX85qv4mYB7Gp1os4w4",
+          "symbol": "RICKROLL",
+          "amount": 4346325.072989162
+        }
+      ]
+    },
+    {
+      "time": "2024-05-21 08:12:32-07:00",
+      "sol_spent": 69.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 1076676048.632111
+        }
+      ]
+    },
+    {
+      "time": "2024-05-21 08:13:50-07:00",
+      "sol_spent": 69.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 1044520156.186207
+        }
+      ]
+    },
+    {
+      "time": "2024-05-21 08:16:46-07:00",
+      "sol_spent": 69.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 1029575067.246369
+        }
+      ]
+    },
+    {
+      "time": "2024-05-21 17:44:27-07:00",
+      "sol_spent": 69.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 994227573.063925
+        }
+      ]
+    },
+    {
+      "time": "2024-06-07 01:48:42-07:00",
+      "sol_spent": 28.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "A2PVd9wmEk9Ek9MFbF6VVBm4UiGYK24TCmE5oR2WDWGH",
+          "symbol": "RICH",
+          "amount": 2456185.364658
+        }
+      ]
+    },
+    {
+      "time": "2024-06-24 06:11:26-07:00",
+      "sol_spent": 47.163104884,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "symbol": "USDC",
+          "amount": 6000.0
+        }
+      ]
+    },
+    {
+      "time": "2024-06-25 10:10:33-07:00",
+      "sol_spent": 10.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "DEJiPKx5GActUtB6qUssreUxkhXtL4hTQAAJZ7Ccw8se",
+          "symbol": "XD",
+          "amount": 8101129.865615
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:15:16-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 161987.50093
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:16:27-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 162052.75606
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:16:42-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 161328.15602
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:17:04-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 161303.09291
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:17:30-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 160982.63452
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:18:34-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 159829.86291
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:19:34-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 158876.31114
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:20:16-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 158249.05791
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:20:51-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 157241.11949
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:21:46-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 156263.48669
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:22:16-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 155868.67396
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 07:23:55-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 154663.6422
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:05:40-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 151592.42418
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:15:32-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 158843.98298
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:16:13-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 158127.59445
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:18:23-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 154162.66231
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:18:59-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 153651.41003
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:19:29-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 153222.01492
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:19:48-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 153097.5175
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:20:25-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 152641.90886
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:20:45-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 152113.67991
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:21:10-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 151579.39467
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:21:36-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 154085.90496
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:25:30-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 154259.04961
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:26:22-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 153579.55689
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:28:33-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 153283.62736
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:28:54-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 152742.44084
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:29:26-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 152119.20842
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:29:48-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 151559.61737
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:30:03-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 150954.52836
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:30:25-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 152222.14378
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:33:17-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 152880.86038
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:33:42-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 152233.8168
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:34:04-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 151561.69826
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:35:14-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 150805.25743
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:35:44-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 150209.45214
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:36:21-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 149433.01143
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:36:39-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 149380.76634
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:37:02-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 148769.39151
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:37:20-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 148363.61765
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:37:40-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 147880.77506
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:38:07-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 147463.23033
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:38:35-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 147483.88261
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:39:12-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 146782.5749
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:39:31-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 145896.55809
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:39:48-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 145512.83283
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:40:33-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 146175.76374
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:40:48-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 145975.0638
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:41:51-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 145116.26936
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:44:38-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 148395.17254
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:45:29-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 144228.4653
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:46:16-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 143958.43025
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:46:46-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 143506.35165
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:47:26-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 143597.20059
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:48:25-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 143014.97251
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:49:08-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 142403.86012
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:49:36-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 140695.59888
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:49:56-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 140009.90119
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:50:45-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 139146.0255
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:51:12-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 139803.00473
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:51:43-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 140960.14781
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:52:46-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 142950.60479
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:53:15-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 142486.34715
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:54:45-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 141593.21023
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:55:08-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 141568.31557
+        }
+      ]
+    },
+    {
+      "time": "2024-07-08 08:55:37-07:00",
+      "sol_spent": 3.54,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 33480.17742
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:10:45-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 148594.51155
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:11:38-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 146396.00865
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:12:15-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 146039.42264
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:12:52-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 145541.08668
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:13:24-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 145075.48889
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:13:45-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 144332.79359
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:14:26-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 143900.4972
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:14:45-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 143630.55551
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:15:05-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 143190.62528
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:15:35-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 143191.9598
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:15:50-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 143341.67619
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:16:35-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 143393.07437
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:17:01-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 142996.69738
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:17:17-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 142884.67979
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:17:38-07:00",
+      "sol_spent": 15.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 142789.8015
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:18:46-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 190128.44794
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:20:51-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 190789.93727
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:22:13-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 189974.34053
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:23:28-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 190632.6991
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:24:26-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 189882.28227
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:24:56-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 189946.22781
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:26:00-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 187837.8816
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:27:40-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 187144.0963
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:28:27-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 187096.72735
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:28:53-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 187169.55762
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:29:10-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 187158.18688
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:29:52-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 187099.82646
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:30:09-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 186289.95221
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:30:26-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 185586.76194
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:30:45-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 184809.29626
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:31:05-07:00",
+      "sol_spent": 20.0,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 185604.79311
+        }
+      ]
+    },
+    {
+      "time": "2024-07-18 13:31:31-07:00",
+      "sol_spent": 20.68,
+      "sol_received": 0,
+      "token_spent": [],
+      "token_received": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 191121.05692
+        }
+      ]
+    },
+    {
+      "time": "2024-08-11 13:26:04-07:00",
+      "sol_spent": 0,
+      "sol_received": 92.154179868,
+      "token_spent": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 1000000.0
+        }
+      ],
+      "token_received": []
+    },
+    {
+      "time": "2024-08-11 13:31:10-07:00",
+      "sol_spent": 0,
+      "sol_received": 106.261086891,
+      "token_spent": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 1170000.0
+        }
+      ],
+      "token_received": []
+    },
+    {
+      "time": "2024-08-11 14:00:19-07:00",
+      "sol_spent": 0,
+      "sol_received": 91.673258057,
+      "token_spent": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 1000000.0
+        }
+      ],
+      "token_received": []
+    },
+    {
+      "time": "2024-08-11 14:09:49-07:00",
+      "sol_spent": 0,
+      "sol_received": 180.624597962,
+      "token_spent": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 2000000.0
+        }
+      ],
+      "token_received": []
+    },
+    {
+      "time": "2024-08-11 15:34:05-07:00",
+      "sol_spent": 0,
+      "sol_received": 284.654153871,
+      "token_spent": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 3000000.0
+        }
+      ],
+      "token_received": []
+    },
+    {
+      "time": "2024-08-21 12:32:01-07:00",
+      "sol_spent": 0,
+      "sol_received": 152.782890153,
+      "token_spent": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 999999.0
+        }
+      ],
+      "token_received": []
+    },
+    {
+      "time": "2024-08-21 19:02:11-07:00",
+      "sol_spent": 0,
+      "sol_received": 149.668773588,
+      "token_spent": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 1000000.0
+        }
+      ],
+      "token_received": []
+    },
+    {
+      "time": "2024-08-21 23:19:16-07:00",
+      "sol_spent": 0,
+      "sol_received": 283.852010027,
+      "token_spent": [
+        {
+          "mint": "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+          "symbol": "GIGA",
+          "amount": 2000000.0
+        }
+      ],
+      "token_received": []
+    },
+    {
+      "time": "2024-10-04 20:24:43-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "6WNva7iLjTvxSfXPSmbjceW5Yc41LUH4SJNqKom5pump",
+          "symbol": "SASHA",
+          "amount": 429151.205886
+        }
+      ]
+    },
+    {
+      "time": "2024-10-04 20:25:30-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "6WNva7iLjTvxSfXPSmbjceW5Yc41LUH4SJNqKom5pump",
+          "symbol": "SASHA",
+          "amount": 417624.433129
+        }
+      ]
+    },
+    {
+      "time": "2024-10-04 20:25:56-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "6WNva7iLjTvxSfXPSmbjceW5Yc41LUH4SJNqKom5pump",
+          "symbol": "SASHA",
+          "amount": 407302.267523
+        }
+      ]
+    },
+    {
+      "time": "2024-10-04 20:26:13-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "6WNva7iLjTvxSfXPSmbjceW5Yc41LUH4SJNqKom5pump",
+          "symbol": "SASHA",
+          "amount": 405179.650371
+        }
+      ]
+    },
+    {
+      "time": "2024-10-04 20:26:32-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "6WNva7iLjTvxSfXPSmbjceW5Yc41LUH4SJNqKom5pump",
+          "symbol": "SASHA",
+          "amount": 398811.793057
+        }
+      ]
+    },
+    {
+      "time": "2024-10-04 20:27:09-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "6WNva7iLjTvxSfXPSmbjceW5Yc41LUH4SJNqKom5pump",
+          "symbol": "SASHA",
+          "amount": 361033.100144
+        }
+      ]
+    },
+    {
+      "time": "2024-10-04 20:27:27-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "6WNva7iLjTvxSfXPSmbjceW5Yc41LUH4SJNqKom5pump",
+          "symbol": "SASHA",
+          "amount": 389281.100335
+        }
+      ]
+    },
+    {
+      "time": "2024-10-04 20:29:10-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "9TWa7NPkeqEojoY9Kue7A38AvJV1QTfjKScvqGsEpump",
+          "symbol": "Odin",
+          "amount": 6038179.90961
+        }
+      ]
+    },
+    {
+      "time": "2024-10-04 20:29:34-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "9TWa7NPkeqEojoY9Kue7A38AvJV1QTfjKScvqGsEpump",
+          "symbol": "Odin",
+          "amount": 5462192.371473
+        }
+      ]
+    },
+    {
+      "time": "2024-10-04 20:29:57-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "9TWa7NPkeqEojoY9Kue7A38AvJV1QTfjKScvqGsEpump",
+          "symbol": "Odin",
+          "amount": 5183208.969901
+        }
+      ]
+    },
+    {
+      "time": "2024-10-05 12:16:45-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "5oSdehrNUuhDbxUVpkDEXRAykhYQeD2L1D8S99SLpump",
+          "symbol": "SASHA",
+          "amount": 2144522.616174
+        }
+      ]
+    },
+    {
+      "time": "2024-10-05 12:17:00-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "5oSdehrNUuhDbxUVpkDEXRAykhYQeD2L1D8S99SLpump",
+          "symbol": "SASHA",
+          "amount": 2048551.295237
+        }
+      ]
+    },
+    {
+      "time": "2024-10-05 12:17:13-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "5oSdehrNUuhDbxUVpkDEXRAykhYQeD2L1D8S99SLpump",
+          "symbol": "SASHA",
+          "amount": 2256985.66901
+        }
+      ]
+    },
+    {
+      "time": "2024-10-05 12:17:34-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "symbol": "MUMU",
+          "amount": 100000000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "5oSdehrNUuhDbxUVpkDEXRAykhYQeD2L1D8S99SLpump",
+          "symbol": "SASHA",
+          "amount": 2356376.65635
+        }
+      ]
+    },
+    {
+      "time": "2024-10-05 12:18:32-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "6WNva7iLjTvxSfXPSmbjceW5Yc41LUH4SJNqKom5pump",
+          "symbol": "SASHA",
+          "amount": 200000.0
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "5oSdehrNUuhDbxUVpkDEXRAykhYQeD2L1D8S99SLpump",
+          "symbol": "SASHA",
+          "amount": 1250161.092626
+        }
+      ]
+    },
+    {
       "time": "2024-10-05 12:18:44-07:00",
       "sol_spent": 0,
       "sol_received": 0,

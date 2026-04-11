@@ -557,6 +557,68 @@
           "amount": 109008688.210182
         }
       ]
+    },
+    {
+      "time": "2026-03-30 02:30:18-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+          "symbol": "JUP",
+          "amount": 20704.687
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn",
+          "symbol": "PUMP",
+          "amount": 1809865.21972
+        }
+      ]
+    },
+    {
+      "time": "2026-04-03 01:53:22-07:00",
+      "sol_spent": 0.018866997,
+      "sol_received": 1.146806789,
+      "token_spent": [
+        {
+          "mint": "Eg2ymQ2aQqjMcibnmTt8erC6Tvk9PVpJZCxvVPJz2agu",
+          "symbol": "PUMPCADE",
+          "amount": 208.07835
+        },
+        {
+          "mint": "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn",
+          "symbol": "PUMP",
+          "amount": 1809865.21972
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "Eg2ymQ2aQqjMcibnmTt8erC6Tvk9PVpJZCxvVPJz2agu",
+          "symbol": "PUMPCADE",
+          "amount": 208078.350408
+        }
+      ]
+    },
+    {
+      "time": "2026-04-03 02:27:55-07:00",
+      "sol_spent": 0,
+      "sol_received": 0,
+      "token_spent": [
+        {
+          "mint": "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn",
+          "symbol": "PUMP",
+          "amount": 3777234
+        }
+      ],
+      "token_received": [
+        {
+          "mint": "Eg2ymQ2aQqjMcibnmTt8erC6Tvk9PVpJZCxvVPJz2agu",
+          "symbol": "PUMPCADE",
+          "amount": 431959.336123
+        }
+      ]
     }
   ]
 }

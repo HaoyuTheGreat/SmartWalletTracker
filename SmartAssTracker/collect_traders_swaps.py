@@ -57,7 +57,7 @@ if __name__ == "__main__":
       data_pages = []
 
       before = None
-      while len(data_pages) < 500:
+      while len(data_pages) < 2000:
         url = f"https://api-mainnet.helius-rpc.com/v0/addresses/{address}/transactions/?api-key={HELIUS_API_KEY}&type=SWAP&limit=100"
         if before:
           url += f"&before={before}"
@@ -75,7 +75,7 @@ if __name__ == "__main__":
         data_pages.extend(page)
         before = page[-1]["signature"]
         time.sleep(1)
-      data = data_pages[:500]
+      data = data_pages[:2000]
       print(f"[{address[:8]}] Received total of {len(data)}swap transactions")
       if data:
         with open(f"data/wallets_swap_data/{address[:8]}.json", "w", encoding="utf-8") as f:
