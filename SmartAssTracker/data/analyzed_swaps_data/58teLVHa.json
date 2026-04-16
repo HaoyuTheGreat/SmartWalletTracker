@@ -1,8 +1,9 @@
 {
-  "version": 5,
+  "version": 7,
   "swaps": [
     {
       "time": "2025-07-07 15:58:24-07:00",
+      "sol_price_usd": 148.72,
       "sol_spent": 500.0,
       "sol_received": 0,
       "token_spent": [],
@@ -16,6 +17,7 @@
     },
     {
       "time": "2025-07-07 15:58:43-07:00",
+      "sol_price_usd": 148.72,
       "sol_spent": 400.0,
       "sol_received": 0,
       "token_spent": [],
@@ -29,6 +31,7 @@
     },
     {
       "time": "2025-07-27 05:21:33-07:00",
+      "sol_price_usd": 188.51,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -48,6 +51,7 @@
     },
     {
       "time": "2025-07-27 05:27:20-07:00",
+      "sol_price_usd": 188.51,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -67,6 +71,7 @@
     },
     {
       "time": "2025-07-28 14:26:49-07:00",
+      "sol_price_usd": 183.2,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -86,6 +91,7 @@
     },
     {
       "time": "2025-07-28 14:30:54-07:00",
+      "sol_price_usd": 183.2,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -105,6 +111,7 @@
     },
     {
       "time": "2025-07-29 11:53:56-07:00",
+      "sol_price_usd": 181.17,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -124,6 +131,7 @@
     },
     {
       "time": "2025-07-29 13:36:38-07:00",
+      "sol_price_usd": 181.17,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -143,6 +151,7 @@
     },
     {
       "time": "2025-09-22 09:33:43-07:00",
+      "sol_price_usd": 220.87,
       "sol_spent": 0.962775,
       "sol_received": 0,
       "token_spent": [],

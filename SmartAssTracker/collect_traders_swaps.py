@@ -55,7 +55,7 @@ if __name__ == "__main__":
         continue
  
       data_pages = []
-
+      seen_signatures = set()
       before = None
       while len(data_pages) < 2000:
         url = f"https://api-mainnet.helius-rpc.com/v0/addresses/{address}/transactions/?api-key={HELIUS_API_KEY}&type=SWAP&limit=100"
@@ -72,6 +72,11 @@ if __name__ == "__main__":
         if not isinstance(page, list):
           print(f"[{address[:8]}]Returned Unexpected Data：{str(page)[:100]}")
           break
+        for tx in page:
+          sig = tx.get("signature")
+          if sig not in seen_signatures:
+              seen_signatures.add(sig)
+              data_pages.append(tx)
         data_pages.extend(page)
         before = page[-1]["signature"]
         time.sleep(1)

@@ -1,8 +1,9 @@
 {
-  "version": 5,
+  "version": 7,
   "swaps": [
     {
       "time": "2022-11-16 17:36:09-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -22,6 +23,7 @@
     },
     {
       "time": "2022-11-16 17:48:08-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 2.0,
       "sol_received": 0,
       "token_spent": [],
@@ -35,6 +37,7 @@
     },
     {
       "time": "2022-11-16 17:49:13-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 1.982015922,
       "token_spent": [
@@ -48,6 +51,7 @@
     },
     {
       "time": "2022-11-16 17:54:30-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -67,6 +71,7 @@
     },
     {
       "time": "2022-11-16 18:15:13-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 694.881120925,
       "token_spent": [
@@ -80,6 +85,7 @@
     },
     {
       "time": "2022-11-16 18:16:25-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -99,6 +105,7 @@
     },
     {
       "time": "2022-11-16 18:21:54-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -118,6 +125,7 @@
     },
     {
       "time": "2022-11-16 18:25:21-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -137,6 +145,7 @@
     },
     {
       "time": "2022-11-16 18:26:46-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -156,6 +165,7 @@
     },
     {
       "time": "2022-11-17 07:40:12-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -175,6 +185,7 @@
     },
     {
       "time": "2022-11-17 07:40:49-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -194,6 +205,7 @@
     },
     {
       "time": "2022-11-17 07:45:05-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -213,6 +225,7 @@
     },
     {
       "time": "2022-11-17 07:47:30-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -232,6 +245,7 @@
     },
     {
       "time": "2022-11-17 08:02:39-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 7.366505706,
       "token_spent": [
@@ -245,6 +259,7 @@
     },
     {
       "time": "2022-11-17 08:03:51-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -264,6 +279,7 @@
     },
     {
       "time": "2022-11-17 08:06:08-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -283,6 +299,7 @@
     },
     {
       "time": "2022-11-17 08:19:07-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -302,6 +319,7 @@
     },
     {
       "time": "2022-11-17 08:22:35-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -321,6 +339,7 @@
     },
     {
       "time": "2022-11-17 09:21:08-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -340,6 +359,7 @@
     },
     {
       "time": "2022-11-17 09:21:51-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -359,6 +379,7 @@
     },
     {
       "time": "2022-11-17 09:25:20-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -378,6 +399,7 @@
     },
     {
       "time": "2022-11-17 09:26:51-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -397,6 +419,7 @@
     },
     {
       "time": "2022-11-17 09:32:57-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -416,6 +439,7 @@
     },
     {
       "time": "2022-11-17 09:35:35-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -435,6 +459,7 @@
     },
     {
       "time": "2022-11-17 09:40:00-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -454,6 +479,7 @@
     },
     {
       "time": "2022-11-17 09:41:53-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -473,6 +499,7 @@
     },
     {
       "time": "2022-11-17 09:44:14-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -492,6 +519,7 @@
     },
     {
       "time": "2022-11-17 09:45:42-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -511,6 +539,7 @@
     },
     {
       "time": "2022-11-17 09:56:42-08:00",
+      "sol_price_usd": 13.6227,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [

@@ -1,5 +1,18 @@
+import csv
 import json
 import os
+from datetime import datetime, timezone
+
+SOL_PRICE_USD = 150  # 先硬编码,后面可接 CoinGecko
+
+STABLE_MINTS = {
+    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",  # USDC
+    "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",  # USDT
+}
+WSOL_MINT = "So11111111111111111111111111111111111111112"
+EXCLUDED_MINTS = STABLE_MINTS | {WSOL_MINT}
+
+EXCLUSION_TAGS = {"proxy_bot", "high_frequency", "insufficient_data", "market_maker"}
 
 
 def remove_error_files():
@@ -32,6 +45,19 @@ def load_raw_swaps():
         with open(os.path.join(folder, fname), "r") as f:
             all_wallets[fname.replace(".json", "")] = json.load(f)
     return all_wallets
+
+
+def load_analyzed_swaps():
+    """Load analyzed swap data. Returns dict wallet_id -> list of swaps."""
+    folder = "data/analyzed_swaps_data"
+    result = {}
+    for fname in os.listdir(folder):
+        if not fname.endswith(".json"):
+            continue
+        with open(os.path.join(folder, fname), "r") as f:
+            data = json.load(f)
+        result[fname.replace(".json", "")] = data.get("swaps", [])
+    return result
 
 
 def load_id_to_address():
@@ -155,7 +181,109 @@ def is_market_maker(swaps, wallet_address):
     return is_mm, stats
 
 
-def classify_wallets(all_wallets, id_to_address):
+def aggregate_by_token(analyzed_swaps):
+    """
+    Group swaps into per-token positions.
+    Stablecoins are folded into virtual SOL (USDC/USDT @ $1).
+    WSOL is excluded from positions entirely.
+
+    Returns:
+        dict: mint -> {symbol, bought, sold, sol_in, sol_out}
+    """
+    positions = {}
+
+    def get_pos(mint, symbol):
+        if mint not in positions:
+            positions[mint] = {
+                "symbol": symbol,
+                "bought": 0.0,
+                "sold": 0.0,
+                "sol_in": 0.0,
+                "sol_out": 0.0,
+            }
+        return positions[mint]
+
+    for swap in analyzed_swaps:
+        sol_spent = swap.get("sol_spent") or 0
+        sol_received = swap.get("sol_received") or 0
+        token_spent = swap.get("token_spent", [])
+        token_received = swap.get("token_received", [])
+        sol_price = swap.get("sol_price_usd") or SOL_PRICE_USD
+
+        virtual_in = sol_spent
+        virtual_out = sol_received
+        non_stable_spent = []
+        non_stable_received = []
+
+        for t in token_spent:
+            if t["mint"] in STABLE_MINTS:
+                virtual_in += t["amount"] / sol_price
+            elif t["mint"] not in EXCLUDED_MINTS:
+                non_stable_spent.append(t)
+
+        for t in token_received:
+            if t["mint"] in STABLE_MINTS:
+                virtual_out += t["amount"] / sol_price
+            elif t["mint"] not in EXCLUDED_MINTS:
+                non_stable_received.append(t)
+
+        if non_stable_received:
+            sol_per_buy = virtual_in / len(non_stable_received)
+            for t in non_stable_received:
+                pos = get_pos(t["mint"], t["symbol"])
+                pos["bought"] += t["amount"]
+                pos["sol_in"] += sol_per_buy
+
+        if non_stable_spent:
+            sol_per_sell = virtual_out / len(non_stable_spent)
+            for t in non_stable_spent:
+                pos = get_pos(t["mint"], t["symbol"])
+                pos["sold"] += t["amount"]
+                pos["sol_out"] += sol_per_sell
+
+    return positions
+
+
+def calc_performance(positions):
+    """
+    Compute win rate and PnL from aggregated positions.
+    A position is 'closed' when sold >= bought * 0.95.
+    A closed position is 'inflated' (data_clipped signal) when sold > bought * 1.1,
+    which usually means the wallet held this token before our 2000-tx window.
+    """
+    closed = []
+    inflated_count = 0
+    for mint, p in positions.items():
+        if p["bought"] <= 0:
+            continue
+        if p["sold"] >= p["bought"] * 0.95:
+            pnl = p["sol_out"] - p["sol_in"]
+            closed.append({"symbol": p["symbol"], "pnl_sol": pnl, "win": pnl > 0})
+            if p["sold"] > p["bought"] * 1.1:
+                inflated_count += 1
+
+    total = len(closed)
+    if total == 0:
+        return {
+            "closed_positions": 0,
+            "win_rate": 0.0,
+            "total_pnl_sol": 0.0,
+            "avg_pnl_sol": 0.0,
+            "inflated_positions": 0,
+        }
+
+    wins = sum(1 for c in closed if c["win"])
+    total_pnl = sum(c["pnl_sol"] for c in closed)
+    return {
+        "closed_positions": total,
+        "win_rate": round(wins / total * 100, 1),
+        "total_pnl_sol": round(total_pnl, 3),
+        "avg_pnl_sol": round(total_pnl / total, 3),
+        "inflated_positions": inflated_count,
+    }
+
+
+def classify_wallets(all_wallets, id_to_address, analyzed_wallets):
     """
     Classify wallets based on their trading behavior.
 
@@ -182,10 +310,25 @@ def classify_wallets(all_wallets, id_to_address):
         daily_frequency, active_days = calc_daily_frequency(swaps)
         if daily_frequency > 20:
             tags.append("high_frequency")
+        #filter out the wallets that have little swap transactions and not really active.
+        if len(swaps) < 20 or active_days < 7:
+            tags.append("insufficient_data")
 
         mm_result, mm_stats = is_market_maker(swaps, wallet_address)
         if mm_result:
             tags.append("market_maker")
+
+        analyzed = analyzed_wallets.get(wallet_id, [])
+        positions = aggregate_by_token(analyzed)
+        perf = calc_performance(positions)
+
+        if perf["inflated_positions"] > 0:
+            tags.append("data_clipped")
+
+        is_excluded = any(t in EXCLUSION_TAGS for t in tags)
+        if not is_excluded and perf["closed_positions"] >= 5 \
+                and perf["win_rate"] > 50 and perf["total_pnl_sol"] > 0:
+            tags.append("smart_candidate")
 
         results[wallet_id] = {
             "tags": tags,
@@ -194,8 +337,42 @@ def classify_wallets(all_wallets, id_to_address):
             "active_days": round(active_days, 1),
             "total_swaps": len(swaps),
             **mm_stats,
+            **perf,
         }
     return results
+
+
+def save_results(results):
+    """Save classification results to CSV (for humans) and JSON (for llm.py)."""
+    os.makedirs("data", exist_ok=True)
+
+    csv_path = "data/wallet_analysis.csv"
+    fieldnames = [
+        "wallet_id", "tags", "total_swaps", "active_days", "daily_frequency",
+        "closed_positions", "inflated_positions", "win_rate", "total_pnl_sol",
+        "avg_pnl_sol", "proxy_pct", "buy_sell_ratio", "top_token_pct", "unique_tokens",
+    ]
+    with open(csv_path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        for wallet_id, info in results.items():
+            row = {"wallet_id": wallet_id, "tags": ",".join(info["tags"]) if info["tags"] else "unclassified"}
+            for key in fieldnames[2:]:
+                row[key] = info.get(key, "")
+            writer.writerow(row)
+    print(f"Saved CSV: {csv_path}")
+
+    json_path = "data/smart_wallet_candidates.json"
+    smart_candidates = [wid for wid, info in results.items() if "smart_candidate" in info["tags"]]
+    payload = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "total_wallets": len(results),
+        "smart_candidates": smart_candidates,
+        "wallets": results,
+    }
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2)
+    print(f"Saved JSON: {json_path} ({len(smart_candidates)} smart candidates)")
 
 
 if __name__ == "__main__":
@@ -203,8 +380,11 @@ if __name__ == "__main__":
 
     all_wallets = load_raw_swaps()
     id_to_address = load_id_to_address()
-    results = classify_wallets(all_wallets, id_to_address)
+    analyzed_wallets = load_analyzed_swaps()
+    results = classify_wallets(all_wallets, id_to_address, analyzed_wallets)
 
     for wallet_id, info in results.items():
         tags = info["tags"] if info["tags"] else ["unclassified"]
-        print(f"[{wallet_id}] {', '.join(tags)} | proxy: {info['proxy_pct']}% | freq: {info['daily_frequency']}/day | days: {info['active_days']} | swaps: {info['total_swaps']} | b/s ratio: {info.get('buy_sell_ratio', 'N/A')} | top_token: {info.get('top_token_pct', 'N/A')}% | tokens: {info.get('unique_tokens', 'N/A')}")
+        print(f"[{wallet_id}] {', '.join(tags)} | proxy: {info['proxy_pct']}% | freq: {info['daily_frequency']}/day | days: {info['active_days']} | swaps: {info['total_swaps']} | closed: {info['closed_positions']} | inflated: {info['inflated_positions']} | win_rate: {info['win_rate']}% | pnl: {info['total_pnl_sol']} SOL")
+
+    save_results(results)

@@ -9,7 +9,7 @@ load_dotenv()
 
 HELIUS_API_KEY = os.getenv("HELIUS_API_KEY")
 url = f"https://mainnet.helius-rpc.com/?api-key={HELIUS_API_KEY}"
-VERSION = 5
+VERSION = 7
 
 def load_swaps():
     swap_loaders = "data/wallets_swap_data"
@@ -148,11 +148,14 @@ def collect_mints(parsed_swaps):
 
 
 # This function is to resolve the tokens' symbols
-def resolve_token_symbol(all_mints):
+def resolve_token_symbol(all_mints, cache):
     # Creating a new empty dict to store the result of address + symbol.
     symbol_names = {}
     # Iterates over every address in all_mints and send request to Helius to find the symbol name.
     for mint in all_mints:
+        if mint in cache:
+            symbol_names[mint] = cache[mint]
+            continue
         # The format of JSON-RPC request(Helius DAS API required)
         payload = {
             "jsonrpc": "2.0",  # Telling the server we are using JSON-RPC 2.0.
@@ -192,6 +195,14 @@ if __name__ == "__main__":
                 all_token_names = json.load(f)
     else:
             all_token_names = {}
+
+    # Load historical SOL price table (fetched by fetch_sol_prices.py)
+    if os.path.exists("data/sol_price_history.json"):
+        with open("data/sol_price_history.json", "r") as f:
+            sol_price_history = json.load(f)
+    else:
+        sol_price_history = {}
+        print("WARNING: data/sol_price_history.json not found. Run fetch_sol_prices.py first.")
             
     for wallet_ids, swaps in all_wallets.items():
         output_path = f"data/analyzed_swaps_data/{wallet_ids}.json"
@@ -207,7 +218,7 @@ if __name__ == "__main__":
         parsed_swaps = [p for p in parsed_swaps if p is not None]
         sorted_time_asc = sorted(parsed_swaps, key=lambda x: x["timestamp"])
         all_mints = collect_mints(parsed_swaps)
-        token_names = resolve_token_symbol(all_mints)
+        token_names = resolve_token_symbol(all_mints, all_token_names)
         #把新的token地址和symbol加进去
         all_token_names.update(token_names)
         output_swaps_tx = []
@@ -216,8 +227,11 @@ if __name__ == "__main__":
         # nativeInput = SOL I paid; nativeOutput = SOL I received; tokenInputs = the token I paid; tokenOutputs = the token I received.
         for parsed in sorted_time_asc:
             converted_time = datetime.fromtimestamp(parsed["timestamp"], tz=pacificTime)
+            utc_date_str = datetime.fromtimestamp(parsed["timestamp"], tz=timezone.utc).strftime("%Y-%m-%d")
+            sol_price_usd = sol_price_history.get(utc_date_str, 150)
             trade = {
                 "time": str(converted_time),
+                "sol_price_usd": sol_price_usd,
                 "sol_spent": parsed["sol_spent"],
                 "sol_received": parsed["sol_received"],
             }

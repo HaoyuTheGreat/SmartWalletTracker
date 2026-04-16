@@ -1,8 +1,9 @@
 {
-  "version": 5,
+  "version": 7,
   "swaps": [
     {
       "time": "2025-07-25 01:22:51-07:00",
+      "sol_price_usd": 186.39,
       "sol_spent": 999.484501614,
       "sol_received": 0,
       "token_spent": [],
@@ -16,6 +17,7 @@
     },
     {
       "time": "2025-07-26 23:38:17-07:00",
+      "sol_price_usd": 188.51,
       "sol_spent": 0,
       "sol_received": 0,
       "token_spent": [
@@ -35,6 +37,7 @@
     },
     {
       "time": "2025-10-11 14:56:38-07:00",
+      "sol_price_usd": 180.51,
       "sol_spent": 1247.097084597,
       "sol_received": 0,
       "token_spent": [
