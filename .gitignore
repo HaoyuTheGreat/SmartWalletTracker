@@ -7,17 +7,3 @@ nul
 # === Python 编译文件 ===
 __pycache__/
 *.pyc
-
-# === 虚拟环境 (千万别传这个，太大了) ===
-venv/
-env/
-.venv/
-
-# === 敏感秘钥 (生死攸关) ===
-
-!package.json  # 如果你有前端，排除这个
-.env
-config.py      # 如果你的密码写在 config 里
-gcp-key.json
-service_account.json
-Solana_config_info.py

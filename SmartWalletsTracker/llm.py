@@ -17,16 +17,15 @@ import anthropic
 import json
 import os
 import time
-from dotenv import load_dotenv
 
-load_dotenv()
+from lib.secrets import get_secret
 
 # === 配置 ===
 RAW_SWAPS_DIR = "data/analyzed_swaps_data"
 OUTPUT_PATH = "data/llm_analysis_results.json"
 
 # 初始化 Claude 客户端
-client = anthropic.Anthropic(api_key=os.getenv("CLAUDE_API_KEY"))
+client = anthropic.Anthropic(api_key=get_secret("CLAUDE_API_KEY"))
 
 
 def format_swap_for_llm(swap):
