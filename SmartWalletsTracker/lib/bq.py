@@ -286,3 +286,226 @@ def fetch_sol_price_map() -> dict[str, float]:
 def insert_classifications(rows: list[dict]):
     """Append new classification results (never overwrite history)."""
     _load_rows("wallet_classifications", rows)
+
+
+# ---------------------------------------------------------------------------
+# wallet_candidates / wallet_sources / ingestion_runs  (Phase 4: ingestion)
+# ---------------------------------------------------------------------------
+def upsert_wallet_candidates(
+    candidates: list,          # list of adapters.Candidate
+    source: str,
+    source_query_id: str | None,
+) -> tuple[int, int]:
+    """
+    Merge candidates into wallet_candidates.
+      - New (address, source) pair  -> INSERT with status='pending'
+      - Existing pair               -> UPDATE raw_metrics (status preserved,
+                                        so 'promoted' / 'filtered_out' stick)
+    Returns (new_count, updated_count).
+    """
+    if not candidates:
+        return (0, 0)
+    now = _utcnow_iso()
+    staging_rows = [
+        {
+            "address":         c.address,
+            "chain":           c.chain,
+            "source":          source,
+            "source_query_id": source_query_id,
+            "discovered_at":   now,
+            "raw_metrics":     json.dumps(c.raw_metrics, default=str, ensure_ascii=False),
+        }
+        for c in candidates
+    ]
+    staging_table = f"{DATASET}._staging_candidates_{int(datetime.now().timestamp())}"
+    schema = [
+        bigquery.SchemaField("address", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("chain", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("source", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("source_query_id", "STRING"),
+        bigquery.SchemaField("discovered_at", "TIMESTAMP", mode="REQUIRED"),
+        bigquery.SchemaField("raw_metrics", "JSON"),
+    ]
+    job_config = bigquery.LoadJobConfig(
+        schema=schema,
+        write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE,
+        source_format=bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
+    )
+    client().load_table_from_json(
+        staging_rows, f"{PROJECT}.{staging_table}", job_config=job_config
+    ).result()
+
+    # Count "new" before MERGE (rows in staging not yet in target).
+    count_sql = f"""
+        SELECT COUNT(*) AS n
+        FROM `{PROJECT}.{staging_table}` S
+        LEFT JOIN `{_table("wallet_candidates")}` T
+          ON T.address = S.address AND T.source = S.source
+        WHERE T.address IS NULL
+    """
+    new_count = list(client().query(count_sql).result())[0]["n"]
+
+    merge_sql = f"""
+        MERGE `{_table("wallet_candidates")}` T
+        USING `{PROJECT}.{staging_table}` S
+          ON T.address = S.address AND T.source = S.source
+        WHEN MATCHED THEN UPDATE SET
+            raw_metrics = S.raw_metrics,
+            source_query_id = S.source_query_id
+        WHEN NOT MATCHED THEN INSERT (
+            address, chain, source, source_query_id, discovered_at, raw_metrics, status
+        ) VALUES (
+            S.address, S.chain, S.source, S.source_query_id, S.discovered_at,
+            S.raw_metrics, 'pending'
+        )
+    """
+    client().query(merge_sql).result()
+    client().delete_table(f"{PROJECT}.{staging_table}", not_found_ok=True)
+    return (new_count, len(staging_rows) - new_count)
+
+
+def upsert_wallet_sources(addresses: list[str], source: str):
+    """
+    Upsert (address, source) provenance.
+      - New      -> first_seen_at = last_seen_at = now, seen_count = 1
+      - Existing -> last_seen_at = now, seen_count += 1
+    """
+    if not addresses:
+        return
+    now = _utcnow_iso()
+    staging_rows = [{"address": a, "source": source, "ts": now} for a in addresses]
+    staging_table = f"{DATASET}._staging_sources_{int(datetime.now().timestamp())}"
+    schema = [
+        bigquery.SchemaField("address", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("source", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("ts", "TIMESTAMP", mode="REQUIRED"),
+    ]
+    job_config = bigquery.LoadJobConfig(
+        schema=schema,
+        write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE,
+        source_format=bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
+    )
+    client().load_table_from_json(
+        staging_rows, f"{PROJECT}.{staging_table}", job_config=job_config
+    ).result()
+
+    merge_sql = f"""
+        MERGE `{_table("wallet_sources")}` T
+        USING `{PROJECT}.{staging_table}` S
+          ON T.address = S.address AND T.source = S.source
+        WHEN MATCHED THEN UPDATE SET
+            last_seen_at = S.ts,
+            seen_count = T.seen_count + 1
+        WHEN NOT MATCHED THEN INSERT (
+            address, source, first_seen_at, last_seen_at, seen_count
+        ) VALUES (
+            S.address, S.source, S.ts, S.ts, 1
+        )
+    """
+    client().query(merge_sql).result()
+    client().delete_table(f"{PROJECT}.{staging_table}", not_found_ok=True)
+
+
+def fetch_exchange_wallet_addresses() -> set[str]:
+    """CEX / market-maker deposit addresses — used by filter as a blacklist."""
+    query = f"SELECT address FROM `{_table('exchange_wallets')}`"
+    return {row["address"] for row in client().query(query).result()}
+
+
+def fetch_existing_wallet_addresses() -> set[str]:
+    """Addresses already in the wallets table — don't re-insert."""
+    query = f"SELECT address FROM `{_table('wallets')}`"
+    return {row["address"] for row in client().query(query).result()}
+
+
+def insert_wallets_from_candidates(addresses: list[str], source: str, chain: str = "solana"):
+    """
+    Promote candidate addresses into the wallets table.
+    wallet_id convention: address[:8] (matches infra/migrate_to_bigquery.py).
+    Caller must ensure these addresses are NOT already in wallets.
+    """
+    if not addresses:
+        return
+    now = _utcnow_iso()
+    rows = [
+        {
+            "address":           addr,
+            "wallet_id":         addr[:8],
+            "chain":             chain,
+            "discovered_at":     now,
+            "collection_status": "pending",
+            "status":            "active",
+            "promoted_from":     source,
+        }
+        for addr in addresses
+    ]
+    _load_rows("wallets", rows)
+
+
+def mark_candidates_promoted(addresses: list[str], source: str):
+    """Mark wallet_candidates.status='promoted' (they made it into wallets)."""
+    if not addresses:
+        return
+    query = f"""
+        UPDATE `{_table("wallet_candidates")}`
+        SET status = 'promoted'
+        WHERE source = @source AND address IN UNNEST(@addrs)
+    """
+    job_config = bigquery.QueryJobConfig(query_parameters=[
+        bigquery.ScalarQueryParameter("source", "STRING", source),
+        bigquery.ArrayQueryParameter("addrs", "STRING", addresses),
+    ])
+    client().query(query, job_config=job_config).result()
+
+
+def mark_candidates_filtered(address_to_reason: dict[str, str], source: str):
+    """
+    Mark wallet_candidates.status='filtered_out' with filter_reason.
+    Grouped by reason so we issue one UPDATE per reason (not per address).
+    """
+    if not address_to_reason:
+        return
+    from collections import defaultdict
+    by_reason: dict[str, list[str]] = defaultdict(list)
+    for addr, reason in address_to_reason.items():
+        by_reason[reason].append(addr)
+    for reason, addrs in by_reason.items():
+        query = f"""
+            UPDATE `{_table("wallet_candidates")}`
+            SET status = 'filtered_out', filter_reason = @reason
+            WHERE source = @source AND address IN UNNEST(@addrs)
+        """
+        job_config = bigquery.QueryJobConfig(query_parameters=[
+            bigquery.ScalarQueryParameter("source", "STRING", source),
+            bigquery.ScalarQueryParameter("reason", "STRING", reason),
+            bigquery.ArrayQueryParameter("addrs", "STRING", addrs),
+        ])
+        client().query(query, job_config=job_config).result()
+
+
+def log_ingestion_run(
+    run_id: str,
+    source: str,
+    started_at: str,
+    finished_at: str,
+    status: str,                    # 'success' | 'failed' | 'partial'
+    candidates_fetched: int = 0,
+    candidates_new: int = 0,
+    promoted_to_wallets: int = 0,
+    credits_used: int = 0,
+    error_message: str | None = None,
+):
+    """Append one row to ingestion_runs (observability)."""
+    row = {
+        "run_id":              run_id,
+        "source":              source,
+        "started_at":          started_at,
+        "finished_at":         finished_at,
+        "status":              status,
+        "candidates_fetched":  candidates_fetched,
+        "candidates_new":      candidates_new,
+        "promoted_to_wallets": promoted_to_wallets,
+        "credits_used":        credits_used,
+        "error_message":       error_message,
+    }
+    _load_rows("ingestion_runs", [row])

@@ -1,0 +1,41 @@
+# Secrets — 绝对不能进镜像
+.env
+*.pem
+*.key
+service-account*.json
+
+# Python 构建垃圾
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# 虚拟环境（如果本地有的话）
+venv/
+.venv/
+env/
+
+# macOS / 编辑器垃圾
+.DS_Store
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
+
+# 文档 / 设计文件（runtime 不需要）
+*.md
+DesignDoc.txt
+
+# 不是 pipeline 运行时用到的代码
+llm.py
+check_swaps.py
+infra/
+
+# Docker 自己
+Dockerfile
+.dockerignore

@@ -6,10 +6,15 @@ Cloud Run Job 容器启动后只执行一条命令：python main.py
 Cloud Scheduler 会据此判定本次调度失败。
 
 阶段顺序 (有数据依赖，必须 sequential)：
-  1. fetch_sol_prices   : 更新 SOL 历史价格 → sol_prices 表
-  2. collect_traders_swaps : 拉新 swap → raw_swaps 表
-  3. analyze_wallets    : 解析新 swap → analyzed_swaps 表
-  4. filter_traders     : 分类钱包 → wallet_classifications 表
+  1. ingest_wallets     : 从 Dune 等源拉候选钱包 → wallet_candidates + wallets
+  2. fetch_sol_prices   : 更新 SOL 历史价格 → sol_prices 表
+  3. collect_traders_swaps : 拉新 swap → raw_swaps 表
+  4. analyze_wallets    : 解析新 swap → analyzed_swaps 表
+  5. filter_traders     : 分类钱包 → wallet_classifications 表
+
+失败策略：
+  - ingest_wallets 失败 → 只告警，不中断（已有的 wallets 照常处理）
+  - 其他步骤失败        → 整个 job 退出码 1，Cloud Scheduler 记为失败
 
 本地调试：python main.py
 Cloud Run: 同样是 python main.py
@@ -23,6 +28,7 @@ import analyze_wallets
 import collect_traders_swaps
 import fetch_sol_prices
 import filter_traders
+import ingest_wallets
 
 
 def run_step(name: str, func) -> float:
@@ -48,18 +54,26 @@ def main():
     overall_start = time.time()
     timings = {}
 
+    # Step 1: ingest_wallets — non-fatal on failure (adapter may be down,
+    # pipeline should still process the wallets we already track).
+    try:
+        timings["ingest_wallets"] = run_step("1/5 ingest_wallets", ingest_wallets.main)
+    except Exception:
+        print("[ingest_wallets] non-fatal — continuing with existing wallets", flush=True)
+        timings["ingest_wallets"] = -1.0
+
     try:
         timings["fetch_sol_prices"] = run_step(
-            "1/4 fetch_sol_prices", fetch_sol_prices.fetch_sol_prices
+            "2/5 fetch_sol_prices", fetch_sol_prices.fetch_sol_prices
         )
         timings["collect_traders_swaps"] = run_step(
-            "2/4 collect_traders_swaps", collect_traders_swaps.main
+            "3/5 collect_traders_swaps", collect_traders_swaps.main
         )
         timings["analyze_wallets"] = run_step(
-            "3/4 analyze_wallets", analyze_wallets.main
+            "4/5 analyze_wallets", analyze_wallets.main
         )
         timings["filter_traders"] = run_step(
-            "4/4 filter_traders", filter_traders.main
+            "5/5 filter_traders", filter_traders.main
         )
     except Exception:
         # Any step raised. traceback already printed by run_step.

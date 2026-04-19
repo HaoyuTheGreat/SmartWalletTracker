@@ -1,0 +1,14 @@
+# BigQuery — 读写 raw_swaps / analyzed_swaps / wallet_classifications
+google-cloud-bigquery==3.41.0
+
+# Secret Manager — 云上拿 HELIUS_API_KEY（本地走 .env，云上走这个）
+google-cloud-secret-manager==2.27.0
+
+# HTTP 客户端 — 调 Helius / Binance API
+requests==2.33.1
+
+# 读 .env 文件 — 本地 dev 用
+python-dotenv==0.21.0
+
+# Dune Analytics — wallet candidate ingestion（Step 0 of pipeline）
+dune-client==1.10.0

@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(f'Total wallets: {len\\(d\\)}'\\); print\\(json.dumps\\(d[0], indent=2\\)\\)\")"
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(f'Total wallets: {len\\(d\\)}'\\); print\\(json.dumps\\(d[0], indent=2\\)\\)\")",
+      "WebFetch(domain:docs.dune.com)",
+      "WebFetch(domain:dune.com)",
+      "WebSearch",
+      "WebFetch(domain:github.com)"
     ]
   }
 }
