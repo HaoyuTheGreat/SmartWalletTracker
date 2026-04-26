@@ -1,16 +1,16 @@
 """
-analyze_wallets.py - 读取 BigQuery raw_swaps，解析成统一结构后写入 analyzed_swaps
+analyze_wallets.py - Read raw_swaps from BigQuery, parse to unified shape, write analyzed_swaps.
 
-优化点 (对比 file-based 老版本):
-  1. Token symbol cache 从 BQ 的 analyzed_swaps 里预加载，复用以前解析过的 symbol
-     → 重跑几乎不需要调 Helius DAS API
-  2. raw_swaps / already-analyzed sigs 一次 SELECT 全量拉回，python 端分组
-     → 把 61 次 BQ 查询压缩成 2 次
-  3. 所有钱包的解析结果累加到一个大 list，最后一次性 insert_analyzed_swaps
-     → 61 次 BQ load job 压缩成 1 次
-  4. 首次跑 (BQ 里没有 symbol) 时，回退到本地 data/token_names.json 作为 bootstrap
+Optimizations vs the old file-based version:
+  1. Token symbol cache is preloaded from BQ analyzed_swaps, reusing previously resolved symbols
+     → re-runs almost never hit the Helius DAS API.
+  2. raw_swaps / already-analyzed signatures are fetched in a single SELECT and grouped in Python
+     → 61 BQ queries collapsed into 2.
+  3. Every wallet's parsed rows are accumulated into one list and written via a single
+     insert_analyzed_swaps call → 61 BQ load jobs collapsed into 1.
+  4. First run (no symbols in BQ) falls back to local data/token_names.json as bootstrap.
 
-增量策略：只分析当前 parser_version 没处理过的 signature。
+Incremental strategy: only analyze signatures the current parser_version hasn't processed yet.
 """
 
 import json

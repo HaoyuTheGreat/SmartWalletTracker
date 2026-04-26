@@ -1,6 +1,7 @@
 # SmartWalletsTracker — Design Doc
 
-> 这份文档记录系统**为什么这么设计**（design decisions + rationale），而不是**每个模块做什么**（那是 PROJECT_OVERVIEW.md 的事）。读这份文档的人应该已经读过 overview。
+> This document captures **why** the system is built this way (design decisions + rationale),
+> not **what each module does** (that's the README's job). Read the README first.
 
 Last updated: 2026-04-17
 Author: Haoyu
@@ -9,14 +10,19 @@ Author: Haoyu
 
 ## 1. Problem Statement
 
-在 Solana 链上，散户拿不到"哪些地址是聪明钱"这种高价值信号 —— BirdEye/GMGN/Nansen 的 Smart Money 标签都在付费墙后。
+On Solana, retail users can't access a high-signal feed of "which addresses are smart money" —
+the Smart Money labels on BirdEye / GMGN / Nansen all sit behind paywalls.
 
-**目标**：自建一条端到端数据管线，从链上原始交易推导出钱包分类（聪明钱 / 做市商 / 高频 bot / 代理地址 / 数据不足），最终为跟单策略和 ML 模型提供训练数据。
+**Goal**: build an end-to-end pipeline that derives wallet classifications
+(smart money / market maker / high-frequency bot / proxy address / insufficient data)
+directly from on-chain transactions, producing the training data needed for copy-trading
+strategies and downstream ML models.
 
-**非目标（Non-goals）**：
-- 实时（sub-second）信号 —— 现阶段 daily batch 足够
-- 覆盖全链所有地址 —— 只跟踪人工 + 外部源收录的子集
-- 复杂 PnL 计算（考虑 impermanent loss、gas、MEV 等）—— v1 简化为 `sol_received - sol_spent`
+**Non-goals**:
+- Real-time (sub-second) signals — daily batch is enough for now.
+- Whole-chain coverage — we only track a curated subset (manual + external sources).
+- Sophisticated PnL accounting (impermanent loss, gas, MEV, etc.) —
+  v1 simplifies to `sol_received - sol_spent`.
 
 ---
 
@@ -24,7 +30,7 @@ Author: Haoyu
 
 ```
 ┌──────────────────┐
-│ Cloud Scheduler  │   每天 09:00 ET
+│ Cloud Scheduler  │   daily at 09:00 ET
 │ (daily cron)     │
 └────────┬─────────┘
          │ HTTPS POST (OAuth, SA: smartwallets-scheduler)
@@ -48,29 +54,30 @@ Author: Haoyu
 └──────────────────┘
 ```
 
-**外部依赖**：
-- Helius REST API + DAS JSON-RPC（swap 数据 + token metadata）
-- Binance Klines API（SOL 历史价格，免费）
-- GCP Secret Manager（HELIUS_API_KEY）
+**External dependencies**:
+- Helius REST API + DAS JSON-RPC (swap data + token metadata)
+- Binance Klines API (SOL daily prices, free)
+- GCP Secret Manager (HELIUS_API_KEY)
 
 ---
 
 ## 3. Data Model
 
-5 张 BigQuery 表，全部在 dataset `whale_tracker`。设计原则：**append-only**，不做 UPDATE/DELETE，分析历史自带时间维度。
+5 BigQuery tables, all in dataset `whale_tracker`. Design rule: **append-only** —
+no UPDATE/DELETE, so historical analysis carries time as a built-in dimension.
 
-| 表 | 主键/去重键 | 分区 | 聚簇 | 用途 |
+| Table | Primary key / dedup key | Partition | Cluster | Purpose |
 |---|---|---|---|---|
-| `wallets` | `address` | — | — | 钱包名册（现在手动，未来自动收录） |
-| `raw_swaps` | `(wallet_id, signature)` | `DATE(tx_time)` | `wallet_id` | Helius 返回的原始交易 JSON |
-| `sol_prices` | `price_date` | — | — | SOL 日线收盘价 |
-| `analyzed_swaps` | `(wallet_id, signature)` | `DATE(swap_time)` | `wallet_id` | 解析后的统一格式 |
-| `wallet_classifications` | `(wallet_id, classified_at)` | `DATE(classified_at)` | `wallet_id` | 每次跑的分类结果，**append-only** |
+| `wallets` | `address` | — | — | Wallet roster (manual today, automated later) |
+| `raw_swaps` | `(wallet_id, signature)` | `DATE(tx_time)` | `wallet_id` | Raw transaction JSON from Helius |
+| `sol_prices` | `price_date` | — | — | SOL daily close prices |
+| `analyzed_swaps` | `(wallet_id, signature)` | `DATE(swap_time)` | `wallet_id` | Parsed swaps in unified shape |
+| `wallet_classifications` | `(wallet_id, classified_at)` | `DATE(classified_at)` | `wallet_id` | One row per wallet per run, **append-only** |
 
-**为什么 classifications 表是 append-only**：
-- 每天都会 insert 一批新行，同一个 `wallet_id` 会有多条记录
-- 未来分析可以回溯「这个钱包是什么时候从 insufficient_data 变成 smart_candidate 的」
-- 如果覆盖写，这段状态演化历史就丢了
+**Why classifications is append-only**:
+- Every run inserts a fresh batch — a single `wallet_id` ends up with many rows.
+- Future analysis can answer "when did this wallet move from insufficient_data to smart_candidate?"
+- Overwriting would erase that state-evolution history.
 
 ---
 
@@ -78,68 +85,83 @@ Author: Haoyu
 
 ### 4.1 Why BigQuery over file storage?
 
-**之前**：每个钱包一个 JSON 文件（`data/wallets_swap_data/{wallet_id}.json`）。
-**现在**：全部进 BigQuery，文件系统只用于临时缓存。
+**Before**: one JSON per wallet (`data/wallets_swap_data/{wallet_id}.json`).
+**Now**: everything lives in BigQuery; the filesystem is only used for transient caches.
 
-**迁移原因**：
-1. **跨查询能力**：filter_traders 要对所有钱包做 JOIN / GROUP BY，文件方案得手写 Python 循环 + 内存聚合，BQ 一条 SQL 搞定
-2. **Cloud Run 的 ephemeral filesystem**：容器重启文件就没了，数据必须落到外部存储
-3. **Partition + cluster**：BQ 能按日期剪枝 scan 量，189s → 2s 的优化就靠这个（见 §5）
-4. **Cost**：dataset 小（全部 tables 一起不到 1GB），BigQuery free tier 完全 cover
+**Reasons for migrating**:
+1. **Cross-wallet querying**: filter_traders needs JOINs / GROUP BY across all wallets;
+   the file approach would require hand-rolled Python loops + in-memory aggregation,
+   while BQ does it in one SQL.
+2. **Cloud Run's ephemeral filesystem**: container restarts lose the data —
+   it must live in external storage.
+3. **Partition + cluster**: BQ can prune by date, which is what made the
+   189s → 2s win possible (see §5).
+4. **Cost**: dataset is small (<1 GB combined), well within the BigQuery free tier.
 
-**Trade-off**：BQ 有 warmup latency（第一条 query 几秒才返回），但对 batch pipeline 不是问题。
+**Trade-off**: BQ has warmup latency (the first query takes a few seconds),
+but that doesn't matter for a batch pipeline.
 
 ### 4.2 Why Cloud Run Jobs, not Cloud Run Services?
 
-| 需求 | Jobs | Services |
+| Need | Jobs | Services |
 |---|---|---|
-| 运行模式 | 一次性跑完退出 | 长期待命响应 HTTP |
-| 触发方式 | 手动 / Scheduler | HTTP request |
-| 超时 | 最长 24h | 单次 request 60min |
-| 计费 | 只算执行时长 | 按 request + instance 时长 |
+| Runtime model | Run once and exit | Stay up, respond to HTTP |
+| Trigger | Manual / Scheduler | HTTP request |
+| Max runtime | 24h | 60min per request |
+| Billing | Pay only for execution time | Per request + instance time |
 
-本 pipeline 是**每天跑一次 ~5 分钟**的 batch job，完美契合 Jobs 模式。选 Services 会为 23h55min 的闲置时间付账，还要自己写 HTTP handler。
+This pipeline is a **once-a-day, ~5-minute** batch job — a perfect fit for Jobs.
+Services would charge for 23h55min of idle time and would force us to write an HTTP handler.
 
 ### 4.3 Why two Service Accounts (runner + scheduler)?
 
-**Least privilege 最小权限原则**：
+**Least-privilege principle**:
 
 ```
-smartwallets-runner      ← Job 运行时的身份
+smartwallets-runner      ← Job's runtime identity
   - roles/bigquery.dataEditor
   - roles/secretmanager.secretAccessor
 
-smartwallets-scheduler   ← Scheduler 触发 Job 时的身份
-  - roles/run.invoker  (仅对 smartwalletstracker-job)
+smartwallets-scheduler   ← Scheduler's identity (fires the Job)
+  - roles/run.invoker  (only on smartwalletstracker-job)
 ```
 
-**为什么分开**：
-- 职责不同：一个做数据读写，一个做"按按钮"
-- 爆炸半径（blast radius）小：scheduler SA 被泄露也读不到 BQ 数据；runner SA 不能触发自己
-- Audit trail 清晰：Cloud Run execution log 里 `RUN BY` 字段一眼能看出是 scheduler 还是人工触发
+**Why split them**:
+- Different jobs: one reads/writes data, the other "presses the button".
+- Smaller blast radius: a compromised scheduler SA still can't read BQ;
+  the runner SA can't trigger itself.
+- Clean audit trail: Cloud Run execution logs show `RUN BY`, so it's obvious
+  whether the run came from the scheduler or a human.
 
-### 4.4 Why Secret Manager over `.env` in image?
+### 4.4 Why Secret Manager over `.env` baked into the image?
 
-**绝对不能**把 `.env` 打进 image 的原因：
-1. 谁 pull image = 谁拿到 key（镜像仓库权限 ≠ secret 权限，本来就该隔离）
-2. Key 轮换要重 build + push image，不合理
-3. Image layer 进了 Artifact Registry 就很难彻底删（历史 layer 可能被缓存）
+**Never bake `.env` into the image**, because:
+1. Whoever pulls the image gets the key (registry access ≠ secret access — they should be separate).
+2. Rotating a key would require rebuild + push, which is silly.
+3. Image layers in Artifact Registry are hard to fully purge (cached layers may linger).
 
-**当前方案**：Secret Manager 存 `HELIUS_API_KEY`，Cloud Run 部署时用 `--set-secrets=HELIUS_API_KEY=HELIUS_API_KEY:latest`，容器启动时自动注入成环境变量。代码里 `os.getenv("HELIUS_API_KEY")` 一行不改 —— 本地从 `.env` 读，云上从 Secret Manager 注入。
+**Current approach**: Secret Manager holds `HELIUS_API_KEY`; the Cloud Run Job is deployed
+with `--set-secrets=HELIUS_API_KEY=HELIUS_API_KEY:latest`, which the runtime injects as an env var.
+The application code stays the same — `os.getenv("HELIUS_API_KEY")` works whether the key
+came from `.env` locally or from Secret Manager in the cloud.
 
 ### 4.5 Schema versioning in analyzed_swaps
 
-字段 `parser_version INT64` 记录"这条记录是用第几版解析器跑出来的"。每次改 `analyze_wallets.py` 里的解析逻辑就递增 VERSION 常量，已分析记录自动被识别为 stale 并重新解析。
+The `parser_version INT64` field records "which parser version produced this row".
+Bumping the constant in `analyze_wallets.py` automatically marks every existing row
+as stale and reanalyzes them.
 
-**为什么需要**：多 DEX（Jupiter / Raydium / Orca / PUMP_AMM / OKX / DFLOW）的数据结构有微妙差异，第一版解析器漏掉了一些边界情况。没有 version 字段就只能"全量重跑"或"盲猜哪些记录有问题"。
+**Why we need it**: multiple DEXes (Jupiter / Raydium / Orca / PUMP_AMM / OKX / DFLOW)
+have subtly different shapes, and v1 of the parser missed several edge cases.
+Without a version field, the only options are "reparse everything" or "guess which rows are wrong".
 
 ---
 
-## 5. Performance Stories（面试谈资）
+## 5. Performance Stories (interview-worthy)
 
-### 5.1 analyze_wallets: 189s → 2s（94× speedup）
+### 5.1 analyze_wallets: 189s → 2s (94× speedup)
 
-**Problem**：每次 `analyze_wallets` 跑全量时，要先查 "哪些 raw_swaps 还没被解析"。原 SQL：
+**Problem**: every full run started by asking "which raw_swaps haven't been parsed yet?". Original SQL:
 
 ```sql
 SELECT * FROM raw_swaps
@@ -148,9 +170,10 @@ WHERE (wallet_id, signature) NOT IN (
 )
 ```
 
-全表扫描 500MB × 2 = **189 秒**。
+Full scan of 500 MB × 2 = **189 seconds**.
 
-**Fix**：利用 BQ 的 partition + cluster。大部分新 swap 都是最近几天的，不必扫描历史分区：
+**Fix**: leverage BQ's partition + cluster. New swaps are almost always recent,
+so there's no point scanning historical partitions:
 
 ```sql
 SELECT * FROM raw_swaps
@@ -163,39 +186,47 @@ WHERE tx_time >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 14 DAY)
   )
 ```
 
-BQ 直接裁掉 14 天前的分区，scan 量从全表降到 ~3%。**2 秒完成**。
+BQ prunes everything older than 14 days; scan volume drops from full table to ~3%.
+**2 seconds**.
 
-**核心概念**：predicate pushdown —— 把过滤条件"推到"存储层（partition pruning），避免无意义的 I/O。这是所有 columnar / partitioned 存储的通用优化（Parquet、Iceberg、Delta Lake 都一样）。
+**Concept**: predicate pushdown — push filter predicates down to the storage layer
+(partition pruning) so unnecessary I/O never happens. This is universal across
+columnar / partitioned formats (Parquet, Iceberg, Delta Lake, etc.).
 
 ### 5.2 filter_traders: 122 queries → 2 queries
 
-**Problem**：对 61 个钱包做分类，原代码对每个钱包都发两条 query（一条取 swaps，一条取 prices）。**N+1 query problem**。网络来回 + BQ warmup 加起来占了大部分时间。
+**Problem**: classifying 61 wallets used to fire two queries per wallet
+(one for swaps, one for prices) — the classic **N+1 query** pattern.
+Network round-trips + BQ warmup dominated the wall-clock time.
 
-**Fix**：batching。一次性把所有钱包的数据拉下来，Python 侧用 `pandas.groupby` 做分组。从 122 条 query 降到 2 条 —— pipeline 耗时从 ~4min 降到 ~30s。
+**Fix**: batching. Pull every wallet's data in two queries, then
+`pandas.groupby` in Python. 122 queries → 2 queries; pipeline drops from ~4 min to ~30 s.
 
-**核心概念**：N+1 是数据库最常见的性能反模式。ORM 尤其容易犯（for loop 里 lazy load），解法永远是 batch fetch + in-memory join。
+**Concept**: N+1 is the most common database performance anti-pattern.
+ORMs are especially prone to it (lazy-loading inside a `for` loop).
+The fix is always batch-fetch + in-memory join.
 
 ---
 
 ## 6. Deployment
 
 ```
-本地 dev          →  build image      →  Artifact Registry    →  Cloud Run Job
-python main.py       docker build         us-central1-docker      smartwalletstracker-job
-(从 .env 读 key)     --platform                                   (Secret Manager 注入 key)
-                     linux/amd64
+local dev          →  build image      →  Artifact Registry    →  Cloud Run Job
+python main.py        docker build         us-central1-docker      smartwalletstracker-job
+(reads .env)          --platform                                   (Secret Manager injects key)
+                      linux/amd64
 ```
 
-一键部署（Makefile）：
+One-shot deploy via Makefile:
 ```
 make deploy    # build + push + update job image
-make run       # 云上触发一次
-make logs      # 看最近一次执行
+make run       # trigger one cloud run
+make logs      # show the most recent execution
 ```
 
-触发：Cloud Scheduler `daily-smartwallets-pipeline`，`0 9 * * * America/New_York`。
+Trigger: Cloud Scheduler `daily-smartwallets-pipeline`, `0 9 * * * America/New_York`.
 
-详细部署步骤见 TODO.md。
+See TODO.md for the detailed deployment steps.
 
 ---
 
@@ -203,48 +234,61 @@ make logs      # 看最近一次执行
 
 ### 7.1 Memory bloat: JSON → Python objects
 
-**现象**：filter_traders 第一次在 Cloud Run（2Gi memory）跑 OOM。
-**原因**：BQ 返回 500MB 的 `raw_json` 字段，`json.loads()` 后膨胀到 3-4GB Python 对象（dict / list 的 overhead 远大于纯文本）。
-**临时 fix**：Job memory 调到 4Gi。
-**真正的 fix（TODO）**：filter_traders 根本不该读 `raw_json` —— 它只需要 analyzed_swaps 的结构化字段。需要重构查询只 select 必要列。
+**Symptom**: filter_traders OOM'd on the first Cloud Run execution (2Gi memory).
+**Cause**: BQ returns 500 MB of `raw_json`, and `json.loads()` inflates it to 3-4 GB
+of Python objects (dict / list overhead dwarfs the raw text).
+**Quick fix**: bumped Job memory to 4Gi.
+**Real fix (TODO)**: filter_traders shouldn't read `raw_json` at all —
+it only needs the structured fields in analyzed_swaps. Refactor the query
+to select only the columns it actually uses.
 
 ### 7.2 2000-swap window clipping
 
-Helius API 对单钱包最多返回 2000 条历史 swap。对非常活跃的钱包（做市商、bot）这个窗口只覆盖最近几天。
-**当前处理**：`data_clipped` 标签标记（当某个 token 的卖出量 > 买入量 × 1.1 时），避免错误分类。
-**未来**：支持增量拉取 + cursor（`before` 参数），累积覆盖完整历史。
+The Helius API returns at most 2000 historical swaps per wallet.
+For very active wallets (market makers, bots) that window only covers the last few days.
+**Today**: tagged `data_clipped` (when a token's sells exceed buys × 1.1) to avoid misclassification.
+**Future**: incremental fetch + cursor (`before` parameter) to accumulate full history.
 
-### 7.3 Proxy wallet 检测不完美
+### 7.3 Imperfect proxy detection
 
-当前规则是"钱包地址既不在 tokenTransfers，也没 events.swap" = proxy。但新 DEX 出来就可能绕过这个规则。长期得做行为特征 + ML 分类。
+The current rule is "wallet not in tokenTransfers and no events.swap" → proxy.
+A new DEX could break this rule. Long-term: behavioral features + ML classification.
 
 ---
 
 ## 8. Future Work
 
-### 8.1 Wallet auto-ingestion（next milestone）
-目前 `wallets` 表靠手动 insert。下一期要接入：
+### 8.1 Wallet auto-ingestion (next milestone)
+The `wallets` table is hand-curated today. Next: integrate
 - BirdEye top traders API
-- GMGN smart money（需要 reverse engineer XHR 或接付费 API）
+- GMGN smart money (reverse-engineer the XHR or pay for the API)
 - Arkham entity intelligence
 
-**新 schema**：加 `wallet_sources` 表记录「这个钱包什么时候从哪个源发现的」，支持多源 dedup 和溯源。
+**New schema**: add a `wallet_sources` table recording "which source surfaced this wallet, when",
+to support multi-source dedup and provenance.
 
 ### 8.2 ML classification
-用 `wallet_classifications` 的历史数据训练监督模型，特征包括：
-- 日均交易频率、买卖比、头部 token 占比
-- 持仓时长分布、PnL 分布
-- 交易时段分布（检测 bot 的 24/7 模式）
+Train a supervised model on `wallet_classifications` history; features include
+- daily trade frequency, buy/sell ratio, top-token concentration
+- holding-period distribution, PnL distribution
+- time-of-day distribution (catches the 24/7 pattern of bots)
 
-目标：把 rule-based 分类升级成 learned classifier，新规则不用硬编码。
+Goal: replace rule thresholds with a learned classifier so new patterns don't need hand-coded rules.
 
 ### 8.3 Real-time copy trading
-监控 smart_candidate 钱包的新交易（Helius Webhook），推送信号到 Telegram / Discord。这是项目的最终愿景，但需要先把分类准确率做上去。
+Watch new transactions from `smart_candidate` wallets via Helius Webhooks and
+push signals to Telegram / Discord. This is the long-term vision but requires
+classification accuracy to be solid first.
 
 ---
 
 ## 9. Open Questions
 
-- [ ] BQ 成本什么时候会成为问题？目前 free tier 够，但 raw_swaps 每天增长 ~10MB，一年后 ~3.6GB scan/query。需要考虑 clustering 调优或归档策略。
-- [ ] Scheduler 失败怎么告警？目前挂了只会 Cloud Logging 里有错误日志，没人看。考虑接 Cloud Monitoring alerting + email。
-- [ ] 跨链扩展？Ethereum / Base 上也有 smart money，但数据源和解析逻辑完全不同，现有 schema 里 `chain` 字段预留了但没用上。
+- [ ] When does BQ cost start to bite? Free tier covers it today, but raw_swaps
+      grows ~10 MB/day, so a year out is ~3.6 GB scanned per query. Will need
+      cluster tuning or an archive strategy.
+- [ ] Alerting on scheduler failures? Today a failed run only shows up in
+      Cloud Logging, which nobody watches. Plan: hook Cloud Monitoring → email.
+- [ ] Cross-chain support? Ethereum / Base also have smart money, but the
+      sources and parsing logic differ entirely. The schema reserves a `chain`
+      field, but we haven't used it yet.

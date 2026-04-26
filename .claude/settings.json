@@ -5,7 +5,27 @@
       "WebFetch(domain:docs.dune.com)",
       "WebFetch(domain:dune.com)",
       "WebSearch",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(cp /Users/haoyuwuzhaer/.claude/projects/-Users-haoyuwuzhaer-Desktop-myTrading-SWT/memory/user_background.md /Users/haoyuwuzhaer/.claude/projects/-Users-haoyuwuzhaer-Desktop-myTrading-SqlAssistant/memory/)",
+      "Bash(cp /Users/haoyuwuzhaer/.claude/projects/-Users-haoyuwuzhaer-Desktop-myTrading-SWT/memory/feedback_bilingual_terms.md /Users/haoyuwuzhaer/.claude/projects/-Users-haoyuwuzhaer-Desktop-myTrading-SqlAssistant/memory/)",
+      "Read(//Users/haoyuwuzhaer/.claude/projects/-Users-haoyuwuzhaer-Desktop-myTrading-SqlAssistant/memory/**)",
+      "Read(//Users/haoyuwuzhaer/Desktop/myTrading/**)",
+      "Bash(gcloud auth *)",
+      "Bash(gcloud config *)",
+      "Bash(grep -E \"\\(\\\\.env$|key\\\\.json\\)\")",
+      "Bash(git remote *)",
+      "Bash(brew install *)",
+      "Bash(git stash *)",
+      "Bash(git filter-repo *)",
+      "Bash(echo \"=== exit code $? \\(1 = no match = good\\) ===\")",
+      "Bash(git checkout *)",
+      "Bash(git rm *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ],
+    "additionalDirectories": [
+      "/Users/haoyuwuzhaer/.claude/projects/-Users-haoyuwuzhaer-Desktop-myTrading-SqlAssistant/memory",
+      "/Users/haoyuwuzhaer/Desktop/myTrading/SqlAssistant"
     ]
   }
 }

@@ -1,12 +1,12 @@
 """
-collect_traders_swaps.py - 从 Helius 拉取钱包 swap 交易写入 BigQuery raw_swaps
+collect_traders_swaps.py - Pull wallet swap txs from Helius into BigQuery raw_swaps.
 
-流程：
-  1. 从 BQ wallets 表取出需要更新的钱包 (距上次抓取 >24h 或从未抓过)
-  2. 每个钱包先查 BQ 里已有 signatures，Helius 按 "newest first" 分页往回翻
-  3. 命中已知 signature 就停 (增量抓取，避免重复拉 2000 条)
-  4. 新抓到的 txs 批量写入 raw_swaps 表
-  5. 更新 wallets.collection_status = 'ok' / 'failed'
+Flow:
+  1. Read wallets that need a refresh from BQ (last fetched >24h ago, or never fetched).
+  2. For each wallet, look up its existing signatures in BQ, then page Helius newest-first.
+  3. Stop as soon as we hit a known signature (incremental — avoids pulling all 2000 again).
+  4. Bulk-insert the new txs into raw_swaps.
+  5. Update wallets.collection_status = 'ok' / 'failed'.
 """
 
 import sys
@@ -102,7 +102,7 @@ def main():
             bq.update_wallet_status(wallet_id, "failed")
             print(f"[{wallet_id}] failed (no swaps found)")
 
-        time.sleep(1)
+        time.sleep(0.2)
 
 
 if __name__ == "__main__":

@@ -1,12 +1,13 @@
 """
-fetch_sol_prices.py - 抓取 SOL/USDT 每日收盘价写入 BigQuery sol_prices 表
+fetch_sol_prices.py - Fetch daily SOL/USDT close prices into BigQuery sol_prices table.
 
-数据源：Binance public klines API (免费，无需 key)
-存储：BigQuery `whale_tracker.sol_prices` (通过 bq.upsert_sol_prices MERGE 去重)
+Source: Binance public klines API (free, no API key required)
+Sink:   BigQuery `whale_tracker.sol_prices` (idempotent upsert via bq.upsert_sol_prices MERGE)
 
-增量策略：
-  读取 BQ 里已有最新日期，只从那天开始往后拉 Binance 数据，避免重复抓 1400+ 天历史。
-  首次运行（BQ 空表）时 start_time=0，抓全量历史。
+Incremental strategy:
+  Reads the latest date already in BQ and only fetches from that date forward,
+  avoiding a redundant pull of 1400+ days of history.
+  On first run (empty BQ table) start_time=0, so the full history is fetched.
 """
 
 import time
@@ -18,7 +19,7 @@ from lib import bq
 
 
 def _latest_price_date_ms() -> int:
-    """返回 BQ sol_prices 里最新一天的 epoch ms。空表返回 0 (抓全量)。"""
+    """Return epoch-ms of the latest date in BQ sol_prices. Empty table returns 0 (fetch full history)."""
     price_map = bq.fetch_sol_price_map()
     if not price_map:
         return 0

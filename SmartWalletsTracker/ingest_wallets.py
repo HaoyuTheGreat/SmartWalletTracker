@@ -28,6 +28,12 @@ from lib.adapters import DuneAdapter, SourceAdapter
 
 load_dotenv()
 
+# Cap how many brand-new wallets we promote from candidates -> wallets per run.
+# The Dune query returns a big pool (~5000); we drip-feed to bound Helius API
+# cost on the next stage. Pool is exhausted over time; candidates come ordered
+# by volume DESC, so each day we promote the next tier down.
+DAILY_PROMOTION_LIMIT = 20
+
 
 def _utcnow_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
@@ -80,31 +86,40 @@ def run_source(adapter: SourceAdapter) -> dict:
         cex_set = bq.fetch_exchange_wallet_addresses()
         existing_wallets = bq.fetch_existing_wallet_addresses()
 
-        to_insert: list[str] = []
-        to_mark_promoted: list[str] = []
+        # Candidates arrive in the Dune query's ORDER BY order (volume DESC).
+        # Preserve that order when deciding which new wallets to promote today.
+        to_insert_all: list[str] = []   # new wallets, ordered by priority
+        already_tracked: list[str] = []  # already in wallets, just refresh provenance
         to_filter: dict[str, str] = {}
 
         for c in candidates:
             if c.address in cex_set:
                 to_filter[c.address] = "known_cex"
             elif c.address in existing_wallets:
-                # Already tracked (manual add or prior promotion) — keep provenance but don't re-insert
-                to_mark_promoted.append(c.address)
+                already_tracked.append(c.address)
             else:
-                to_insert.append(c.address)
-                to_mark_promoted.append(c.address)
+                to_insert_all.append(c.address)
 
-        # 4. Apply outcomes
-        if to_insert:
-            bq.insert_wallets_from_candidates(to_insert, source)
-            print(f"[{source}] inserted {len(to_insert)} new wallets")
-        if to_mark_promoted:
-            bq.mark_candidates_promoted(to_mark_promoted, source)
+        # 4. Rate-limited promotion: take the top N new wallets this run,
+        # leave the rest in wallet_candidates with status='pending' for future runs.
+        to_insert_today = to_insert_all[:DAILY_PROMOTION_LIMIT]
+        deferred_count = len(to_insert_all) - len(to_insert_today)
+
+        if to_insert_today:
+            bq.insert_wallets_from_candidates(to_insert_today, source)
+            print(f"[{source}] promoted {len(to_insert_today)} new wallets "
+                  f"({deferred_count} deferred to future runs)")
+        elif deferred_count == 0:
+            print(f"[{source}] no new wallets to promote")
+
+        promoted_now = to_insert_today + already_tracked
+        if promoted_now:
+            bq.mark_candidates_promoted(promoted_now, source)
         if to_filter:
             bq.mark_candidates_filtered(to_filter, source)
             print(f"[{source}] filtered out {len(to_filter)} (CEX blacklist)")
 
-        summary["promoted_to_wallets"] = len(to_insert)
+        summary["promoted_to_wallets"] = len(to_insert_today)
         summary["status"] = "success"
 
     except Exception as e:

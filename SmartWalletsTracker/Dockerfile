@@ -1,39 +1,40 @@
 # syntax=docker/dockerfile:1
 
 # ============================================================
-# 基础镜像 (base image): 官方 Python 3.11 slim 版
-# slim 版比 full 版小一半以上，只保留跑 Python 所需的最小 Debian 系统
+# Base image: official Python 3.11 slim
+# slim is half the size of full and ships only the minimal
+# Debian system needed to run Python.
 # ============================================================
 FROM python:3.11-slim
 
 # ============================================================
-# Python 运行环境变量
+# Python runtime env vars
 # ============================================================
-# 不生成 .pyc 字节码缓存文件 (容器里没必要写)
+# Don't write .pyc bytecode files (no point inside a container)
 ENV PYTHONDONTWRITEBYTECODE=1
-# stdout/stderr 不做 buffering，print() 立刻刷出来 → Cloud Logging 能实时看到
+# Disable stdout/stderr buffering so print() flushes immediately
+# → Cloud Logging shows output in real time
 ENV PYTHONUNBUFFERED=1
 
 # ============================================================
-# 工作目录 (相当于 cd /app)
+# Working directory (equivalent to cd /app)
 # ============================================================
 WORKDIR /app
 
 # ============================================================
-# 第一步：只拷 requirements.txt 装依赖
-# 单独一层 → 依赖没变时改代码不会触发重装
+# Step 1: copy requirements.txt and install deps in its own layer
+# → editing code without touching deps doesn't trigger a reinstall
 # ============================================================
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ============================================================
-# 第二步：拷项目代码
-# 这层变动最频繁，放最后
-# (.dockerignore 已经排除了 .env / __pycache__ / llm.py 等)
+# Step 2: copy project code (most-changed layer goes last)
+# (.dockerignore already excludes .env / __pycache__ / llm.py / etc.)
 # ============================================================
 COPY . .
 
 # ============================================================
-# 容器启动时跑什么
+# Container entrypoint
 # ============================================================
 CMD ["python", "main.py"]

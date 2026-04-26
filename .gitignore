@@ -1,9 +1,49 @@
-# === Windows 保留名（防止误创建导致 git 报错）===
-nul
+# === Secrets — never commit ===
+.env
+.env.*
+*.pem
+*.key
+service-account*.json
+key.json
 
-# === MacOS 垃圾文件 ===
-.DS_Store
-
-# === Python 编译文件 ===
+# === Python ===
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# === Virtualenvs ===
+venv/
+.venv/
+env/
+ENV/
+
+# === macOS / editor junk ===
+.DS_Store
+.idea/
+.vscode/
+
+# === Claude Code (keep project settings, ignore local + worktrees) ===
+.claude/settings.local.json
+.claude/worktrees/
+
+# === Data dumps — live in BigQuery, no need to track locally ===
+data/
+SmartWalletsTracker/data/
+
+# === Personal / not for public ===
+Notes.py
+TODO.md
+Solana_config_info.py
+test_pub.py
+test_sub.py
+SmartWalletsTracker/INTERVIEW_TALKING_POINTS.md
+SmartWalletsTracker/LINKEDIN_PROJECT_DRAFT.md
+SmartWalletsTracker/DEPLOYMENT_NOTES.md
+
+# === Windows reserved name (some tools accidentally create this) ===
+nul

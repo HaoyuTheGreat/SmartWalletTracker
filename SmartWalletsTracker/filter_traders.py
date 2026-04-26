@@ -1,17 +1,18 @@
 """
-filter_traders.py - 基于 BQ raw_swaps + analyzed_swaps 做启发式分类
-                   结果写入 wallet_classifications 表 (append-only, 保留历史)
+filter_traders.py - Heuristic classification on top of BQ raw_swaps + analyzed_swaps.
+                   Results are written to wallet_classifications (append-only, history kept).
 
-流程：
-  1. 从 BQ wallets 拿所有钱包 (address 用于 proxy / market_maker 判断)
-  2. 对每个钱包：
-     - 拉 raw_swaps 做 proxy_bot / high_frequency / market_maker 标签
-     - 拉 analyzed_swaps 做持仓聚合 + 胜率 / PnL 计算
-     - 符合条件则打上 smart_candidate 标签
-  3. 全部钱包一次性 append 到 wallet_classifications (每次运行多一版历史快照)
+Flow:
+  1. Read all wallets from BQ (address is needed for proxy / market-maker checks).
+  2. For each wallet:
+     - Use raw_swaps to assign proxy_bot / high_frequency / market_maker tags.
+     - Use analyzed_swaps to aggregate positions and compute win rate / PnL.
+     - Assign smart_candidate when thresholds are met.
+  3. Append every wallet's row to wallet_classifications in a single batch insert
+     (each run produces one new historical snapshot).
 
-wallet_classifications 是 append-only 的 —— 每次跑都是一版新快照。
-这样以后可以查 "这个钱包上周和本周的分类有什么变化"。
+wallet_classifications is append-only — every run produces a new snapshot, which
+lets us later answer "how did this wallet's classification change between last week and this week".
 """
 
 from datetime import datetime, timezone

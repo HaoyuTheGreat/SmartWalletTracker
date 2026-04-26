@@ -1,23 +1,23 @@
 """
 main.py - Pipeline orchestrator (cloud entry point)
 
-Cloud Run Job 容器启动后只执行一条命令：python main.py
-这个文件负责依次跑 4 个阶段，任何一步失败整个 job 退出码为 1，
-Cloud Scheduler 会据此判定本次调度失败。
+The Cloud Run Job container runs a single command: python main.py.
+This file runs the stages sequentially; any failed step makes the whole
+job exit with code 1, which Cloud Scheduler treats as a failed run.
 
-阶段顺序 (有数据依赖，必须 sequential)：
-  1. ingest_wallets     : 从 Dune 等源拉候选钱包 → wallet_candidates + wallets
-  2. fetch_sol_prices   : 更新 SOL 历史价格 → sol_prices 表
-  3. collect_traders_swaps : 拉新 swap → raw_swaps 表
-  4. analyze_wallets    : 解析新 swap → analyzed_swaps 表
-  5. filter_traders     : 分类钱包 → wallet_classifications 表
+Stage order (data dependencies require sequential execution):
+  1. ingest_wallets         : pull candidate wallets from Dune etc. → wallet_candidates + wallets
+  2. fetch_sol_prices       : refresh SOL daily prices → sol_prices
+  3. collect_traders_swaps  : fetch new swaps → raw_swaps
+  4. analyze_wallets        : parse new swaps → analyzed_swaps
+  5. filter_traders         : classify wallets → wallet_classifications
 
-失败策略：
-  - ingest_wallets 失败 → 只告警，不中断（已有的 wallets 照常处理）
-  - 其他步骤失败        → 整个 job 退出码 1，Cloud Scheduler 记为失败
+Failure policy:
+  - ingest_wallets failure → log a warning and continue (existing wallets still get processed).
+  - any other step failing → exit 1; Cloud Scheduler marks the run as failed.
 
-本地调试：python main.py
-Cloud Run: 同样是 python main.py
+Local debugging: python main.py
+Cloud Run:       same — python main.py
 """
 
 import sys
@@ -33,8 +33,8 @@ import ingest_wallets
 
 def run_step(name: str, func) -> float:
     """
-    跑一个阶段，打印阶段 banner + 耗时。失败直接抛出，交给 main() 决定退出码。
-    返回耗时秒数 (便于汇总)。
+    Run one stage, printing its banner and elapsed time. Failures propagate so
+    main() can decide the exit code. Returns elapsed seconds for the summary.
     """
     print(f"\n{'='*60}\n  {name}\n{'='*60}", flush=True)
     start = time.time()
