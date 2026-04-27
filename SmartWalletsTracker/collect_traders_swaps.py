@@ -72,7 +72,7 @@ def fetch_new_swaps(address: str, existing_sigs: set) -> list:
             break
 
         before = page[-1]["signature"]
-        time.sleep(1)
+        time.sleep(0.2)
 
     return new_txs
 
