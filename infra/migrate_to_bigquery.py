@@ -5,7 +5,7 @@ Uses WRITE_TRUNCATE on every table, so re-running this script is safe —
 it wipes the table and reloads from local files.
 
 Run from repo root:
-    python SmartWalletsTracker/infra/migrate_to_bigquery.py
+    python infra/migrate_to_bigquery.py
 """
 
 import json

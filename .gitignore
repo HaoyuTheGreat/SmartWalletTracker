@@ -33,7 +33,6 @@ ENV/
 
 # === Data dumps — live in BigQuery, no need to track locally ===
 data/
-SmartWalletsTracker/data/
 
 # === Personal / not for public ===
 Notes.py
@@ -41,9 +40,9 @@ TODO.md
 Solana_config_info.py
 test_pub.py
 test_sub.py
-SmartWalletsTracker/INTERVIEW_TALKING_POINTS.md
-SmartWalletsTracker/LINKEDIN_PROJECT_DRAFT.md
-SmartWalletsTracker/DEPLOYMENT_NOTES.md
+INTERVIEW_TALKING_POINTS.md
+LINKEDIN_PROJECT_DRAFT.md
+DEPLOYMENT_NOTES.md
 
 # === Windows reserved name (some tools accidentally create this) ===
 nul

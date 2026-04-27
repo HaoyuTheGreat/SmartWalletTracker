@@ -109,7 +109,7 @@ The ingestion layer uses an adapter pattern (Open/Closed). To add a new wallet s
 # Setup
 pip install -r requirements.txt
 
-# Create a local .env at SmartWalletsTracker/.env with:
+# Create a local .env at the repo root with:
 #   HELIUS_API_KEY=<your key>
 #   DUNE_API_KEY=<your key>
 #   CLAUDE_API_KEY=<your key>   # optional, only for llm.py
@@ -140,7 +140,7 @@ See [DesignDoc.txt](DesignDoc.txt) and [DECISIONS.md](DECISIONS.md) for deeper d
 ## Repository Layout
 
 ```
-SmartWalletsTracker/
+.
 ├── main.py                     # pipeline orchestrator (Cloud Run entrypoint)
 ├── ingest_wallets.py           # Step 1 — wallet candidate ingestion
 ├── fetch_sol_prices.py         # Step 2 — SOL price backfill
