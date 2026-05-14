@@ -76,7 +76,9 @@ def fetch_wallets_needing_collection(max_age_hours: int = 24) -> list[dict]:
                OR TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), last_collected_at, HOUR) > @max_age)
     """
     job_config = bigquery.QueryJobConfig(
-        query_parameters=[bigquery.ScalarQueryParameter("max_age", "INT64", max_age_hours)]
+        query_parameters=[
+            bigquery.ScalarQueryParameter("max_age", "INT64", max_age_hours)
+        ]
     )
     return [dict(row) for row in client().query(query, job_config=job_config).result()]
 
@@ -111,7 +113,10 @@ def existing_signatures_for_wallet(wallet_id: str) -> set[str]:
     job_config = bigquery.QueryJobConfig(
         query_parameters=[bigquery.ScalarQueryParameter("wid", "STRING", wallet_id)]
     )
-    return {row["signature"] for row in client().query(query, job_config=job_config).result()}
+    return {
+        row["signature"]
+        for row in client().query(query, job_config=job_config).result()
+    }
 
 
 def insert_raw_swaps(wallet_id: str, txs: Iterable[dict]):
@@ -123,28 +128,49 @@ def insert_raw_swaps(wallet_id: str, txs: Iterable[dict]):
         ts = tx.get("timestamp")
         if not sig or ts is None:
             continue
-        rows.append({
-            "wallet_id": wallet_id,
-            "signature": sig,
-            "tx_time": datetime.fromtimestamp(ts, tz=timezone.utc).isoformat(),
-            "tx_timestamp": ts,
-            "source": tx.get("source"),
-            "raw_json": json.dumps(tx, ensure_ascii=False),
-            "collected_at": now,
-        })
+        rows.append(
+            {
+                "wallet_id": wallet_id,
+                "signature": sig,
+                "tx_time": datetime.fromtimestamp(ts, tz=timezone.utc).isoformat(),
+                "tx_timestamp": ts,
+                "source": tx.get("source"),
+                "raw_json": json.dumps(tx, ensure_ascii=False),
+                "collected_at": now,
+            }
+        )
     _load_rows("raw_swaps", rows)
     return len(rows)
 
 
-def fetch_raw_swaps_all_wallets() -> dict[str, list[dict]]:
-    """One-shot: all raw swaps grouped by wallet_id. Avoids per-wallet round-trips."""
-    query = f"""
+def fetch_raw_swaps_all_wallets(
+    wallet_ids: list[str] | None = None,
+) -> dict[str, list[dict]]:
+    """Raw swaps grouped by wallet_id.
+
+    If `wallet_ids` is given, only those wallets are fetched — used by
+    incremental classification to avoid pulling all raw_json (which can be
+    multi-GB once the dataset matures).
+    """
+    base = f"""
         SELECT wallet_id, signature, raw_json
         FROM `{_table("raw_swaps")}`
-        ORDER BY wallet_id, tx_timestamp
     """
+    job_config = None
+    if wallet_ids is None:
+        query = base + " ORDER BY wallet_id, tx_timestamp"
+    else:
+        if not wallet_ids:
+            return {}
+        query = (
+            base + " WHERE wallet_id IN UNNEST(@ids) ORDER BY wallet_id, tx_timestamp"
+        )
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=[bigquery.ArrayQueryParameter("ids", "STRING", wallet_ids)]
+        )
+
     result: dict[str, list[dict]] = {}
-    for row in client().query(query).result():
+    for row in client().query(query, job_config=job_config).result():
         tx = json.loads(row["raw_json"])
         tx["_signature"] = row["signature"]
         result.setdefault(row["wallet_id"], []).append(tx)
@@ -210,18 +236,55 @@ def insert_analyzed_swaps(rows: list[dict]):
     _load_rows("analyzed_swaps", rows)
 
 
-def fetch_analyzed_swaps_all_wallets() -> dict[str, list[dict]]:
-    """One-shot: all analyzed swaps grouped by wallet_id. Same pattern as raw_swaps."""
-    query = f"""
+def fetch_analyzed_swaps_all_wallets(
+    wallet_ids: list[str] | None = None,
+) -> dict[str, list[dict]]:
+    """All analyzed swaps grouped by wallet_id.
+
+    If `wallet_ids` is given, only those wallets are fetched — used by
+    incremental classification to skip wallets whose data hasn't changed.
+    """
+    base = f"""
         SELECT wallet_id, signature, swap_time, sol_price_usd, sol_spent, sol_received,
                token_spent, token_received
         FROM `{_table("analyzed_swaps")}`
-        ORDER BY wallet_id, swap_time
     """
+    job_config = None
+    if wallet_ids is None:
+        query = base + " ORDER BY wallet_id, swap_time"
+    else:
+        if not wallet_ids:
+            return {}
+        query = base + " WHERE wallet_id IN UNNEST(@ids) ORDER BY wallet_id, swap_time"
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=[bigquery.ArrayQueryParameter("ids", "STRING", wallet_ids)]
+        )
+
     result: dict[str, list[dict]] = {}
-    for row in client().query(query).result():
+    for row in client().query(query, job_config=job_config).result():
         result.setdefault(row["wallet_id"], []).append(dict(row))
     return result
+
+
+def fetch_wallets_needing_classification() -> list[str]:
+    """Wallet_ids whose analyzed_swaps are newer than their last classification.
+
+    Includes wallets never classified before. Lets filter_traders skip wallets
+    whose data hasn't changed since the previous run — turning a full re-scan
+    of every wallet into an incremental pass over only what actually changed.
+    """
+    query = f"""
+        WITH last_classified AS (
+          SELECT wallet_id, MAX(classified_at) AS last_at
+          FROM `{_table("wallet_classifications")}`
+          GROUP BY wallet_id
+        )
+        SELECT DISTINCT a.wallet_id
+        FROM `{_table("analyzed_swaps")}` a
+        LEFT JOIN last_classified lc USING(wallet_id)
+        WHERE lc.last_at IS NULL OR a.analyzed_at > lc.last_at
+    """
+    return [row["wallet_id"] for row in client().query(query).result()]
 
 
 # ---------------------------------------------------------------------------
@@ -292,7 +355,7 @@ def insert_classifications(rows: list[dict]):
 # wallet_candidates / wallet_sources / ingestion_runs  (Phase 4: ingestion)
 # ---------------------------------------------------------------------------
 def upsert_wallet_candidates(
-    candidates: list,          # list of adapters.Candidate
+    candidates: list,  # list of adapters.Candidate
     source: str,
     source_query_id: str | None,
 ) -> tuple[int, int]:
@@ -308,12 +371,12 @@ def upsert_wallet_candidates(
     now = _utcnow_iso()
     staging_rows = [
         {
-            "address":         c.address,
-            "chain":           c.chain,
-            "source":          source,
+            "address": c.address,
+            "chain": c.chain,
+            "source": source,
             "source_query_id": source_query_id,
-            "discovered_at":   now,
-            "raw_metrics":     json.dumps(c.raw_metrics, default=str, ensure_ascii=False),
+            "discovered_at": now,
+            "raw_metrics": json.dumps(c.raw_metrics, default=str, ensure_ascii=False),
         }
         for c in candidates
     ]
@@ -418,7 +481,9 @@ def fetch_existing_wallet_addresses() -> set[str]:
     return {row["address"] for row in client().query(query).result()}
 
 
-def insert_wallets_from_candidates(addresses: list[str], source: str, chain: str = "solana"):
+def insert_wallets_from_candidates(
+    addresses: list[str], source: str, chain: str = "solana"
+):
     """
     Promote candidate addresses into the wallets table.
     wallet_id convention: address[:8] (matches infra/migrate_to_bigquery.py).
@@ -429,13 +494,13 @@ def insert_wallets_from_candidates(addresses: list[str], source: str, chain: str
     now = _utcnow_iso()
     rows = [
         {
-            "address":           addr,
-            "wallet_id":         addr[:8],
-            "chain":             chain,
-            "discovered_at":     now,
+            "address": addr,
+            "wallet_id": addr[:8],
+            "chain": chain,
+            "discovered_at": now,
             "collection_status": "pending",
-            "status":            "active",
-            "promoted_from":     source,
+            "status": "active",
+            "promoted_from": source,
         }
         for addr in addresses
     ]
@@ -451,10 +516,12 @@ def mark_candidates_promoted(addresses: list[str], source: str):
         SET status = 'promoted'
         WHERE source = @source AND address IN UNNEST(@addrs)
     """
-    job_config = bigquery.QueryJobConfig(query_parameters=[
-        bigquery.ScalarQueryParameter("source", "STRING", source),
-        bigquery.ArrayQueryParameter("addrs", "STRING", addresses),
-    ])
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[
+            bigquery.ScalarQueryParameter("source", "STRING", source),
+            bigquery.ArrayQueryParameter("addrs", "STRING", addresses),
+        ]
+    )
     client().query(query, job_config=job_config).result()
 
 
@@ -466,6 +533,7 @@ def mark_candidates_filtered(address_to_reason: dict[str, str], source: str):
     if not address_to_reason:
         return
     from collections import defaultdict
+
     by_reason: dict[str, list[str]] = defaultdict(list)
     for addr, reason in address_to_reason.items():
         by_reason[reason].append(addr)
@@ -475,11 +543,13 @@ def mark_candidates_filtered(address_to_reason: dict[str, str], source: str):
             SET status = 'filtered_out', filter_reason = @reason
             WHERE source = @source AND address IN UNNEST(@addrs)
         """
-        job_config = bigquery.QueryJobConfig(query_parameters=[
-            bigquery.ScalarQueryParameter("source", "STRING", source),
-            bigquery.ScalarQueryParameter("reason", "STRING", reason),
-            bigquery.ArrayQueryParameter("addrs", "STRING", addrs),
-        ])
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=[
+                bigquery.ScalarQueryParameter("source", "STRING", source),
+                bigquery.ScalarQueryParameter("reason", "STRING", reason),
+                bigquery.ArrayQueryParameter("addrs", "STRING", addrs),
+            ]
+        )
         client().query(query, job_config=job_config).result()
 
 
@@ -488,7 +558,7 @@ def log_ingestion_run(
     source: str,
     started_at: str,
     finished_at: str,
-    status: str,                    # 'success' | 'failed' | 'partial'
+    status: str,  # 'success' | 'failed' | 'partial'
     candidates_fetched: int = 0,
     candidates_new: int = 0,
     promoted_to_wallets: int = 0,
@@ -497,15 +567,15 @@ def log_ingestion_run(
 ):
     """Append one row to ingestion_runs (observability)."""
     row = {
-        "run_id":              run_id,
-        "source":              source,
-        "started_at":          started_at,
-        "finished_at":         finished_at,
-        "status":              status,
-        "candidates_fetched":  candidates_fetched,
-        "candidates_new":      candidates_new,
+        "run_id": run_id,
+        "source": source,
+        "started_at": started_at,
+        "finished_at": finished_at,
+        "status": status,
+        "candidates_fetched": candidates_fetched,
+        "candidates_new": candidates_new,
         "promoted_to_wallets": promoted_to_wallets,
-        "credits_used":        credits_used,
-        "error_message":       error_message,
+        "credits_used": credits_used,
+        "error_message": error_message,
     }
     _load_rows("ingestion_runs", [row])

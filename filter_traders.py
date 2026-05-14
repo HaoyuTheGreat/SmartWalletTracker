@@ -231,13 +231,24 @@ def classify_wallet(wallet_id, address, raw_swaps, analyzed_swaps):
 
 
 def main():
-    # Batch-fetch once: 2 BQ queries total (vs 122 per-wallet round-trips)
+    # Incremental: only classify wallets whose analyzed_swaps are newer than
+    # their last classification. Cuts the per-run cost from "re-scan every
+    # wallet daily" to "only what actually changed since yesterday."
+    pending_ids = bq.fetch_wallets_needing_classification()
+    if not pending_ids:
+        print("No wallets need re-classification — all up to date.")
+        return
+
     wallets = bq.fetch_all_wallets()
-    all_raw = bq.fetch_raw_swaps_all_wallets()
-    all_analyzed = bq.fetch_analyzed_swaps_all_wallets()
+    pending_set = set(pending_ids)
+    wallets = [w for w in wallets if w["wallet_id"] in pending_set]
+
+    all_raw = bq.fetch_raw_swaps_all_wallets(wallet_ids=pending_ids)
+    all_analyzed = bq.fetch_analyzed_swaps_all_wallets(wallet_ids=pending_ids)
     classified_at = datetime.now(timezone.utc).isoformat()
 
-    print(f"Classifying {len(wallets)} wallets | raw_swaps: {sum(len(v) for v in all_raw.values())} | "
+    print(f"Classifying {len(wallets)} wallets (incremental) | "
+          f"raw_swaps: {sum(len(v) for v in all_raw.values())} | "
           f"analyzed: {sum(len(v) for v in all_analyzed.values())}")
 
     rows = []
