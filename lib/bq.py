@@ -354,20 +354,22 @@ def insert_classifications(rows: list[dict]):
 # ---------------------------------------------------------------------------
 # wallet_candidates / wallet_sources / ingestion_runs  (Phase 4: ingestion)
 # ---------------------------------------------------------------------------
+"""
+    Merge candidates into wallet_candidates.
+        - New (address, source) pair  -> INSERT with status='pending'
+        - Existing pair               -> UPDATE raw_metrics (status preserved,
+                                        so 'promoted' / 'filtered_out' stick)
+    Returns (new_count, updated_count).
+    """
 def upsert_wallet_candidates(
     candidates: list,  # list of adapters.Candidate
     source: str,
     source_query_id: str | None,
 ) -> tuple[int, int]:
-    """
-    Merge candidates into wallet_candidates.
-      - New (address, source) pair  -> INSERT with status='pending'
-      - Existing pair               -> UPDATE raw_metrics (status preserved,
-                                        so 'promoted' / 'filtered_out' stick)
-    Returns (new_count, updated_count).
-    """
+    
     if not candidates:
         return (0, 0)
+    #The timestamp of a batch of candidates.
     now = _utcnow_iso()
     staging_rows = [
         {

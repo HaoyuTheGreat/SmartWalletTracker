@@ -48,3 +48,5 @@ DECISIONS.md
 # === Windows reserved name (some tools accidentally create this) ===
 nul
 RESUME_INVENTORY.md
+RECAP.md
+LEARNING_LOG.md

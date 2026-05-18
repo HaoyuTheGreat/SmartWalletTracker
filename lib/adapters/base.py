@@ -14,9 +14,29 @@ from typing import Any
 @dataclass
 class Candidate:
     """One wallet candidate, normalized across sources."""
+
     address: str
-    chain: str                                    # 'solana', 'ethereum', ...
+    chain: str  # 'solana', 'ethereum', ...
     raw_metrics: dict[str, Any] = field(default_factory=dict)
+
+
+"""
+Abstract Base Class for wallet-discovery source adapters.
+Defines the contract/rules that every adapter(DuneAdapter, future adapters, like BirdEyeAdapter/etc.) must follow:
+
+-'source_name': A short DB identifier(e.g. "dune") stored in wallet_candidates.source for provenance.
+
+-'fetch_candidates()': Returns a list of 'Candidate' instances pulled from this source.
+
+-'source_query_id': Optional. A provenance id(e.g. Dune query_id). Defaults to None.
+
+Why this class exists:
+The pipeline (ingest_wallets.run_source) treats all sources uniformly - it does not know or care whether the adapter is Dune
+or BirdEye. Adding a new source means: Implement this interface in a new file and add it to 'get_sources()'. 
+
+Subclasses cannot be instantiated unless they implement every
+    @abstractmethod above — Python enforces this at instantiation time.
+"""
 
 
 class SourceAdapter(ABC):

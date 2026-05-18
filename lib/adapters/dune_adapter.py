@@ -10,6 +10,12 @@ We do NOT trigger fresh executions from the API: on the free plan, the
 `/execute` endpoint returns 400, and `get_latest_result(max_age_hours=N)`
 relies on the same endpoint when the cache is stale. To refresh the candidate
 pool, re-run the query manually in the Dune UI (e.g. once a week).
+
+Why this wrapper exists:
+    1. Isolation — Dune SDK changes (rename, deprecation, v2) only require changes
+        to this file, not the entire pipeline.
+    2. Uniform interface — implements SourceAdapter ABC so ingest_wallets can
+        treat all sources (Dune, future BirdEye/Arkham) uniformly via polymorphism.
 """
 
 import os
@@ -45,16 +51,18 @@ class DuneAdapter(SourceAdapter):
             address = row.get("wallet_address")
             if not address:
                 continue
-            candidates.append(Candidate(
-                address=address,
-                chain="solana",
-                raw_metrics={
-                    "trade_count":        row.get("trade_count"),
-                    "active_days":        row.get("active_days"),
-                    "total_volume_usd":   row.get("total_volume_usd"),
-                    "avg_trade_size_usd": row.get("avg_trade_size_usd"),
-                    "first_trade_at":     row.get("first_trade_at"),
-                    "last_trade_at":      row.get("last_trade_at"),
-                },
-            ))
+            candidates.append(
+                Candidate(
+                    address=address,
+                    chain="solana",
+                    raw_metrics={
+                        "trade_count": row.get("trade_count"),
+                        "active_days": row.get("active_days"),
+                        "total_volume_usd": row.get("total_volume_usd"),
+                        "avg_trade_size_usd": row.get("avg_trade_size_usd"),
+                        "first_trade_at": row.get("first_trade_at"),
+                        "last_trade_at": row.get("last_trade_at"),
+                    },
+                )
+            )
         return candidates
