@@ -1,0 +1,43 @@
+# syntax=docker/dockerfile:1
+
+# ============================================================
+# Dockerfile for the FastAPI REST service.
+#
+# This is the IMAGE for the Cloud Run Service (smartwalletstracker-api),
+# which is separate from the Cloud Run Job that runs the daily pipeline
+# (built from the root-level Dockerfile).
+#
+#   Cloud Run Job      → Dockerfile      → entry: python main.py (run-once)
+#   Cloud Run Service  → Dockerfile.api  → entry: uvicorn api.main:app (long-running)
+#
+# Build:  docker build --platform linux/amd64 -f Dockerfile.api -t <image> .
+# ============================================================
+FROM python:3.11-slim
+
+# ============================================================
+# Python runtime env vars (same rationale as Dockerfile)
+# ============================================================
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# ============================================================
+# Step 1: deps layer (cached when only code changes)
+# ============================================================
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# ============================================================
+# Step 2: project code
+# ============================================================
+COPY . .
+
+# ============================================================
+# Container entrypoint
+#
+# Cloud Run injects $PORT (default 8080) the container must bind to.
+# Bind to 0.0.0.0 so the platform's load balancer can reach us
+# (binding only to 127.0.0.1 would leave the service unreachable).
+# ============================================================
+CMD exec uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-8080}
