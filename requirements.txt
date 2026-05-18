@@ -13,3 +13,10 @@ python-dotenv==0.21.0
 
 # Dune Analytics — wallet candidate ingestion (Step 0 of pipeline)
 dune-client==1.10.0
+
+# FastAPI — REST API layer (Cloud Run Service, separate from the Job)
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+
+# Anthropic — Claude API for the QuerySmith chat endpoint
+anthropic>=0.40.0
