@@ -22,7 +22,9 @@
       "Bash(git rm *)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(/opt/homebrew/opt/python@3.13/Frameworks/Python.framework/Versions/3.13/bin/python3 -m py_compile /Users/haoyuwuzhaer/Desktop/myTrading/SWT/api/routers/wallets.py /Users/haoyuwuzhaer/Desktop/myTrading/SWT/api/schemas.py)",
+      "Bash(echo \"EXIT=$?\")"
     ],
     "additionalDirectories": [
       "/Users/haoyuwuzhaer/.claude/projects/-Users-haoyuwuzhaer-Desktop-myTrading-SqlAssistant/memory",

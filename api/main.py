@@ -24,11 +24,15 @@ app = FastAPI(
     version="0.1.0",
 )
 
-# Allow the Next.js dev server (and later the Vercel deployment) to call us.
-# Tighten to specific origins once the production frontend URL is known.
+# Allow the Next.js dev server (3000 default, 3001 fallback when 3000 is taken)
+# and, later, the Vercel deployment. Production override via CORS_ORIGINS env var
+# (comma-separated list) — set on the Cloud Run Service.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.getenv("CORS_ORIGINS", "http://localhost:3000").split(","),
+    allow_origins=os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:3000,http://localhost:3001",
+    ).split(","),
     allow_credentials=True,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],

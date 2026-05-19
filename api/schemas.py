@@ -36,6 +36,15 @@ class WalletSummary(BaseModel):
     classified_at: datetime | None
 
 
+class WalletPage(BaseModel):
+    """Paginated wallets response — `rows` is the current page, `total` is
+    the count of rows matching the filter (independent of limit/offset) so
+    the frontend can render "Page X of Y" without a second round-trip."""
+
+    rows: list[WalletSummary]
+    total: int
+
+
 class Message(BaseModel):
     """One message in a chat conversation. Content is plain text only —
     we intentionally don't round-trip Anthropic content blocks (tool_use /
