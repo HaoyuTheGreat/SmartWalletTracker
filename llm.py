@@ -130,7 +130,7 @@ def analyze_all_wallets():
 
         raw_swaps = load_wallet_swaps(wallet_address)
         if not raw_swaps:
-            print(f"   no swap records, skipping")
+            print("   no swap records, skipping")
             continue
 
         print(f"   {len(raw_swaps)} swap records")
@@ -165,7 +165,7 @@ def analyze_all_wallets():
 
     mm_count = sum(1 for r in results if r["is_market_maker"])
     print(f"\n{'='*60}")
-    print(f" Done")
+    print(" Done")
     print(f"{'='*60}")
     print(f" total wallets:    {len(results)}")
     print(f" market makers:    {mm_count}")
@@ -175,7 +175,7 @@ def analyze_all_wallets():
 
 if __name__ == "__main__":
     print(f"{'='*60}")
-    print(f" Analyze Wallets - Market-maker detection")
+    print(" Analyze Wallets - Market-maker detection")
     print(f"{'='*60}")
 
     analyze_all_wallets()

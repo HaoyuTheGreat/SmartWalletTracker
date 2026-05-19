@@ -1,0 +1,81 @@
+name: CI
+
+# Run on every push to main + every PR targeting main. Pull-request runs catch
+# regressions before code lands; push runs verify main itself stays green.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel an in-flight run if a newer commit lands on the same branch — saves
+# minutes when you push 3 fixes back-to-back.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Frontend: TypeScript typecheck + ESLint. Runs from `frontend/` directory.
+  # ---------------------------------------------------------------------------
+  frontend:
+    name: Frontend (typecheck + lint)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript typecheck
+        run: npx tsc --noEmit -p tsconfig.json
+
+      - name: ESLint
+        run: npx eslint .
+
+  # ---------------------------------------------------------------------------
+  # Backend: Ruff lint (fast Python linter) + py_compile syntax check.
+  # pytest is wired in but not run yet — add real tests under tests/ first.
+  # ---------------------------------------------------------------------------
+  backend:
+    name: Backend (lint + syntax)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff pytest
+
+      - name: Ruff lint
+        # E,F = pyflakes + pycodestyle errors (catches unused imports, undefined
+        # names, syntax errors). Start narrow, widen later. E501 (line length)
+        # ignored — formatter's job, not lint's.
+        run: ruff check --select=E,F --ignore=E501 .
+
+      - name: Pytest (skipped if no tests directory exists)
+        run: |
+          if [ -d tests ] || compgen -G "tests_*" > /dev/null; then
+            pytest -q
+          else
+            echo "No tests directory — skipping. Add tests/ to enable."
+          fi
