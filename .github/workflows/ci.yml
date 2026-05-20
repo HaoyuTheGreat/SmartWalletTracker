@@ -1,7 +1,8 @@
-name: CI
+name: CI/CD
 
 # Run on every push to main + every PR targeting main. Pull-request runs catch
 # regressions before code lands; push runs verify main itself stays green.
+# Deploy jobs gate on push-to-main only (see their `if:` clause).
 on:
   push:
     branches: [main]
@@ -79,3 +80,56 @@ jobs:
           else
             echo "No tests directory — skipping. Add tests/ to enable."
           fi
+
+  # ---------------------------------------------------------------------------
+  # CD: Deploy to Cloud Run after CI passes, only on push to main (not PRs).
+  # Two parallel jobs — API service and Pipeline job — both use the Makefile
+  # targets we already use locally, so deploy logic stays in one place.
+  # ---------------------------------------------------------------------------
+  deploy-api:
+    name: Deploy API (Cloud Run Service)
+    needs: [frontend, backend]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        # Lets the runner `docker push` to us-central1-docker.pkg.dev using
+        # the gcloud-auth credentials from the previous step.
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+
+      - name: Build, push, and deploy API
+        # Uses `make deploy-api` — same path you use locally, so any deploy
+        # logic change lives in one file (Makefile), not duplicated in YAML.
+        run: make deploy-api
+
+  deploy-job:
+    name: Deploy Pipeline (Cloud Run Job)
+    needs: [frontend, backend]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+
+      - name: Build, push, and deploy Pipeline
+        run: make deploy
