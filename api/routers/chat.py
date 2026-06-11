@@ -11,6 +11,7 @@ reuse them.
 """
 
 import os
+from datetime import datetime, timezone
 
 from anthropic import Anthropic
 from fastapi import APIRouter, HTTPException
@@ -22,6 +23,42 @@ router = APIRouter(prefix="/api", tags=["chat"])
 
 _bq: BQClient | None = None
 _anthropic: Anthropic | None = None
+
+# ---------------------------------------------------------------------------
+# Daily spend guard — the chat endpoint is public and every request costs real
+# Anthropic tokens. This caps the damage from scrapers / abuse at a few
+# dollars a day.
+#
+# Known limits (accepted for a demo deployment):
+#   - In-memory: resets when the container restarts (scale-to-zero does this
+#     daily anyway), so it's "per container-lifetime up to the daily cap",
+#     not a strict calendar-day ledger.
+#   - Per-instance: with N Cloud Run instances the effective cap is N × budget.
+#     Mitigated by setting the service's max-instances=1.
+# ---------------------------------------------------------------------------
+DAILY_BUDGET_USD = float(os.environ.get("CHAT_DAILY_BUDGET_USD", "3.0"))
+
+_spend = {"date": "", "usd": 0.0}
+
+
+def _check_budget():
+    """Reset the counter on day rollover; reject when today's spend is over cap."""
+    today = datetime.now(timezone.utc).date().isoformat()
+    if _spend["date"] != today:
+        _spend["date"] = today
+        _spend["usd"] = 0.0
+    if _spend["usd"] >= DAILY_BUDGET_USD:
+        raise HTTPException(
+            status_code=429,
+            detail=(
+                "Daily AI budget reached — the assistant is resting until "
+                "midnight UTC. (This demo caps Claude API spend per day.)"
+            ),
+        )
+
+
+def _record_spend(cost_usd: float):
+    _spend["usd"] += cost_usd
 
 
 def _get_bq() -> BQClient:
@@ -45,6 +82,8 @@ def _get_anthropic() -> Anthropic:
 
 @router.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest) -> ChatResponse:
+    _check_budget()
+
     if not request.messages:
         raise HTTPException(status_code=400, detail="messages array is empty")
     if request.messages[-1].role != "user":
@@ -71,6 +110,8 @@ def chat(request: ChatRequest) -> ChatResponse:
             status_code=500,
             detail=f"{type(e).__name__}: {e}",
         )
+
+    _record_spend(usage["cost_usd"])
 
     return ChatResponse(
         message=Message(role="assistant", content=text),

@@ -15,6 +15,7 @@
 
 import { useEffect, useState } from "react";
 
+import { ChatPanel } from "@/components/ChatPanel";
 import { FilterTabs } from "@/components/FilterTabs";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WalletPagination } from "@/components/WalletPagination";
@@ -38,6 +39,7 @@ export default function ExplorePage() {
   const [sort, setSort] = useState<SortField>("total_pnl_sol");
   const [page, setPage] = useState(1);
   const [result, setResult] = useState<FetchResult | null>(null);
+  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -132,6 +134,19 @@ export default function ExplorePage() {
           </>
         )}
       </div>
+
+      {/* Floating chat trigger — hidden while the drawer is open */}
+      {!chatOpen && (
+        <button
+          type="button"
+          onClick={() => setChatOpen(true)}
+          className="fixed bottom-6 right-6 z-40 rounded-md border border-emerald-500/60 bg-zinc-950/90 px-4 py-2.5 font-mono text-sm text-emerald-400 shadow-lg backdrop-blur transition-colors hover:bg-emerald-500/10"
+        >
+          &gt;_ ASK AI
+        </button>
+      )}
+
+      <ChatPanel open={chatOpen} onClose={() => setChatOpen(false)} />
     </main>
   );
 }
