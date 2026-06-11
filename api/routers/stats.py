@@ -15,6 +15,7 @@ def dashboard():
     """One-shot snapshot of project scale, used by the frontend dashboard header."""
     query = f"""
         SELECT
+          (SELECT COUNT(*) FROM `{_table('wallet_candidates')}`) AS candidates_scanned,
           (SELECT COUNT(*) FROM `{_table('wallets')}`) AS wallets_tracked,
           (SELECT COUNT(DISTINCT wallet_id) FROM `{_table('wallet_classifications')}`) AS wallets_classified,
           (

@@ -14,6 +14,7 @@ from pydantic import BaseModel
 class DashboardStats(BaseModel):
     """High-level project metrics for the frontend dashboard header."""
 
+    candidates_scanned: int
     wallets_tracked: int
     wallets_classified: int
     smart_candidates: int

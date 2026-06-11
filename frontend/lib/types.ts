@@ -9,6 +9,7 @@
  */
 
 export interface DashboardStats {
+  candidates_scanned: number;
   wallets_tracked: number;
   wallets_classified: number;
   smart_candidates: number;

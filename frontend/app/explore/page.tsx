@@ -1,7 +1,8 @@
 "use client";
 
 /**
- * Explorer page — paginated wallet list with tag filter + sort.
+ * Explorer page — paginated wallet list with tag filter + sort, in the same
+ * quant-terminal chrome as the landing page.
  *
  * Client component: the whole view is interactive. Changing tag, sort, or
  * page triggers a fresh GET /api/wallets call. Tag/sort changes reset to
@@ -10,16 +11,12 @@
  * `result` is stamped with the params it was fetched for, so we can derive
  * `loading` = "settled fetch params don't match current params yet" — avoids
  * synchronous setState inside the effect, which would cause cascading renders.
- *
- * Stats cards are intentionally omitted per product decision — the raw
- * numbers are sensitive and the table already conveys scale. Day 6 will add
- * a floating chat button wired to postChat().
  */
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { FilterTabs } from "@/components/FilterTabs";
+import { SiteHeader } from "@/components/SiteHeader";
 import { WalletPagination } from "@/components/WalletPagination";
 import { WalletTable, type SortField } from "@/components/WalletTable";
 import { getWallets } from "@/lib/api";
@@ -68,9 +65,9 @@ export default function ExplorePage() {
     result.sort === sort &&
     result.page === page;
   const loading = !isFresh;
-  const wallets = isFresh ? result.wallets ?? [] : [];
-  const total = isFresh ? result.total ?? 0 : 0;
-  const error = isFresh ? result.error ?? null : null;
+  const wallets = isFresh ? (result.wallets ?? []) : [];
+  const total = isFresh ? (result.total ?? 0) : 0;
+  const error = isFresh ? (result.error ?? null) : null;
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   // Reset to page 1 whenever the filter changes, otherwise the user can land
@@ -87,28 +84,30 @@ export default function ExplorePage() {
   };
 
   return (
-    <main className="min-h-screen bg-black px-6 py-10 text-zinc-100">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6">
-        <header className="flex items-center justify-between">
+    <main className="min-h-screen bg-zinc-950 text-zinc-100">
+      <SiteHeader active="explore" />
+
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10">
+        {/* Page header */}
+        <div className="flex items-end justify-between">
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight">Explorer</h1>
-            <p className="text-sm text-zinc-400">
-              Daily-classified Solana wallets. Filter by tag, sort by any column.
-            </p>
+            <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500">
+              Wallet Explorer
+            </div>
+            <h1 className="mt-2 text-2xl font-semibold tracking-tight">
+              Daily-classified Solana wallets
+            </h1>
           </div>
-          <Link
-            href="/"
-            className="text-sm text-zinc-400 hover:text-amber-300"
-          >
-            ← Home
-          </Link>
-        </header>
+          <div className="font-mono text-xs text-zinc-500">
+            {loading ? "…" : `${total.toLocaleString("en-US")} wallets`}
+          </div>
+        </div>
 
         <FilterTabs value={tag} onChange={handleTagChange} />
 
         {error ? (
-          <div className="rounded-lg border border-red-900/50 bg-red-950/30 p-4 text-sm text-red-300">
-            Failed to load wallets: {error}
+          <div className="rounded-md border border-red-900/50 bg-red-950/20 p-4 font-mono text-sm text-red-300">
+            failed to load wallets: {error}
           </div>
         ) : (
           <>
@@ -118,10 +117,10 @@ export default function ExplorePage() {
               onSortChange={handleSortChange}
               loading={loading}
             />
-            <div className="flex items-center justify-between text-sm text-zinc-500">
+            <div className="flex items-center justify-between font-mono text-xs text-zinc-500">
               <span>
                 {total > 0
-                  ? `Page ${page} of ${totalPages} · ${total.toLocaleString()} wallets`
+                  ? `page ${page} / ${totalPages}`
                   : "—"}
               </span>
               <WalletPagination

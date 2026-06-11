@@ -130,52 +130,20 @@
 }
 
 /* ---------------------------------------------------------------------------
-   HomePage splash animations
+   HomePage animations
    --------------------------------------------------------------------------- */
 
-/* "Breathing" glow — slow pulse for the CTA button. */
-@keyframes breathe-glow {
-  0%, 100% {
-    box-shadow: 0 0 30px rgba(217, 165, 40, 0.35);
+/* Funnel bars — one-shot fill on load. scaleX (not width) so it composites
+   on the GPU; transform-origin keeps the growth anchored to the left edge. */
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
   }
-  50% {
-    box-shadow: 0 0 60px rgba(217, 165, 40, 0.7);
-  }
-}
-.animate-breathe-glow {
-  animation: breathe-glow 3s ease-in-out infinite;
-}
-
-/* RGB-split glitch — fires every 7s, lasts ~400ms, then resets. Implemented
-   as text-shadow offset on three color channels + 1-2px translation. */
-@keyframes glitch-rgb {
-  0%, 92%, 100% {
-    text-shadow: none;
-    transform: translate(0, 0);
-  }
-  93% {
-    text-shadow:
-      2px 0 rgba(255, 70, 70, 0.85),
-      -2px 0 rgba(70, 200, 255, 0.85);
-    transform: translate(-1px, 0);
-  }
-  94% {
-    text-shadow:
-      -2px 0 rgba(255, 70, 70, 0.85),
-      2px 0 rgba(70, 200, 255, 0.85);
-    transform: translate(1px, -1px);
-  }
-  95% {
-    text-shadow:
-      2px 1px rgba(255, 70, 70, 0.85),
-      -2px -1px rgba(70, 200, 255, 0.85);
-    transform: translate(0, 1px);
-  }
-  97% {
-    text-shadow: none;
-    transform: translate(0, 0);
+  to {
+    transform: scaleX(1);
   }
 }
-.animate-glitch {
-  animation: glitch-rgb 7s steps(1, end) infinite;
+.animate-bar-grow {
+  transform-origin: left;
+  animation: bar-grow 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
