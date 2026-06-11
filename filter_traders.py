@@ -230,6 +230,20 @@ def classify_wallet(wallet_id, address, raw_swaps, analyzed_swaps):
     }
 
 
+# Wallets per fetch batch. Bounds peak memory: one batch's raw_json instead
+# of the whole pending set. 25 wallets × ~150 swaps × ~17KB raw_json ≈ 65MB
+# JSON (~200MB as Python objects) per batch — comfortable inside 8Gi even if
+# a batch happens to contain several 2000-swap heavy wallets.
+#
+# Why this exists (2026-06 OOM): the previous version fetched raw + analyzed
+# swaps for ALL pending wallets in one shot. Fine when the daily increment is
+# ~20-50 wallets, fatal when a prior failure leaves the whole fleet pending
+# (~1400 wallets ≈ 3.7GB raw_json ≈ 8-10GB as Python objects → signal 9).
+# Worse, it deadlocked: classifications are only written at the very end, so
+# every OOM left the backlog intact for the next run to die on again.
+CLASSIFY_BATCH_SIZE = 25
+
+
 def main():
     # Incremental: only classify wallets whose analyzed_swaps are newer than
     # their last classification. Cuts the per-run cost from "re-scan every
@@ -242,41 +256,62 @@ def main():
     wallets = bq.fetch_all_wallets()
     pending_set = set(pending_ids)
     wallets = [w for w in wallets if w["wallet_id"] in pending_set]
-
-    all_raw = bq.fetch_raw_swaps_all_wallets(wallet_ids=pending_ids)
-    all_analyzed = bq.fetch_analyzed_swaps_all_wallets(wallet_ids=pending_ids)
     classified_at = datetime.now(timezone.utc).isoformat()
 
-    print(f"Classifying {len(wallets)} wallets (incremental) | "
-          f"raw_swaps: {sum(len(v) for v in all_raw.values())} | "
-          f"analyzed: {sum(len(v) for v in all_analyzed.values())}")
+    n_batches = (len(wallets) + CLASSIFY_BATCH_SIZE - 1) // CLASSIFY_BATCH_SIZE
+    print(
+        f"Classifying {len(wallets)} wallets (incremental) in "
+        f"{n_batches} batches of {CLASSIFY_BATCH_SIZE}"
+    )
 
-    rows = []
-    for w in wallets:
-        wallet_id = w["wallet_id"]
-        address = w["address"]
+    total_classified = 0
+    total_smart = 0
+    for start in range(0, len(wallets), CLASSIFY_BATCH_SIZE):
+        batch = wallets[start : start + CLASSIFY_BATCH_SIZE]
+        batch_ids = [w["wallet_id"] for w in batch]
 
-        raw_swaps = all_raw.get(wallet_id, [])
-        if not raw_swaps:
-            continue
-        analyzed_swaps = all_analyzed.get(wallet_id, [])
+        batch_raw = bq.fetch_raw_swaps_all_wallets(wallet_ids=batch_ids)
+        batch_analyzed = bq.fetch_analyzed_swaps_all_wallets(wallet_ids=batch_ids)
 
-        result = classify_wallet(wallet_id, address, raw_swaps, analyzed_swaps)
-        row = {"classified_at": classified_at, **result}
-        rows.append(row)
+        rows = []
+        for w in batch:
+            wallet_id = w["wallet_id"]
+            address = w["address"]
 
-        tag_str = ", ".join(result["tags"]) if result["tags"] else "unclassified"
+            raw_swaps = batch_raw.get(wallet_id, [])
+            if not raw_swaps:
+                continue
+            analyzed_swaps = batch_analyzed.get(wallet_id, [])
+
+            result = classify_wallet(wallet_id, address, raw_swaps, analyzed_swaps)
+            rows.append({"classified_at": classified_at, **result})
+
+            tag_str = ", ".join(result["tags"]) if result["tags"] else "unclassified"
+            print(
+                f"[{wallet_id}] {tag_str} | proxy: {result['proxy_pct']}% | "
+                f"freq: {result['daily_frequency']}/day | days: {result['active_days']} | "
+                f"swaps: {result['total_swaps']} | closed: {result['closed_positions']} | "
+                f"win_rate: {result['win_rate']}% | pnl: {result['total_pnl_sol']} SOL"
+            )
+
+        # Persist per batch (not once at the end): a crash mid-run keeps every
+        # completed batch, and the incremental anti-join excludes them next
+        # run — the backlog shrinks monotonically even across failures, which
+        # is what breaks the OOM deadlock.
+        if rows:
+            bq.insert_classifications(rows)
+            total_classified += len(rows)
+            total_smart += sum(1 for r in rows if "smart_candidate" in r["tags"])
+
+        # Free this batch's swap data before fetching the next one.
+        del batch_raw, batch_analyzed
+        print(f"  batch {start // CLASSIFY_BATCH_SIZE + 1}/{n_batches} persisted")
+
+    if total_classified:
         print(
-            f"[{wallet_id}] {tag_str} | proxy: {result['proxy_pct']}% | "
-            f"freq: {result['daily_frequency']}/day | days: {result['active_days']} | "
-            f"swaps: {result['total_swaps']} | closed: {result['closed_positions']} | "
-            f"win_rate: {result['win_rate']}% | pnl: {result['total_pnl_sol']} SOL"
+            f"\nClassified {total_classified} wallets ({total_smart} smart "
+            f"candidates) → BQ wallet_classifications"
         )
-
-    if rows:
-        bq.insert_classifications(rows)
-        smart = sum(1 for r in rows if "smart_candidate" in r["tags"])
-        print(f"\nClassified {len(rows)} wallets ({smart} smart candidates) → BQ wallet_classifications")
 
 
 if __name__ == "__main__":

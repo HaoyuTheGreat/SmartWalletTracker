@@ -83,18 +83,25 @@ def fetch_wallets_needing_collection(max_age_hours: int = 24) -> list[dict]:
     return [dict(row) for row in client().query(query, job_config=job_config).result()]
 
 
-def update_wallet_status(wallet_id: str, status: str):
-    """Mark a wallet's collection_status + last_collected_at=now."""
+def bulk_update_wallet_status(wallet_ids: list[str], status: str):
+    """Mark many wallets' collection_status + last_collected_at=now in ONE
+    UPDATE statement.
+
+    Replaces the old per-wallet version: at 1300+ wallets/run that meant
+    1300+ sequential DML jobs (~1-2s each, plus BigQuery's DML-per-table
+    quota pressure). Batched, it's one statement per flush."""
+    if not wallet_ids:
+        return
     query = f"""
         UPDATE `{_table("wallets")}`
         SET collection_status = @status,
             last_collected_at = CURRENT_TIMESTAMP()
-        WHERE wallet_id = @wid
+        WHERE wallet_id IN UNNEST(@wids)
     """
     job_config = bigquery.QueryJobConfig(
         query_parameters=[
             bigquery.ScalarQueryParameter("status", "STRING", status),
-            bigquery.ScalarQueryParameter("wid", "STRING", wallet_id),
+            bigquery.ArrayQueryParameter("wids", "STRING", wallet_ids),
         ]
     )
     client().query(query, job_config=job_config).result()
@@ -103,24 +110,35 @@ def update_wallet_status(wallet_id: str, status: str):
 # ---------------------------------------------------------------------------
 # raw_swaps
 # ---------------------------------------------------------------------------
-def existing_signatures_for_wallet(wallet_id: str) -> set[str]:
-    """Signatures already in raw_swaps for a wallet (for deduplication)."""
+def existing_signatures_by_wallet(wallet_ids: list[str]) -> dict[str, set[str]]:
+    """Signatures already in raw_swaps, grouped by wallet — ONE query.
+
+    Replaces the per-wallet N+1 version (one BQ query per wallet, 1300+
+    sequential round-trips per run). The whole snapshot for ~220K signatures
+    is ~50-100MB of Python sets — bounded and cheap compared to the
+    accumulated cost of thousands of query jobs."""
+    if not wallet_ids:
+        return {}
     query = f"""
-        SELECT signature
+        SELECT wallet_id, signature
         FROM `{_table("raw_swaps")}`
-        WHERE wallet_id = @wid
+        WHERE wallet_id IN UNNEST(@wids)
     """
     job_config = bigquery.QueryJobConfig(
-        query_parameters=[bigquery.ScalarQueryParameter("wid", "STRING", wallet_id)]
+        query_parameters=[bigquery.ArrayQueryParameter("wids", "STRING", wallet_ids)]
     )
-    return {
-        row["signature"]
-        for row in client().query(query, job_config=job_config).result()
-    }
+    result: dict[str, set[str]] = {}
+    for row in client().query(query, job_config=job_config).result():
+        result.setdefault(row["wallet_id"], set()).add(row["signature"])
+    return result
 
 
-def insert_raw_swaps(wallet_id: str, txs: Iterable[dict]):
-    """Insert raw Helius txs for a wallet. Caller is responsible for dedup."""
+def build_raw_swap_rows(wallet_id: str, txs: Iterable[dict]) -> list[dict]:
+    """Convert raw Helius txs into raw_swaps row dicts WITHOUT loading them.
+
+    Split out from the old insert_raw_swaps so the collector can buffer rows
+    across wallets and flush in large batches (one load job per ~5000 rows
+    instead of one per wallet)."""
     now = _utcnow_iso()
     rows = []
     for tx in txs:
@@ -139,8 +157,12 @@ def insert_raw_swaps(wallet_id: str, txs: Iterable[dict]):
                 "collected_at": now,
             }
         )
+    return rows
+
+
+def insert_raw_swap_rows(rows: list[dict]):
+    """Bulk-load pre-built raw_swaps rows (possibly spanning many wallets)."""
     _load_rows("raw_swaps", rows)
-    return len(rows)
 
 
 def fetch_raw_swaps_all_wallets(
