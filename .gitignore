@@ -35,17 +35,15 @@ ENV/
 # === Data dumps — live in BigQuery, no need to track locally ===
 data/
 scripts/
-
+notes/
+DesignDoc.txt
 # === Personal / not for public ===
 Notes.py
 TODO.md
 Solana_config_info.py
 test_pub.py
 test_sub.py
-INTERVIEW_TALKING_POINTS.md
-LINKEDIN_PROJECT_DRAFT.md
-DEPLOYMENT_NOTES.md
-DECISIONS.md
+
 
 # === Windows reserved name (some tools accidentally create this) ===
 nul

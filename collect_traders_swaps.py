@@ -2,7 +2,7 @@
 collect_traders_swaps.py - Pull wallet swap txs from Helius into BigQuery raw_swaps.
 
 Flow:
-  1. Read wallets that need a refresh from BQ (last fetched >72h ago, or never fetched).
+  1. Read wallets that need a refresh from BQ (last fetched >48h ago, or never fetched).
   2. ONE snapshot query: all existing signatures for those wallets (dedup baseline).
   3. For each wallet, page Helius newest-first; stop at a known signature
      (incremental) or at MAX_TX_PER_WALLET (cost cap).
@@ -16,8 +16,8 @@ and ~65% of those wallets turn out to have no new swaps — wasted spend. A
 cheap getSignaturesForAddress "probe-first" idea was prototyped and rejected
 (a dry-run showed it would skip only ~7%, because that endpoint can't filter
 by transaction type and these wallets are constantly active in non-swap ways).
-The pragmatic lever instead: the refresh window is 72h, not 24h, which cuts
-collection volume ~3x. The precise per-wallet fix is deferred to post-upgrade.
+The pragmatic lever instead: the refresh window is 48h, not 24h, which roughly
+halves collection volume. The precise per-wallet fix is deferred to post-upgrade.
 
 Memory note (2026-06 OOM fix): the previous design did one signature query +
 one load job + one status UPDATE *per wallet*. At 1300+ wallets/run the
