@@ -6,6 +6,7 @@
 service-account*.json
 key.json
 
+
 # === Python ===
 __pycache__/
 *.pyc
@@ -33,6 +34,7 @@ ENV/
 
 # === Data dumps — live in BigQuery, no need to track locally ===
 data/
+scripts/
 
 # === Personal / not for public ===
 Notes.py

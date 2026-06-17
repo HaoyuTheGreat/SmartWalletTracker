@@ -464,6 +464,66 @@ manual curation from Twitter.
 
 ---
 
+## ADR 015: Reduce collection refresh frequency (not a signature-probe optimization)
+
+**Status:** Accepted
+**Date:** 2026-06-17
+
+**Context:**
+The daily Helius credit burn was unsustainable: ~140K credits on big-batch
+days, used 779K of the 1M free-tier cap only 8 days into the cycle (projected
+blackout ~Jun 19). The dominant method was the Enhanced Transactions API
+(`TRANSACTION_HISTORY`), which `collect_traders_swaps` calls once per eligible
+wallet. Probing two endpoints confirmed the cost asymmetry: the Enhanced API
+took 10.8s on a quiet wallet (deep-scanning history for SWAP-type matches)
+versus 94ms for a standard `getSignaturesForAddress` call — roughly a 100x
+credit difference.
+
+**Hypothesis (rejected):** Add a cheap "probe-first" step — call
+`getSignaturesForAddress` (~1 credit), only call the Enhanced API when the
+wallet's newest signature isn't one we already have. Expected to skip ~85% of
+expensive calls.
+
+**Measurement that killed the hypothesis:** A read-only dry-run over 30 real
+eligible wallets showed only **7%** would be skipped, not 85%. A production
+run's logs explained why: of 1529 wallets, **542 (35%) had genuinely new
+swaps** and **987 (65%) had no new swaps** (the real waste) — but
+`getSignaturesForAddress` returns *all* transaction types, while our dedup set
+holds *swap* signatures only. These are active wallets that constantly do
+non-swap transactions (transfers, approvals), so their newest signature is
+almost never a known swap. The probe can't distinguish "new swap" from "new
+anything," so it fires on ~93% of the wasteful wallets anyway, catching only
+the ~7% that are fully dormant.
+
+**Decision:** Drop the probe. Reduce the base refresh window in
+`fetch_wallets_needing_collection` from 24h to 72h.
+
+**Reasons:**
+- **Targets the real driver.** The waste exists because every wallet is
+  re-checked every 24h and 65% have nothing new. Checking every 72h cuts
+  collection volume ~3x directly, independent of the type-filtering problem.
+- **Right tradeoff for the product.** This is a smart-money tracker reasoning
+  over months of history; a swap appearing 1-3 days later changes nothing.
+- **Smooths the load.** A fixed 24h window made the eligible set oscillate
+  (huge day / tiny day); spreading collection over 72h evens out daily credits.
+- **One-line change, deployable before the cap.**
+
+**Tradeoffs accepted:**
+- New swaps surface up to ~3 days late. Acceptable here; revisit if real-time
+  signals ever matter.
+- The 65% "fetched but no new swaps" waste isn't *eliminated*, only hit ~3x
+  less often. The precise fix (per-wallet adaptive backoff, or a swap-typed
+  cheap probe) is deferred until after the Helius paid-tier upgrade + transfer
+  ingestion — at which point the probe also stops mis-firing, because non-swap
+  activity becomes data we actually want.
+
+**Methodology note (the real lesson):** A dry-run + free log analysis
+disproved an optimization I was confident in *before* deploying it or spending
+credits to "verify" it. Same discipline as ADR 006 (measure before optimizing)
+— here it prevented shipping a 7% fix dressed up as an 85% one.
+
+---
+
 ## Template for future entries
 
 ```markdown

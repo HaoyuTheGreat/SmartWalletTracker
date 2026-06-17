@@ -63,10 +63,16 @@ def fetch_all_wallets() -> list[dict]:
     return [dict(row) for row in client().query(query).result()]
 
 
-def fetch_wallets_needing_collection(max_age_hours: int = 24) -> list[dict]:
+def fetch_wallets_needing_collection(max_age_hours: int = 72) -> list[dict]:
     """
     Wallets that either have never been collected, or were collected >N hours ago.
     Skips wallets marked as 'failed' permanently.
+
+    Default 72h (was 24h): ~65% of daily-eligible wallets had no new swaps, so a
+    24h window spent ~3x the Helius credits it needed. A 72h window cuts
+    collection volume ~3x and smooths the day-to-day load, at the cost of new
+    swaps surfacing up to 3 days late — fine for a months-horizon tracker. See
+    ADR 015 for why a per-wallet signature probe was rejected in favor of this.
     """
     query = f"""
         SELECT address, wallet_id
