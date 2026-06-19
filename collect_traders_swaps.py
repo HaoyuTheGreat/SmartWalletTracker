@@ -44,18 +44,29 @@ PAGE_SIZE = 100
 FLUSH_ROWS = 5000
 
 
-def fetch_new_swaps(address: str, existing_sigs: set) -> list:
+def fetch_new_swaps(address: str, existing_sigs: set) -> list | None:
     """
     Fetch SWAP txs from Helius for a wallet, newest-first, stopping when we
     hit a signature we already have (incremental).
-    Returns the list of new txs (not yet in BQ).
+
+    Returns:
+      - list of new txs ([] if genuinely nothing new), on success
+      - None on a HARD failure (network error / dead endpoint / non-JSON body)
+
+    The None vs [] distinction matters: the caller must NOT mark a wallet
+    "up to date" when the API actually failed. Conflating the two is exactly
+    what let a Helius host change (api-mainnet.helius-rpc.com → mainnet...,
+    2026-06) silently break collection for a full day — every failing call
+    returned [] and every wallet got marked up to date.
     """
     new_txs = []
     before = None
 
     while len(new_txs) < MAX_TX_PER_WALLET:
+        # Host is mainnet.helius-rpc.com (per the Helius dashboard) — the old
+        # api-mainnet.helius-rpc.com alias was retired and now 404s.
         url = (
-            f"https://api-mainnet.helius-rpc.com/v0/addresses/{address}/transactions/"
+            f"https://mainnet.helius-rpc.com/v0/addresses/{address}/transactions/"
             f"?api-key={HELIUS_API_KEY}&type=SWAP&limit={PAGE_SIZE}"
         )
         if before:
@@ -63,15 +74,25 @@ def fetch_new_swaps(address: str, existing_sigs: set) -> list:
 
         try:
             response = requests.get(url, timeout=30)
-            page = response.json()
         except requests.exceptions.RequestException as e:
-            print(f"  Request failed: {e}")
-            break
+            print(f"  request error for {address[:8]}: {e}")
+            return None
+
+        try:
+            page = response.json()
+        except ValueError:
+            # Body isn't JSON at all (e.g. a bare "Not Found" from a retired
+            # endpoint). HARD failure — return None so the caller retries,
+            # rather than mistaking it for "nothing new".
+            print(f"  non-JSON {response.status_code} for {address[:8]}: {response.text[:80]}")
+            return None
 
         if not page:
             break
         if not isinstance(page, list):
-            print(f"  Unexpected response: {str(page)[:100]}")
+            # Structured response like {'error': 'Failed to find events within
+            # the search period'} — a legit "no swaps in this window", NOT a
+            # failure. Treat as nothing-new.
             break
 
         stop_early = False
@@ -98,7 +119,11 @@ def fetch_new_swaps(address: str, existing_sigs: set) -> list:
 
 
 def main():
-    wallets = bq.fetch_wallets_needing_collection(max_age_hours=24)
+    # Refresh window lives in lib.bq (default 48h, see ADR 015) — call with no
+    # arg so there's ONE source of truth. (A previous explicit max_age_hours=24
+    # here silently overrode the 48h default, so the documented change never
+    # actually took effect.)
+    wallets = bq.fetch_wallets_needing_collection()
     print(f"Found {len(wallets)} wallets needing collection")
     if not wallets:
         return
@@ -110,6 +135,7 @@ def main():
     pending_rows: list[dict] = []  # buffered raw_swaps rows, possibly many wallets
     pending_ok: list[str] = []  # wallets whose rows are buffered (or up to date)
     failed: list[str] = []
+    api_errors = 0  # wallets whose Helius call hard-failed (will retry next run)
 
     def flush():
         """Insert buffered rows, THEN mark their wallets ok — in that order.
@@ -134,6 +160,15 @@ def main():
 
         existing_sigs = sig_map.get(wallet_id, set())
         new_txs = fetch_new_swaps(address, existing_sigs)
+
+        if new_txs is None:
+            # HARD API failure — leave the wallet untouched (don't mark ok,
+            # don't advance last_collected_at) so it stays eligible and retries
+            # next run. Never mask an outage as "up to date".
+            api_errors += 1
+            print(f"[{wallet_id}] API error — will retry next run")
+            time.sleep(0.2)
+            continue
 
         if new_txs:
             pending_rows.extend(bq.build_raw_swap_rows(wallet_id, new_txs))
@@ -161,6 +196,18 @@ def main():
     if failed:
         bq.bulk_update_wallet_status(failed, "failed")
         print(f"Marked {len(failed)} wallets failed")
+
+    # Fail LOUD on a broad outage: if most wallets hit API errors, data is
+    # silently not being collected. Raise so the pipeline reports failure
+    # (Step 3 is fail-hard → honest status dot goes red) instead of a false
+    # SUCCESS — the exact failure mode that hid the 2026-06 host change for a day.
+    if wallets and api_errors > len(wallets) * 0.5:
+        raise RuntimeError(
+            f"Helius API hard-failed on {api_errors}/{len(wallets)} wallets — "
+            "likely an endpoint/auth outage. Failing the run loudly."
+        )
+    if api_errors:
+        print(f"{api_errors} wallets had API errors (will retry next run)")
 
 
 if __name__ == "__main__":
