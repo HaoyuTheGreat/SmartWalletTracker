@@ -187,50 +187,72 @@ def build_row(parsed, wallet_id, signature, token_cache, sol_prices):
     }
 
 
-def main():
-    # --- Phase 1: ask BQ only for what needs analyzing ---
-    unanalyzed = bq.fetch_unanalyzed_raw_swaps(PARSER_VERSION)
-    total_new = sum(len(v) for v in unanalyzed.values())
-    print(f"Unanalyzed raw_swaps at v{PARSER_VERSION}: {total_new}")
+# Wallets per batch. The fetch loads only this batch's unanalyzed raw_json
+# into memory (the OOM bomb was loading ALL of it at once). Conservative vs
+# Step 5's 25 because a single heavy wallet's raw_json is larger here; lower
+# it if a backfill of very heavy wallets spikes memory.
+ANALYZE_BATCH_SIZE = 15
 
-    if not unanalyzed:
+
+def main():
+    # --- Discover who needs analyzing (IDs only, no payloads) ---
+    pending_ids = bq.fetch_unanalyzed_wallet_ids(PARSER_VERSION)
+    if not pending_ids:
         print("Nothing new to analyze")
         return
 
-    # Only now do we pay for the other preloads
-    wallets = bq.fetch_all_wallets()
-    id_to_address = {w["wallet_id"]: w["address"] for w in wallets}
+    n_batches = (len(pending_ids) + ANALYZE_BATCH_SIZE - 1) // ANALYZE_BATCH_SIZE
+    print(
+        f"{len(pending_ids)} wallets have unanalyzed raw_swaps at v{PARSER_VERSION} "
+        f"— processing in {n_batches} batches of {ANALYZE_BATCH_SIZE}"
+    )
+
+    # --- "Reference books": loaded once, reused + accumulated across batches ---
+    # Small and unchanging within a run, so loading per-batch would just be
+    # wasted queries. token_cache MUST persist so a symbol resolved in an early
+    # batch isn't re-fetched from Helius DAS in a later one.
+    id_to_address = {w["wallet_id"]: w["address"] for w in bq.fetch_all_wallets()}
     sol_prices = bq.fetch_sol_price_map()
     token_cache = load_initial_token_cache()
 
-    # --- Phase 2: parse in memory ---
-    all_rows = []
-    for wallet_id, new_raw in unanalyzed.items():
-        address = id_to_address.get(wallet_id, "")
+    total_rows = 0
+    for start in range(0, len(pending_ids), ANALYZE_BATCH_SIZE):
+        batch_ids = pending_ids[start : start + ANALYZE_BATCH_SIZE]
+        # Pull ONLY this batch's unanalyzed payloads (the bounded "work pile").
+        batch_raw = bq.fetch_unanalyzed_raw_swaps(PARSER_VERSION, wallet_ids=batch_ids)
 
-        parsed_pairs = []
-        for tx in new_raw:
-            parsed = parse_swap(tx, address)
-            if parsed is None or parsed.get("timestamp") is None:
+        rows = []
+        for wallet_id, new_raw in batch_raw.items():
+            address = id_to_address.get(wallet_id, "")
+
+            parsed_pairs = []
+            for tx in new_raw:
+                parsed = parse_swap(tx, address)
+                if parsed is None or parsed.get("timestamp") is None:
+                    continue
+                parsed_pairs.append((tx["_signature"], parsed))
+
+            if not parsed_pairs:
                 continue
-            parsed_pairs.append((tx["_signature"], parsed))
 
-        if not parsed_pairs:
-            continue
+            mints = collect_mints(p for _, p in parsed_pairs)
+            resolve_token_symbols(mints, token_cache)
+            rows.extend(
+                build_row(p, wallet_id, sig, token_cache, sol_prices)
+                for sig, p in parsed_pairs
+            )
 
-        mints = collect_mints(p for _, p in parsed_pairs)
-        resolve_token_symbols(mints, token_cache)
+        # Persist THIS batch, then free it — never accumulate across batches
+        # (that would just rebuild the OOM bomb in `rows`). Per-batch insert
+        # also means a mid-run crash keeps finished batches: the anti-join
+        # excludes them next run, so the backlog converges.
+        if rows:
+            bq.insert_analyzed_swaps(rows)
+            total_rows += len(rows)
+        del batch_raw, rows
+        print(f"  batch {start // ANALYZE_BATCH_SIZE + 1}/{n_batches} done")
 
-        rows = [build_row(p, wallet_id, sig, token_cache, sol_prices) for sig, p in parsed_pairs]
-        all_rows.extend(rows)
-        print(f"[{wallet_id}] prepared {len(rows)} rows")
-
-    # --- Phase 3: single batch insert ---
-    if all_rows:
-        bq.insert_analyzed_swaps(all_rows)
-        print(f"\nInserted {len(all_rows)} analyzed_swaps rows in one batch")
-    else:
-        print("\nNothing new to analyze")
+    print(f"\nInserted {total_rows} analyzed_swaps rows across {n_batches} batches")
 
 
 if __name__ == "__main__":

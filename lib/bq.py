@@ -206,15 +206,53 @@ def fetch_raw_swaps_all_wallets(
     return result
 
 
-def fetch_unanalyzed_raw_swaps(parser_version: int) -> dict[str, list[dict]]:
+def fetch_unanalyzed_wallet_ids(parser_version: int) -> list[str]:
+    """Wallet_ids that have at least one raw_swap not yet analyzed at this
+    parser_version. Cheap: returns only the ID list, NOT the raw_json.
+
+    Lets analyze_wallets discover "who needs work" without pulling any payloads,
+    so it can then fetch the heavy raw_json one batch of wallets at a time
+    (see fetch_unanalyzed_raw_swaps(wallet_ids=...)). This is the memory-bound
+    half of the chunked Step-4 design — the snapshot of all unanalyzed payloads
+    is what used to OOM on backfill / parser_version bumps.
+    """
+    query = f"""
+        SELECT DISTINCT r.wallet_id
+        FROM `{_table("raw_swaps")}` r
+        LEFT JOIN `{_table("analyzed_swaps")}` a
+          ON r.wallet_id = a.wallet_id
+         AND r.signature = a.signature
+         AND a.parser_version = @v
+        WHERE a.signature IS NULL
+    """
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[bigquery.ScalarQueryParameter("v", "INT64", parser_version)]
+    )
+    return [row["wallet_id"] for row in client().query(query, job_config=job_config).result()]
+
+
+def fetch_unanalyzed_raw_swaps(
+    parser_version: int, wallet_ids: list[str] | None = None
+) -> dict[str, list[dict]]:
     """
     Anti-join: return raw_swaps that don't have a matching row in analyzed_swaps
     at the given parser_version. Lets BQ compute the diff — Python only receives
     rows that actually need processing.
 
-    When everything is up-to-date, this returns {} in ~1s instead of pulling
-    ~500MB of raw_json to Python.
+    `wallet_ids` (optional) scopes the result to one batch of wallets, so the
+    caller can process unanalyzed payloads in bounded chunks instead of pulling
+    every unanalyzed row at once. Without it, behavior is unchanged (all
+    unanalyzed rows) — but at scale that snapshot is the OOM bomb, so the
+    pipeline always passes a batch.
     """
+    where_ids = ""
+    params = [bigquery.ScalarQueryParameter("v", "INT64", parser_version)]
+    if wallet_ids is not None:
+        if not wallet_ids:
+            return {}
+        where_ids = "AND r.wallet_id IN UNNEST(@ids)"
+        params.append(bigquery.ArrayQueryParameter("ids", "STRING", wallet_ids))
+
     query = f"""
         SELECT r.wallet_id, r.signature, r.raw_json
         FROM `{_table("raw_swaps")}` r
@@ -223,11 +261,10 @@ def fetch_unanalyzed_raw_swaps(parser_version: int) -> dict[str, list[dict]]:
          AND r.signature = a.signature
          AND a.parser_version = @v
         WHERE a.signature IS NULL
+          {where_ids}
         ORDER BY r.wallet_id, r.tx_timestamp
     """
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[bigquery.ScalarQueryParameter("v", "INT64", parser_version)]
-    )
+    job_config = bigquery.QueryJobConfig(query_parameters=params)
     result: dict[str, list[dict]] = {}
     for row in client().query(query, job_config=job_config).result():
         tx = json.loads(row["raw_json"])
