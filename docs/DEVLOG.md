@@ -1,198 +1,256 @@
 # DEVLOG — SmartWalletsTracker
 
-> 这个项目一路上遇到的问题 + 怎么解决的, 按时间顺序。从头读 = 整个开发/优化历程。
-> 每条格式: **问题 (现象) → 根因 → 修复 → 结果**。新条目往底部追加。
+> Problems hit while building this project and how each was solved, in chronological order.
+> Read top to bottom = the whole build/optimization journey.
 >
-> 配套文档分工:
-> - **DEVLOG.md** (本文件) = 遇到了什么问题, 怎么修的 (历史/旅程)
-> - **DECISIONS.md** = 为什么选 X 不选 Y (架构决策)
-> - **RECAP.md** = 系统现在长什么样、怎么运转 (当前快照)
+> Format per entry: **Problem (symptom) → Cause → Fix → Result** (+ **Lesson** where it matters).
+> New entries are appended at the bottom. ★ marks the ones worth reading first.
+>
+> Companion docs:
+> - **DEVLOG.md** (this file) = what broke and how I fixed it (the journey)
+> - **DECISIONS.md** = why X over Y (architecture decisions)
+> - **RECAP.md** = what the system looks like and how it runs today (current snapshot)
+
+## Index
+
+| # | Date | What happened |
+|---|------|---------------|
+| 01 | 2026-02~03 | Local JSON files → BigQuery |
+| 02 | 2026-05 | Dune and Helius disagree on what a "swap" is |
+| 03 ★ | 2026-05 | analyze_wallets 189s → 2s (predicate pushdown) |
+| 04 | 2026-05 | filter_traders N+1: 122 → 2 queries |
+| 05 | 2026-05 | Dependency conflict: dune-client vs requests |
+| 06 | 2026-05-13 | filter_traders hit the 3600s job timeout |
+| 07 | 2026-05-18~20 | A batch of frontend visual/style bugs |
+| 08 | 2026-05-19 | win_rate showing 4000% |
+| 09 | 2026-05-22 | Vercel ↔ Cloud Run CORS |
+| 10 | 2026-05 | React setState-in-effect (cascading renders) |
+| 11 | 2026-06-10 | Homepage numbers were hardcoded |
+| 12 ★ | 2026-06-10~11 | Pipeline OOM at 8Gi (Steps 3 + 5) |
+| 13 | 2026-06-11 | A public chat endpoint = a money leak |
+| 14 ★ | 2026-06-17 | Helius credit waste: a dry-run disproves my own optimization |
+| 15 | 2026-06-19 | Step 4 (analyze) unbounded fetch, chunked before backfill |
+| 16 ★ | 2026-06-19 | Helius host retired + a silent failure that hid it for a day |
 
 ---
 
-## 01 · 2026-02~03 — 本地 JSON 文件 → BigQuery
+## 01 · 2026-02~03 — Local JSON files → BigQuery
 
-**问题**: 早期数据存在本地 `data/*.json`。上云后 Cloud Run 是无状态的 — 这次 run 写的文件下次 run 看不到; 而且小文件 IO 慢、没法做多维度查询 ("过去 30 天所有钱包总 volume" 算不出来)。
+**Problem**: Early data lived in local `data/*.json`. Once on Cloud Run (stateless), files written by one run were gone the next; small-file IO was slow, and multi-dimensional queries ("total volume across all wallets over the last 30 days") were impossible.
 
-**根因**: 本地文件不适合无状态云环境 + 分析型 (OLAP) 工作负载。
+**Cause**: Local files don't fit a stateless cloud runtime or an analytical (OLAP) workload.
 
-**修复**: 写 `infra/migrate_to_bigquery.py` 一次性把本地 JSON 灌进 BigQuery; 之后所有 pipeline 表都落 BQ (强类型 schema + partition/cluster + SQL 可查)。
+**Fix**: A one-off `infra/migrate_to_bigquery.py` loaded the local JSON into BigQuery; from then on every pipeline table lands in BQ (typed schema + partition/cluster + SQL-queryable).
 
-**结果**: 数据持久化、可并发、可聚合查询。这是整个项目从"脚本"变"系统"的起点。
-
----
-
-## 02 · 2026-05 — Dune 和 Helius 的 "swap" 定义不一致
-
-**问题**: 用 Dune query 筛出"高频交易"钱包 (trade_count 20-500), 但用 Helius 拉回来平均只有 ~31 swap/钱包, 数量差 3-5 倍。一开始以为是 bug。
-
-**根因**: Dune `dex_solana.trades` 和 Helius `type=SWAP` 是**两家公司对同一条链的独立索引**, 对"什么算一笔 swap"定义不同 (Jupiter 2-hop 路由、Pump.fun bonding curve、LP add/remove 各家归类不一)。关键认知: **"是不是 swap"是分类器的主观判断, 不是链本身的属性。**
-
-**修复**: 架构上保留 `raw_swaps` 存 Helius 原始 JSON + `analyzed_swaps` 做解析层 + `parser_version` 追踪版本。未来如果重定义 swap, 基于 raw 层重跑, 不用重新付费调 API。
-
-**结果**: 多源口径不一致从"bug"变成"被架构吸收的已知差异"。面试故事 (data governance / late binding over early coupling)。
+**Result**: Durable, concurrent, aggregatable data. This is where the project went from "script" to "system."
 
 ---
 
-## 03 · 2026-05 — analyze_wallets 189s → 2s (predicate pushdown)
+## 02 · 2026-05 — Dune and Helius disagree on what a "swap" is
 
-**问题**: `analyze_wallets.py` 每次 re-run 要决定"哪些 raw_swaps 还没解析过", 即使没有新数据也要跑 189 秒。
+**Problem**: Dune queries flagged "high-frequency" wallets (trade_count 20–500), but pulling them from Helius gave only ~31 swaps/wallet on average — 3–5× fewer. Looked like a bug at first.
 
-**根因**: 旧做法把所有 raw_swaps + analyzed_swaps 拉进 Python 在内存里做 diff — 几百 MB 网络传输 + json 解析, Python 成了瓶颈。
+**Cause**: Dune `dex_solana.trades` and Helius `type=SWAP` are two companies independently indexing the same chain, with different definitions of what counts as a swap (Jupiter 2-hop routes, Pump.fun bonding curves, LP add/remove all classified differently). Key realization: **"is this a swap" is a classifier's subjective call, not a property of the chain.**
 
-**修复**: 把过滤下推给 BigQuery (anti-join: `LEFT JOIN ... WHERE a.signature IS NULL`), BQ 算差集, Python 只收真正要处理的行。
+**Fix**: Architecturally keep `raw_swaps` (Helius raw JSON) + `analyzed_swaps` (parsed layer) + `parser_version`. If "swap" is ever redefined, re-run off the raw layer instead of paying to re-fetch.
 
-**结果**: 189s → 2s (~95×)。术语: predicate pushdown。idle run 几乎瞬间退出。见 DECISIONS ADR 006。
+**Result**: Cross-source disagreement went from "bug" to "a known difference absorbed by the architecture." Interview story: data governance / late binding over early coupling.
+
+---
+
+## 03 · 2026-05 — analyze_wallets 189s → 2s (predicate pushdown) ★
+
+**Problem**: Every re-run of `analyze_wallets.py` took 189s to decide "which raw_swaps aren't parsed yet," even when there was no new data.
+
+**Cause**: The old approach pulled all raw_swaps + analyzed_swaps into Python and diffed them in memory — hundreds of MB over the wire + JSON parsing, with Python as the bottleneck.
+
+**Fix**: Push the filter down to BigQuery (anti-join: `LEFT JOIN ... WHERE a.signature IS NULL`); BQ computes the difference, Python only receives rows that actually need work.
+
+**Result**: 189s → 2s (~95×). Term: predicate pushdown. Idle runs now exit almost instantly. See DECISIONS ADR 006.
 
 ---
 
 ## 04 · 2026-05 — filter_traders N+1: 122 → 2 queries
 
-**问题**: `filter_traders.py` 给每个钱包算画像, 每钱包 2 个 query (raw + analyzed), 61 钱包 = 122 个 query, 每个有 ~500ms slot 启动开销 → 60+ 秒。
+**Problem**: `filter_traders.py` computed a profile per wallet with 2 queries each (raw + analyzed) — 61 wallets = 122 queries, each with ~500ms slot startup → 60+s.
 
-**根因**: N+1 query 模式 — 抽象掩盖了 IO 成本。
+**Cause**: N+1 query pattern — the abstraction hid the IO cost.
 
-**修复**: 改成 2 个 `GROUP BY wallet_id` 全量 query, Python 内存里按 wallet_id 分桶。
+**Fix**: Two `GROUP BY wallet_id` bulk queries, bucketed by wallet_id in Python memory.
 
-**结果**: 60+s → 几秒。术语: N+1 elimination / batch loading。见 DECISIONS ADR 007。
-
----
-
-## 05 · 2026-05 — 依赖冲突: dune-client vs requests
-
-**问题**: `make deploy` 时 Docker build 挂: `dune-client 1.10.0 depends on requests~=2.32.5` 但我们 pin 了 `requests==2.33.1`。
-
-**根因**: 严格 pin (`==`) 在加新依赖时容易撞版本约束。
-
-**修复**: 降 `requests` 到 `2.32.5`, 同时满足 google-cloud-bigquery (`>=2.21,<3`) 和 dune-client (`~=2.32.5`)。
-
-**结果**: build 通过。Lesson: pin exact 换来可复现, 代价是手动解冲突; 规模化会上 pip-tools/uv 生成 lock file。
+**Result**: 60+s → a few seconds. Term: N+1 elimination / batch loading. See DECISIONS ADR 007.
 
 ---
 
-## 06 · 2026-05-13 — filter_traders 撞 3600s job timeout
+## 05 · 2026-05 — Dependency conflict: dune-client vs requests
 
-**问题**: Cloud Run Job 跑挂在 1 小时超时上。
+**Problem**: `make deploy` Docker build broke: `dune-client 1.10.0 depends on requests~=2.32.5` but we'd pinned `requests==2.33.1`.
 
-**根因**: `filter_traders` 每次都把 1.5GB+ 的全部 raw_swaps 拉进 Python (即使大部分钱包数据没变)。
+**Cause**: Strict pins (`==`) collide with version constraints when adding new dependencies.
 
-**修复**: 增量化 — 加 `fetch_wallets_needing_classification` (又一个 anti-join), 只处理"上次分类后有新数据"的钱包; 同时把 job task-timeout 提到 7200s。
+**Fix**: Dropped `requests` to `2.32.5`, satisfying both google-cloud-bigquery (`>=2.21,<3`) and dune-client (`~=2.32.5`).
 
-**结果**: 从"每天重扫全部"变成"只扫变化的"。(注: 这是 OOM 那次事故的前传 — 同一个文件后来还是炸了, 见 #15。)
-
----
-
-## 07 · 2026-05-18~20 — 前端一组视觉/样式 bug (合并记录)
-
-**问题 + 修复** (Day 4-5 前端冲刺期的小坑):
-- **流星像彗星不像数字串**: glyph 间距按速度比例 → 慢速时重叠。改成沿单位方向向量的固定像素间距 (22px)。
-- **看不到流星 (z-stacking)**: main 的 `bg-black` 盖住了 -z-10 的 canvas。去掉 bg-black, 背景渐变层改 `fixed`。
-- **Tailwind v4 语法**: `bg-gradient-*` 报错 → 改 `bg-linear-*` (v4 改了命名)。
-- **tag 文字隐形**: `<html>` 没加 `dark` class → shadcn 退回 light 主题 → 深色文字在黑底上看不见。给 html 加 `dark`。
-
-**Lesson**: 框架升级 (Tailwind v4 / Next 16 / React 19) 的 breaking change 是前端这类 bug 的常见来源 — 报错信息往往指向新语法。
+**Result**: Build passed. Lesson: exact pins buy reproducibility at the cost of manual conflict resolution; at scale, move to pip-tools/uv lock files.
 
 ---
 
-## 08 · 2026-05-19 — win_rate 显示 4000%
+## 06 · 2026-05-13 — filter_traders hit the 3600s job timeout
 
-**问题**: Explore 表格里 win rate 显示成 4000%、5560% 这种离谱数字。
+**Problem**: The Cloud Run Job died on the 1-hour timeout.
 
-**根因**: 数据语义不一致 — pipeline (`filter_traders.py`) 把 win_rate 存成 **0-100 的百分数** (`wins/total*100`), 但前端 `formatPercent` 又乘了一次 100, 当成 0-1 分数处理。
+**Cause**: `filter_traders` pulled all 1.5GB+ of raw_swaps into Python every run, even for wallets whose data hadn't changed.
 
-**修复**: 前端去掉那次 `*100`, 加注释标明 pipeline 存的是 0-100。
+**Fix**: Made it incremental — added `fetch_wallets_needing_classification` (another anti-join) to process only wallets with new data since last classification; also raised the job task-timeout to 7200s.
 
-**结果**: 显示正常。Lesson: 跨层数据语义 (0-1 vs 0-100) 必须显式约定, 是 silent bug 的经典来源。
-
----
-
-## 09 · 2026-05-22 — Vercel 前端连不上 Cloud Run 后端 (CORS)
-
-**问题**: 前端部署到 Vercel 后, 首页正常但 Explore 表格静默加载失败 (无可见报错, 空数据)。
-
-**根因**: 浏览器同源策略 — Cloud Run API 的 `CORS_ORIGINS` 只允许 localhost, 不含 Vercel 域名, 浏览器 block 了请求。DevTools console 里能看到 CORS error。
-
-**修复**: 一条 gcloud 命令把 Vercel 域名加进 `CORS_ORIGINS` 环境变量; service 自动重启。
-
-**结果**: 3 分钟解决。Lesson: 应该一开始就把 CORS_ORIGINS 设计成 per-environment 配置, 而不是 localhost 默认 + 手动加 prod。
+**Result**: From "rescan everything daily" to "scan only what changed." (Note: this is the prequel to the OOM incident — the same file later blew up anyway, see #12.)
 
 ---
 
-## 10 · 2026-05 — React: 在 effect 里同步 setState (cascading renders)
+## 07 · 2026-05-18~20 — A batch of frontend visual/style bugs (merged)
 
-**问题**: ESLint 报 `react-hooks/set-state-in-effect` — 在 useEffect 里同步调 setState 会触发级联重渲染。出现在 Explore 页 (loading 状态) 和 ChatPanel (从 sessionStorage 恢复对话)。
+**Problem + Fix** (small traps during the Day 4–5 frontend sprint):
+- **Shooting stars looked like comets, not digit strings**: glyph spacing scaled with speed → overlap at low speed. Switched to fixed pixel spacing (22px) along the unit direction vector.
+- **Stars invisible (z-stacking)**: `main`'s `bg-black` covered the `-z-10` canvas. Removed bg-black, made the gradient layer `fixed`.
+- **Tailwind v4 syntax**: `bg-gradient-*` errored → use `bg-linear-*` (v4 renamed it).
+- **Invisible tag text**: `<html>` had no `dark` class → shadcn fell back to the light theme → dark text on a black background. Added `dark` to html.
 
-**根因**: 在 effect body 里直接 setState 不是 effect 的正确用法。
-
-**修复**: ① Explore 页 — 改成"用 params 戳记的 result 派生 loading 状态" (不在 effect 里设 loading); ② ChatPanel — 用 `useState(() => ...)` 惰性初始化从 sessionStorage 读, 而不是 effect 里 setState。
-
-**结果**: lint 通过 + 无级联渲染。Lesson: 懂 React 18+ 的 effect 语义 nuance, 是 frontend 面试加分点。
+**Lesson**: Breaking changes in framework upgrades (Tailwind v4 / Next 16 / React 19) are a common source of frontend bugs — the error message usually points at the new syntax.
 
 ---
 
-## 11 · 2026-06-10 — 首页数字是写死的, 不跟数据更新
+## 08 · 2026-05-19 — win_rate showing 4000%
 
-**问题**: 首页 "5,000 candidates / 111 trading smart" 是硬编码在 JSX 里的, 真实数据早就变了 (5,018 / 165+), 网页比现实落后一个月, "Live" 绿点是假的。
+**Problem**: The Explore table showed win rates like 4000%, 5560%.
 
-**根因**: 早期为了出 demo 把数字写死了, 没接真实 API。
+**Cause**: Inconsistent data semantics — the pipeline (`filter_traders.py`) stored win_rate as a **0–100 percentage** (`wins/total*100`), but the frontend `formatPercent` multiplied by 100 again, treating it as a 0–1 fraction.
 
-**修复**: 首页改成 server component, 服务端 fetch `/api/stats/dashboard` + ISR 1h 缓存; 后端 stats 接口加 `candidates_scanned` 字段; API 挂了 fallback 到静态快照 (永不白屏); 状态点诚实化 (分类停更 → 显示黄色 "pipeline delayed")。
+**Fix**: Removed the frontend `*100`, added a comment that the pipeline stores 0–100.
 
-**结果**: 所有数字实时, 每小时自动刷新。状态点变成免费的 pipeline 健康监控。
+**Result**: Correct display. Lesson: cross-layer data semantics (0–1 vs 0–100) must be made explicit — a classic source of silent bugs.
+
+---
+
+## 09 · 2026-05-22 — Vercel frontend couldn't reach the Cloud Run backend (CORS)
+
+**Problem**: After deploying to Vercel, the homepage worked but the Explore table silently failed to load (no visible error, empty data).
+
+**Cause**: Browser same-origin policy — the Cloud Run API's `CORS_ORIGINS` only allowed localhost, not the Vercel domain, so the browser blocked the request (visible as a CORS error in DevTools).
+
+**Fix**: One gcloud command added the Vercel domain to the `CORS_ORIGINS` env var; the service auto-restarted.
+
+**Result**: Fixed in 3 minutes. Lesson: CORS_ORIGINS should have been per-environment config from the start, not a localhost default + a manual prod patch.
+
+---
+
+## 10 · 2026-05 — React: synchronous setState inside an effect (cascading renders)
+
+**Problem**: ESLint flagged `react-hooks/set-state-in-effect` — calling setState synchronously in useEffect triggers cascading re-renders. Appeared on the Explore page (loading state) and ChatPanel (restoring a conversation from sessionStorage).
+
+**Cause**: Calling setState directly in an effect body is a misuse of effects.
+
+**Fix**: ① Explore page — derive loading state from a params-stamped result (no setState in effect); ② ChatPanel — read sessionStorage with a lazy `useState(() => ...)` initializer instead of setState in an effect.
+
+**Result**: Lint clean + no cascading renders. Lesson: understanding React 18+ effect semantics is a frontend-interview plus.
+
+---
+
+## 11 · 2026-06-10 — Homepage numbers were hardcoded, didn't track the data
+
+**Problem**: Homepage "5,000 candidates / 111 trading smart" was hardcoded in JSX; the real data had long since moved (5,018 / 165+), so the page lagged reality by a month and the "Live" green dot was a lie.
+
+**Cause**: Numbers were hardcoded early for a demo and never wired to the real API.
+
+**Fix**: Homepage became a server component fetching `/api/stats/dashboard` + ISR 1h cache; the backend stats endpoint gained a `candidates_scanned` field; it falls back to a static snapshot if the API is down (never a blank page); the status dot became honest (classification stalls → yellow "pipeline delayed").
+
+**Result**: Every number is live, auto-refreshing hourly. The status dot became free pipeline-health monitoring — and later (see #16) is what caught a production outage.
 
 ---
 
 ## 12 · 2026-06-10~11 — Pipeline OOM at 8Gi (Steps 3 + 5) ★
 
-**问题**: 连续两天 daily run 被 signal 9 杀掉 ("memory limit reached"), 8Gi 还是爆。dashboard 数据停更。
+**Problem**: Two days in a row, the daily run was killed by signal 9 ("memory limit reached") — 8Gi still blew up. Dashboard data went stale.
 
-**根因** (三层叠加):
-1. **Step 3 collect** 三重 per-wallet 开销 (N+1 签名查询 + 每钱包一个 load job + 每钱包一条 UPDATE), 随钱包数从 61→1400 线性增长。
-2. **Step 5 filter** (真正的大炸弹) 把所有 pending 钱包的 raw_json 一次拉进 Python — 全量 backlog 时 ~3.7GB JSON → 8-10GB Python 对象。
-3. **死循环**: 分类结果最后才一次性写库 → OOM 时一行没写 → backlog 原样留给明天 → 明天面对同样大的 backlog 再死, 永不自愈。
+**Cause** (three layers stacked):
+1. **Step 3 collect**: triple per-wallet overhead (N+1 signature queries + one load job per wallet + one UPDATE per wallet), growing linearly as wallets went 61 → 1400.
+2. **Step 5 filter** (the real bomb): pulled all pending wallets' raw_json into Python at once — ~3.7GB of JSON → 8–10GB of Python objects on a full backlog.
+3. **Deadlock**: classification results were written only at the very end → on OOM nothing was written → the backlog carried over unchanged → the next day faced the same huge backlog and died again, never self-healing.
 
-**修复** (bounded by construction, 不是加内存):
-- Step 3: 一次签名快照查询 (杀 N+1) + 5000 行缓冲 flush + 批量状态 UPDATE + 及时 `del` 大对象。
-- Step 5: 25 钱包/批分块 + **每批落盘** (进度跨崩溃保留, backlog 单调收敛, 打破死循环)。
+**Fix** (bounded by construction, not more memory):
+- Step 3: one signature snapshot query (kills the N+1) + a 5000-row buffer flush + batched status UPDATEs + timely `del` of large objects.
+- Step 5: 25-wallet batches + **persist each batch** (progress survives crashes, the backlog converges monotonically, breaking the deadlock).
 
-**结果**: 压力测试 1430 钱包 + 1029 分类 / 8Gi / 62 分钟通过。完整复盘见 RECAP.md Step 3。Lesson: "我以为的 bug (per-wallet 开销) 藏着更糟的 bug (无界拉取 + 死循环)" — 修 bug 前先让日志讲完整故事。
-
----
-
-## 13 · 2026-06-11 — 公开的 chat 端点 = 烧钱口子
-
-**问题**: QuerySmith chat 上线网页 = `POST /api/chat` 公开在 Cloud Run 上, 每个请求都是真金白银的 Anthropic token, 爬虫/滥用能烧爆账单。
-
-**根因**: 6 层防御保护的是 BigQuery, 没保护 Anthropic 账单。
-
-**修复**: 后端加内存级日预算闸门 (`CHAT_DAILY_BUDGET_USD`, 默认 $3), 超额返回 429 + 友好提示; service 设 `max-instances=1` 让计数有意义。已知局限 (内存计数、per-instance) 注释在代码里。
-
-**结果**: 零成本验证 (预算=0 测 429) + 生产验证通过。
+**Result**: Stress test passed — 1430 wallets + 1029 classifications / 8Gi / 62 min. Full post-mortem in RECAP.md Step 3. Lesson: "the bug I thought I had (per-wallet overhead) hid a worse one (unbounded fetch + deadlock)" — let the logs tell the whole story before fixing.
 
 ---
 
-## 14 · 2026-06-17 — Helius credit 浪费: 用 dry-run 否定自己的优化假设 ★
+## 13 · 2026-06-11 — A public chat endpoint = a money leak
 
-**问题**: Helius credit 快烧穿免费额度 (779K/1M, 8 天)。诊断发现 collect 每个钱包都打昂贵的 Enhanced API (~100 credits), 而 ~65% 的钱包根本没有新 swap。
+**Problem**: Shipping QuerySmith chat to the web meant `POST /api/chat` was public on Cloud Run, every request spending real Anthropic tokens — scrapers/abuse could torch the bill.
 
-**我的假设**: 加廉价探测 (`getSignaturesForAddress` ~1 credit) 先看有没有新活动, 有才打贵接口。**我很有信心能省 ~85%。**
+**Cause**: The 6 defense layers protected BigQuery, not the Anthropic bill.
 
-**关键动作**: 没有直接部署。先写只读 dry-run 脚本, 对 30 个真实钱包只跑廉价探测, 估算会跳过几个 — 不烧一分贵 credit。
+**Fix**: Backend added an in-memory daily budget gate (`CHAT_DAILY_BUDGET_USD`, default $3), returning 429 + a friendly message over budget; service set to `max-instances=1` so the counter is meaningful. Known limits (in-memory counter, per-instance) documented in code.
 
-**结果打脸 → pivot**: 只省 7%, 不是 85%。翻生产日志发现根因: `getSignaturesForAddress` 返回**所有类型**签名, 而去重集只有 **swap** 签名, 活跃钱包天天有非-swap 活动 → probe 区分不了"新 swap"和"新任何东西", 93% 误触发。**放弃 probe, 改成把刷新窗口 24h → 48h** (直接砍 ~2x, 跟类型问题无关)。见 DECISIONS ADR 015。
-
-**Lesson (最重要)**: 一个零成本的 dry-run, 在部署前、在花 credit "验证"前, 就否定了我很有信心的优化。"measure before optimizing"不只是测基线, 还包括**用最便宜的方式先证伪你对优化效果的预估**。
+**Result**: Zero-cost verification (budget=0 → 429) + production verified.
 
 ---
 
-# 已知问题 / 待修 (遇到了但还没修, 或主动推迟)
+## 14 · 2026-06-17 — Helius credit waste: using a dry-run to disprove my own optimization ★
 
-- **⚠️ Step 4 (analyze) 无界拉取 (定时炸弹)**: `fetch_unanalyzed_raw_swaps` 把所有待解析 raw_json 一次塞进内存 — 跟 #12 的 Step 5 同款病。日常没事 (anti-join 让它很小), 但 **Helius backfill 灌入大量数据 + bump parser_version 都会引爆它**。backfill 前必须分块 (照搬 #12 的修法)。
-- **2000-swap cap → data_clipped**: ~50% 钱包历史被截断 → 行为/PnL 失真 → silent misclassification。Helius 已升 Developer 档 (6/17), 拆 cap + backfill 待做 (前置 = Step 4 分块 + Step 3 asyncio)。
-- **Step 3 串行**: ~2s/钱包, 1430 个要 ~48 分钟; backfill 深挖历史会撞 2h timeout。需 asyncio + 信号量 (新的 50 RPS 可用)。
-- **没有 monitoring / alerting**: 有 audit log 但无主动告警; OOM 那次是手动发现的。Cloud Monitoring alert 待加。
-- **没有自动化测试**: CI 只跑 lint/typecheck; parser + PnL 计算的 pytest 待写 (加 TRANSFER 改算钱逻辑前应先有测试网)。
+**Problem**: Helius credits were burning through the free tier (779K/1M in 8 days). Diagnosis: collect hit the expensive Enhanced API (~100 credits) for every wallet, while ~65% of wallets had no new swaps at all.
+
+**My hypothesis**: add a cheap probe (`getSignaturesForAddress`, ~1 credit) to check for new activity first, only calling the expensive endpoint when there is any. **I was confident it would save ~85%.**
+
+**Key move**: Didn't deploy. Wrote a read-only dry-run that ran only the cheap probe against 30 real wallets and estimated how many it would skip — without spending a single expensive credit.
+
+**Result disproved → pivot**: only 7% savings, not 85%. Logs revealed why: `getSignaturesForAddress` returns **all-type** signatures, but the dedup set holds only **swap** signatures; active wallets have non-swap activity daily → the probe can't tell "new swap" from "new anything," misfiring 93% of the time. **Dropped the probe; changed the refresh window 24h → 48h instead** (a direct ~2× cut, unrelated to the type problem). See DECISIONS ADR 015.
+
+**Lesson (the big one)**: a zero-cost dry-run disproved an optimization I was confident in, before deploying and before spending credits to "verify." "Measure before optimizing" isn't just baselining — it includes **disproving your estimate of an optimization's payoff in the cheapest way possible.**
 
 ---
 
-*每条都能在代码或 git 历史里找到支持证据。*
+## 15 · 2026-06-19 — Step 4 (analyze) unbounded fetch, chunked before backfill
+
+**Problem**: `analyze_wallets.py` loaded all unanalyzed raw_json into memory at once — the same disease as Step 5 in #12. Harmless day to day (the anti-join keeps it tiny), but a Helius backfill or a `parser_version` bump would pour in a huge backlog and detonate it. A time bomb to defuse before backfill.
+
+**Cause**: Mental model — treat the unanalyzed raw_json as a "work pile." Putting the *entire* pile on the table at once crashes it (OOM). The fix is to put one chunk of work on the table, process it, drop it, then move to the next chunk.
+
+**Fix**: Added `fetch_unanalyzed_wallet_ids()` (cheap ID-only discovery), gave `fetch_unanalyzed_raw_swaps` a `wallet_ids` filter to scope one batch, and rewrote `main()` to process 15 wallets/batch — insert + free per batch. The "reference books" (id→address, SOL prices, token cache) load once and persist across batches; the token cache especially must persist so a symbol resolved in an early batch isn't re-fetched from Helius in a later one.
+
+**Result**: Memory bounded by construction regardless of backlog size. Verified in the same-day recovery run (#16): analyze processed the recovered backlog in batches cleanly. Backfill prerequisite cleared.
+
+---
+
+## 16 · 2026-06-19 — Helius host retired + a silent failure that hid it for a day ★
+
+**Problem**: The homepage status dot went yellow — "pipeline delayed, last classified 30h ago." Yet every pipeline run reported SUCCESS (logs green, exit 0) while no new data was landing.
+
+**Cause** (two layers):
+1. **Trigger (external)**: Helius retired the hostname collect was calling (`api-mainnet.helius-rpc.com` → 404); the correct host is `mainnet.helius-rpc.com`. Every collection request failed.
+2. **The real bug (mine)**: `fetch_new_swaps` caught the failed call and returned `[]`, which the caller treated as "nothing new" and marked the wallet "up to date." A silent failure: it masked the outage for a full day and advanced `last_collected_at` on ~1,550 wallets that were never actually collected (1,530 false "ok" + 20 false "failed").
+
+**Evidence** (reconstructed from the append-only `collected_at` column): 06-17 13:00 collected 542 wallets, 06-18 13:00 collected 44, **06-19 13:00 collected nothing** (the outage), 06-19 20:00 recovery collected 622. No refresh-window setting can produce zero collection across 1,900 wallets — only a dead API can. (This also rules out the 48h window as the cause — and that window change never even took effect, see the bonus bug below.)
+
+**Fix**:
+- Restore the host (`api-mainnet` → `mainnet`).
+- Make failure impossible to mask: `fetch_new_swaps` returns `None` on a hard failure vs `[]` for genuinely nothing-new; a `None` never marks a wallet done — it stays queued and retries next run.
+- **Fail loud**: if >50% of wallets error in a run, raise so the run fails (and the honest status dot goes red) instead of reporting a false SUCCESS.
+- **Bonus bug found**: the "48h window" from ADR 015 never took effect — a hardcoded `max_age_hours=24` in the caller overrode the 48h default. Removed it so there's one source of truth.
+
+**Recovery**: reset the ~1,550 polluted wallets (`last_collected_at = NULL`, status → `pending`) and re-ran; data recovered, warehouse now past 300K transactions.
+
+**Lesson**: an external dependency breaking is inevitable; what you control is how your system *reacts*. The same Helius failure, with fail-loud code, would have alerted on day one — instead a swallowed error hid it for a day and corrupted state. Silent failures don't just hide problems, they pollute. Second lesson: the cheapest way to nail an incident's true cause is to read an append-only column and reconstruct the timeline, not to trust memory.
+
+---
+
+# Known issues / backlog (hit but not yet fixed, or deliberately deferred)
+
+- **Migrate off the deprecated Enhanced Transactions API**: Helius deprecated the parsed-swap Enhanced API (still operating, but being sunset). The recommended replacement `getTransactionsForAddress` returns **raw** Solana transactions, not parsed swaps — so "migration" means rewriting the swap parser (the hardest component). The tractable path is a DEX-agnostic **balance-delta** parser (net `pre/postTokenBalances`), with the existing `parse_by_token_transfers` as the seed and current `analyzed_swaps` as ground truth. **Deliberately deferred**: the old API still works and Step 3 is now fail-loud, so a 5-minute API test (which confirmed the scope before any commitment, in the spirit of #14/#16) was enough for now. Trigger to revisit: Helius announces shutdown, or a backfill makes gTFA's time/slot filtering worth the rewrite.
+- **2000-swap cap → data_clipped**: ~50% of wallets have truncated history → distorted behavior/PnL → silent misclassification. Helius upgraded to Developer (6/17); lifting the cap + backfilling history still pending (remaining prereq: Step 3 asyncio — Step 4 chunking is now done, see #15).
+- **Step 3 serial collection**: ~2s/wallet, ~48 min for 1430; a deep-history backfill would hit the 2h timeout. Needs asyncio + a semaphore (the new 50 RPS allows it).
+- **No proactive monitoring / alerting**: Step 3 now fails loud on a broad API outage (#16), but there's still no Cloud Monitoring alert; the OOM incident (#12) was found by hand. Proactive alerting pending.
+- **No automated tests**: CI only runs lint/typecheck; pytest for the parser + PnL math still to write (should exist before adding TRANSFER ingestion, which changes the money math).
+
+---
+
+*Every entry is backed by evidence in the code or git history.*
