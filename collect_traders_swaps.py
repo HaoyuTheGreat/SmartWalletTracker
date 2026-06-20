@@ -4,10 +4,10 @@ collect_traders_swaps.py - Pull wallet swap txs from Helius into BigQuery raw_sw
 Flow:
   1. Read wallets that need a refresh from BQ (last fetched >48h ago, or never fetched).
   2. ONE snapshot query: all existing signatures for those wallets (dedup baseline).
-  3. For each wallet, page Helius newest-first; stop at a known signature
-     (incremental) or at MAX_TX_PER_WALLET (cost cap).
-  4. Buffer rows across wallets; flush to raw_swaps every FLUSH_ROWS rows
-     (bounded memory), then bulk-mark the flushed wallets ok.
+  3. For each wallet, STREAM Helius pages newest-first (one page in memory at a
+     time); stop at a known signature (incremental) or MAX_TX_PER_WALLET (cap).
+  4. Buffer rows across wallets AND mid-wallet; flush to raw_swaps every
+     FLUSH_ROWS rows, then bulk-mark fully-fetched wallets ok.
   5. Bulk-mark wallets with no data at all as 'failed'.
 
 Cost note (2026-06, ADR 015): the Enhanced Transactions API (parsed swap
@@ -24,6 +24,10 @@ one load job + one status UPDATE *per wallet*. At 1300+ wallets/run the
 accumulated job state + transient buffers grew past the 8Gi container limit
 and the run died on signal 9. This version is bounded by construction:
 one snapshot query, a row buffer capped at FLUSH_ROWS, and batched DML.
+
+Per-wallet streaming (2026-06): iter_new_swaps yields pages instead of returning
+a whole wallet's txs, so even a heavy/uncapped wallet holds only ~one page at a
+time. This is the prerequisite for lifting MAX_TX_PER_WALLET (the backfill work).
 """
 
 import sys
@@ -44,25 +48,34 @@ PAGE_SIZE = 100
 FLUSH_ROWS = 5000
 
 
-def fetch_new_swaps(address: str, existing_sigs: set) -> list | None:
-    """
-    Fetch SWAP txs from Helius for a wallet, newest-first, stopping when we
-    hit a signature we already have (incremental).
+class CollectionError(Exception):
+    """A HARD Helius failure for one wallet (network error / dead endpoint /
+    non-JSON body). Raised by iter_new_swaps so the caller can tell a real
+    failure apart from "genuinely nothing new" — the latter just ends the
+    generator. Conflating the two is what let a Helius host change silently
+    break collection for a full day (2026-06, see DEVLOG #16)."""
 
-    Returns:
-      - list of new txs ([] if genuinely nothing new), on success
-      - None on a HARD failure (network error / dead endpoint / non-JSON body)
 
-    The None vs [] distinction matters: the caller must NOT mark a wallet
-    "up to date" when the API actually failed. Conflating the two is exactly
-    what let a Helius host change (api-mainnet.helius-rpc.com → mainnet...,
-    2026-06) silently break collection for a full day — every failing call
-    returned [] and every wallet got marked up to date.
+def iter_new_swaps(address: str, existing_sigs: set):
     """
-    new_txs = []
+    Yield pages of NEW SWAP txs for a wallet, newest-first, stopping at a known
+    signature (incremental) or at MAX_TX_PER_WALLET (cost cap).
+
+    Streams page-by-page instead of accumulating the whole wallet: at any moment
+    only one page (~100 txs) is held in memory, so memory stays bounded no matter
+    how many txs a wallet has. The caller flushes the cross-wallet row buffer as
+    pages arrive (so a single heavy wallet can't blow up memory). This is the
+    prerequisite for lifting MAX_TX_PER_WALLET in the backfill work.
+
+    Raises CollectionError on a HARD failure; ends normally (no yield) when there
+    is genuinely nothing new. The raise-vs-return split is the streaming
+    equivalent of the old None-vs-[] return — the caller must never mistake a
+    failure for "up to date".
+    """
+    fetched = 0
     before = None
 
-    while len(new_txs) < MAX_TX_PER_WALLET:
+    while fetched < MAX_TX_PER_WALLET:
         # Host is mainnet.helius-rpc.com (per the Helius dashboard) — the old
         # api-mainnet.helius-rpc.com alias was retired and now 404s.
         url = (
@@ -75,26 +88,27 @@ def fetch_new_swaps(address: str, existing_sigs: set) -> list | None:
         try:
             response = requests.get(url, timeout=30)
         except requests.exceptions.RequestException as e:
-            print(f"  request error for {address[:8]}: {e}")
-            return None
+            raise CollectionError(f"request error for {address[:8]}: {e}") from e
 
         try:
             page = response.json()
-        except ValueError:
+        except ValueError as e:
             # Body isn't JSON at all (e.g. a bare "Not Found" from a retired
-            # endpoint). HARD failure — return None so the caller retries,
-            # rather than mistaking it for "nothing new".
-            print(f"  non-JSON {response.status_code} for {address[:8]}: {response.text[:80]}")
-            return None
+            # endpoint). HARD failure — raise so the caller retries rather than
+            # mistaking it for "nothing new".
+            raise CollectionError(
+                f"non-JSON {response.status_code} for {address[:8]}: {response.text[:80]}"
+            ) from e
 
         if not page:
-            break
+            return
         if not isinstance(page, list):
             # Structured response like {'error': 'Failed to find events within
             # the search period'} — a legit "no swaps in this window", NOT a
-            # failure. Treat as nothing-new.
-            break
+            # failure. End the generator.
+            return
 
+        fresh = []
         stop_early = False
         for tx in page:
             sig = tx.get("signature")
@@ -105,17 +119,19 @@ def fetch_new_swaps(address: str, existing_sigs: set) -> list | None:
                 # everything older is also already in BQ.
                 stop_early = True
                 break
-            new_txs.append(tx)
-            if len(new_txs) >= MAX_TX_PER_WALLET:
+            fresh.append(tx)
+            fetched += 1
+            if fetched >= MAX_TX_PER_WALLET:
                 break
 
+        if fresh:
+            yield fresh
+
         if stop_early or len(page) < PAGE_SIZE:
-            break
+            return
 
         before = page[-1]["signature"]
         time.sleep(0.2)
-
-    return new_txs
 
 
 def main():
@@ -157,35 +173,41 @@ def main():
     for w in wallets:
         wallet_id = w["wallet_id"]
         address = w["address"]
-
         existing_sigs = sig_map.get(wallet_id, set())
-        new_txs = fetch_new_swaps(address, existing_sigs)
 
-        if new_txs is None:
-            # HARD API failure — leave the wallet untouched (don't mark ok,
-            # don't advance last_collected_at) so it stays eligible and retries
-            # next run. Never mask an outage as "up to date".
+        got = 0
+        try:
+            for batch in iter_new_swaps(address, existing_sigs):
+                pending_rows.extend(bq.build_raw_swap_rows(wallet_id, batch))
+                got += len(batch)
+                # Flush mid-wallet too: a heavy wallet can exceed FLUSH_ROWS on
+                # its own. The in-progress wallet is NOT yet in pending_ok, so a
+                # flush here lands its rows WITHOUT marking it ok — crash-safe
+                # (on a crash the wallet re-fetches and the rows dedup).
+                if len(pending_rows) >= FLUSH_ROWS:
+                    flush()
+        except CollectionError as e:
+            # HARD API failure — leave the wallet untouched (don't mark ok, don't
+            # advance last_collected_at) so it stays eligible and retries next
+            # run. Any rows already flushed for it are deduped on retry, never
+            # duplicated. Never mask an outage as "up to date".
             api_errors += 1
-            print(f"[{wallet_id}] API error — will retry next run")
+            print(f"[{wallet_id}] API error — will retry next run: {e}")
             time.sleep(0.2)
             continue
 
-        if new_txs:
-            pending_rows.extend(bq.build_raw_swap_rows(wallet_id, new_txs))
+        # Wallet fully traversed — only now is it safe to mark its outcome.
+        if got:
             pending_ok.append(wallet_id)
-            print(f"[{wallet_id}] fetched {len(new_txs)} new swaps")
+            print(f"[{wallet_id}] fetched {got} new swaps")
         elif existing_sigs:
-            # No new data, but we have history — wallet is just up to date
+            # No new data, but we have history — wallet is just up to date.
             pending_ok.append(wallet_id)
             print(f"[{wallet_id}] up to date")
         else:
-            # Never had any data AND Helius returned nothing — mark failed
+            # Never had any data AND Helius returned nothing — mark failed.
             failed.append(wallet_id)
             print(f"[{wallet_id}] failed (no swaps found)")
-
-        # Drop the parsed-JSON list before the next wallet — a heavy wallet's
-        # txs can be 50MB+ as Python objects.
-        del new_txs
 
         if len(pending_rows) >= FLUSH_ROWS:
             flush()
