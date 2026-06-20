@@ -47,6 +47,14 @@ PAGE_SIZE = 100
 # ≈ 50MB peak — bounds memory regardless of how many wallets a run processes.
 FLUSH_ROWS = 5000
 
+# In-run retry policy for a single page fetch. RETRYABLE = transient (will likely
+# succeed soon); everything else (4xx) is persistent, so we fail fast instead of
+# wasting MAX_ATTEMPTS×backoff on it. Classifying 404 as non-retryable is what
+# keeps a host outage (#16) failing loudly in seconds instead of burning an hour
+# retrying ~1500 dead requests.
+MAX_ATTEMPTS = 3
+RETRYABLE_STATUS = {429, 500, 502, 503, 504}
+
 
 class CollectionError(Exception):
     """A HARD Helius failure for one wallet (network error / dead endpoint /
@@ -54,6 +62,47 @@ class CollectionError(Exception):
     failure apart from "genuinely nothing new" — the latter just ends the
     generator. Conflating the two is what let a Helius host change silently
     break collection for a full day (2026-06, see DEVLOG #16)."""
+
+
+def _fetch_page(url: str, label: str):
+    """GET one page from Helius, with in-run retries on TRANSIENT errors.
+
+    Returns the parsed JSON body (a list of txs on success, or a structured dict
+    like {'error': ...} for "no swaps" — the caller interprets the content).
+
+    Raises CollectionError when retries are exhausted, or immediately on a
+    non-retryable error (4xx other than 429 — e.g. 404 dead endpoint, 401/403
+    auth). Retrying those wastes time; failing fast lets the caller's fail-loud
+    fire quickly during a real outage.
+    """
+    last_err = None
+    for attempt in range(MAX_ATTEMPTS):
+        try:
+            resp = requests.get(url, timeout=30)
+        except requests.exceptions.RequestException as e:
+            last_err = f"network error: {e}"  # transient → retry
+        else:
+            if resp.status_code == 200:
+                try:
+                    return resp.json()
+                except ValueError:
+                    # 200 but unparseable body — rare; treat as transient.
+                    last_err = f"non-JSON 200: {resp.text[:80]}"
+            elif resp.status_code in RETRYABLE_STATUS:
+                last_err = f"HTTP {resp.status_code}: {resp.text[:80]}"  # 429/5xx → retry
+            else:
+                # 4xx: 404 (retired endpoint), 401/403 (auth), 400 (bad request).
+                # Retrying won't help — fail fast.
+                raise CollectionError(
+                    f"{label}: HTTP {resp.status_code} (not retryable): {resp.text[:80]}"
+                )
+
+        # Transient failure — back off (1s, 2s) before retrying, unless this was
+        # the last attempt.
+        if attempt < MAX_ATTEMPTS - 1:
+            time.sleep(2**attempt)
+
+    raise CollectionError(f"{label}: failed after {MAX_ATTEMPTS} attempts — {last_err}")
 
 
 def iter_new_swaps(address: str, existing_sigs: set):
@@ -85,20 +134,9 @@ def iter_new_swaps(address: str, existing_sigs: set):
         if before:
             url += f"&before={before}"
 
-        try:
-            response = requests.get(url, timeout=30)
-        except requests.exceptions.RequestException as e:
-            raise CollectionError(f"request error for {address[:8]}: {e}") from e
-
-        try:
-            page = response.json()
-        except ValueError as e:
-            # Body isn't JSON at all (e.g. a bare "Not Found" from a retired
-            # endpoint). HARD failure — raise so the caller retries rather than
-            # mistaking it for "nothing new".
-            raise CollectionError(
-                f"non-JSON {response.status_code} for {address[:8]}: {response.text[:80]}"
-            ) from e
+        # Transport + retry + error classification live in _fetch_page; here we
+        # only interpret the content. A hard failure raises CollectionError.
+        page = _fetch_page(url, address[:8])
 
         if not page:
             return
