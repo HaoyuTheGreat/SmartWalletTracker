@@ -344,6 +344,35 @@ def fetch_raw_swaps_all_wallets(
     return result
 
 
+def fetch_raw_transfers_all_wallets(
+    wallet_ids: list[str] | None = None,
+) -> dict[str, list[dict]]:
+    """Raw transfers grouped by wallet_id (parsed JSON). Mirrors
+    fetch_raw_swaps_all_wallets but reads raw_transfers. Classification uses these
+    to find which token mints a wallet transferred in/out — those positions have
+    no on-chain cost basis, so they're excluded from PnL."""
+    base = f"""
+        SELECT wallet_id, raw_json
+        FROM `{_table("raw_transfers")}`
+    """
+    job_config = None
+    if wallet_ids is None:
+        query = base + " ORDER BY wallet_id, tx_timestamp"
+    else:
+        if not wallet_ids:
+            return {}
+        query = (
+            base + " WHERE wallet_id IN UNNEST(@ids) ORDER BY wallet_id, tx_timestamp"
+        )
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=[bigquery.ArrayQueryParameter("ids", "STRING", wallet_ids)]
+        )
+    result: dict[str, list[dict]] = {}
+    for row in client().query(query, job_config=job_config).result():
+        result.setdefault(row["wallet_id"], []).append(json.loads(row["raw_json"]))
+    return result
+
+
 def fetch_unanalyzed_wallet_ids(parser_version: int) -> list[str]:
     """Wallet_ids that have at least one raw_swap not yet analyzed at this
     parser_version. Cheap: returns only the ID list, NOT the raw_json.

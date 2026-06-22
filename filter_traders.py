@@ -151,10 +151,15 @@ def aggregate_by_token(analyzed_swaps):
     return positions
 
 
-def calc_performance(positions):
+def calc_performance(positions, tainted_mints=frozenset()):
     closed = []
     inflated_count = 0
-    for p in positions.values():
+    for mint, p in positions.items():
+        if mint in tainted_mints:
+            # Token transferred in/out → cost basis / proceeds unknown → this
+            # position's PnL can't be trusted, so exclude it from the wallet's
+            # stats (PnL v1: exclude rather than guess; we have no token prices).
+            continue
         if p["bought"] <= 0:
             continue
         if p["sold"] >= p["bought"] * 0.95:
@@ -184,7 +189,26 @@ def calc_performance(positions):
     }
 
 
-def classify_wallet(wallet_id, address, raw_swaps, analyzed_swaps):
+def transferred_token_mints(transfers, wallet_address):
+    """Token mints this wallet transferred IN or OUT (excluding SOL/WSOL/stables,
+    which aren't token positions). A position in one of these has no on-chain cost
+    basis — tokens arrived or left without a buy/sell — so its PnL can't be trusted
+    and it's excluded from the wallet's performance (PnL v1: exclude, don't guess)."""
+    mints = set()
+    for tx in transfers:
+        for tt in tx.get("tokenTransfers", []):
+            mint = tt.get("mint")
+            if not mint or mint in EXCLUDED_MINTS:
+                continue
+            if (
+                tt.get("fromUserAccount") == wallet_address
+                or tt.get("toUserAccount") == wallet_address
+            ):
+                mints.add(mint)
+    return mints
+
+
+def classify_wallet(wallet_id, address, raw_swaps, analyzed_swaps, transfers):
     """Compute tags + stats for a single wallet."""
     tags = []
 
@@ -204,7 +228,12 @@ def classify_wallet(wallet_id, address, raw_swaps, analyzed_swaps):
         tags.append("market_maker")
 
     positions = aggregate_by_token(analyzed_swaps)
-    perf = calc_performance(positions)
+    # Token mints transferred in/out have no on-chain cost basis → exclude those
+    # positions from PnL (see transferred_token_mints / calc_performance). A side
+    # effect: inflated_positions (data_clipped) now counts only genuine truncation,
+    # since transfer-explained "sold > bought" positions are excluded first.
+    tainted_mints = transferred_token_mints(transfers, address)
+    perf = calc_performance(positions, tainted_mints)
 
     is_excluded = any(t in EXCLUSION_TAGS for t in tags)
 
@@ -278,6 +307,7 @@ def main():
 
         batch_raw = bq.fetch_raw_swaps_all_wallets(wallet_ids=batch_ids)
         batch_analyzed = bq.fetch_analyzed_swaps_all_wallets(wallet_ids=batch_ids)
+        batch_transfers = bq.fetch_raw_transfers_all_wallets(wallet_ids=batch_ids)
 
         rows = []
         for w in batch:
@@ -288,8 +318,11 @@ def main():
             if not raw_swaps:
                 continue
             analyzed_swaps = batch_analyzed.get(wallet_id, [])
+            transfers = batch_transfers.get(wallet_id, [])
 
-            result = classify_wallet(wallet_id, address, raw_swaps, analyzed_swaps)
+            result = classify_wallet(
+                wallet_id, address, raw_swaps, analyzed_swaps, transfers
+            )
             rows.append({"classified_at": classified_at, **result})
 
             tag_str = ", ".join(result["tags"]) if result["tags"] else "unclassified"
@@ -310,7 +343,7 @@ def main():
             total_smart += sum(1 for r in rows if "smart_candidate" in r["tags"])
 
         # Free this batch's swap data before fetching the next one.
-        del batch_raw, batch_analyzed
+        del batch_raw, batch_analyzed, batch_transfers
         print(f"  batch {start // CLASSIFY_BATCH_SIZE + 1}/{n_batches} persisted")
 
     if total_classified:
