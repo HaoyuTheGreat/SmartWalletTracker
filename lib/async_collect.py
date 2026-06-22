@@ -154,6 +154,7 @@ async def iter_new_swaps(
     max_tx: int,
     start_before: str | None = None,
     stop_at_known: bool = True,
+    tx_type: str = "SWAP",
 ):
     """
     Async-yield pages of SWAP txs for a wallet, in two modes:
@@ -179,7 +180,7 @@ async def iter_new_swaps(
         # api-mainnet.helius-rpc.com alias was retired and now 404s.
         url = (
             f"https://mainnet.helius-rpc.com/v0/addresses/{address}/transactions/"
-            f"?api-key={HELIUS_API_KEY}&type=SWAP&limit={PAGE_SIZE}"
+            f"?api-key={HELIUS_API_KEY}&type={tx_type}&limit={PAGE_SIZE}"
         )
         if before:
             url += f"&before={before}"
@@ -224,7 +225,7 @@ async def iter_new_swaps(
         # No throttle sleep here — the worker count caps the request rate.
 
 
-async def _writer(rows_q, stats, mark_ok_fn):
+async def _writer(rows_q, stats, mark_ok_fn, insert_fn):
     """The ONLY coroutine that touches the row buffer and BigQuery, so there are
     no races. Accumulates rows from every worker into one buffer; flushes a full
     buffer to raw_swaps, THEN marks the wallets whose rows are now persisted
@@ -243,8 +244,8 @@ async def _writer(rows_q, stats, mark_ok_fn):
 
     async def flush():
         if buffer:
-            await loop.run_in_executor(None, bq.insert_raw_swap_rows, list(buffer))
-            print(f"  flushed {len(buffer)} rows to raw_swaps")
+            await loop.run_in_executor(None, insert_fn, list(buffer))
+            print(f"  flushed {len(buffer)} rows")
             buffer.clear()
         if pending_ok:
             # mark_ok_fn marks a batch of completed wallet_ids: status=ok for
@@ -284,13 +285,15 @@ async def _worker_loop(client, work_q, rows_q, process_wallet):
         await process_wallet(client, w, rows_q)
 
 
-async def run_collection(wallets, process_wallet, mark_ok_fn):
+async def run_collection(wallets, process_wallet, mark_ok_fn, insert_fn):
     """Drive CONCURRENCY workers + one writer over a shared httpx client.
 
     process_wallet(client, wallet, rows_q): async, handles ONE wallet and pushes
-      ("rows"/"done") items onto rows_q (daily vs backfill differ only here).
+      ("rows"/"done") items onto rows_q (daily / backfill / transfer differ here).
     mark_ok_fn(wallet_ids): marks a batch of completed wallets (status=ok for
-      daily, backfilled_at for backfill).
+      daily, backfilled_at for backfill, transfers_collected_at for transfers).
+    insert_fn(rows): bulk-inserts built rows into the target table
+      (insert_raw_swap_rows for swaps, insert_transfer_rows for transfers).
     Returns stats = {"failed": [...], "errors": int}.
     """
     global _rate_limiter
@@ -303,7 +306,7 @@ async def run_collection(wallets, process_wallet, mark_ok_fn):
     rows_q: asyncio.Queue = asyncio.Queue(maxsize=ROWS_QUEUE_MAX)
 
     async with httpx.AsyncClient(timeout=30) as client:
-        writer = asyncio.create_task(_writer(rows_q, stats, mark_ok_fn))
+        writer = asyncio.create_task(_writer(rows_q, stats, mark_ok_fn, insert_fn))
         workers = [
             asyncio.create_task(_worker_loop(client, work_q, rows_q, process_wallet))
             for _ in range(CONCURRENCY)

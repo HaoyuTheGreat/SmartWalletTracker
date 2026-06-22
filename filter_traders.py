@@ -206,10 +206,16 @@ def classify_wallet(wallet_id, address, raw_swaps, analyzed_swaps):
     positions = aggregate_by_token(analyzed_swaps)
     perf = calc_performance(positions)
 
-    if perf["inflated_positions"] > 0:
+    is_excluded = any(t in EXCLUSION_TAGS for t in tags)
+
+    # data_clipped = "this wallet's PnL is untrustworthy because some of how it
+    # acquired its tokens is missing from our data" (sold > bought, i.e. it sold
+    # more than we saw it buy: older buys truncated, or tokens transferred in).
+    # Only flag it for wallets we're actually evaluating — one already excluded as
+    # MM/HF/proxy is judged regardless of clipping, so the tag would just be noise.
+    if not is_excluded and perf["inflated_positions"] > 0:
         tags.append("data_clipped")
 
-    is_excluded = any(t in EXCLUSION_TAGS for t in tags)
     if (
         not is_excluded
         and perf["closed_positions"] >= 5

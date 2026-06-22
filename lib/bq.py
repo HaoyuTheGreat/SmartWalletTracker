@@ -181,6 +181,78 @@ def mark_wallets_backfilled(wallet_ids: list[str]):
 
 
 # ---------------------------------------------------------------------------
+# raw_transfers  (token TRANSFER history; parallels raw_swaps, parsed later)
+# ---------------------------------------------------------------------------
+def fetch_wallets_needing_transfers(limit: int | None = None) -> list[dict]:
+    """smart_candidate wallets whose TRANSFER history hasn't been collected yet.
+
+    Scoped to smart candidates on purpose: transfers exist to fix PnL for the
+    wallets we actually evaluate as smart money. Pulling them for MM/bot/excluded
+    wallets (already set aside) would just burn credits. Uses the latest
+    classification per wallet (wallet_classifications is append-only); self-
+    targeting via transfers_collected_at, so re-running picks up newly-promoted
+    smart candidates and skips done ones.
+    """
+    query = f"""
+        WITH latest AS (
+          SELECT wallet_id, tags,
+                 ROW_NUMBER() OVER (PARTITION BY wallet_id ORDER BY classified_at DESC) AS rn
+          FROM `{_table("wallet_classifications")}`
+        )
+        SELECT w.address, w.wallet_id
+        FROM `{_table("wallets")}` w
+        JOIN latest c ON c.wallet_id = w.wallet_id AND c.rn = 1
+        WHERE w.transfers_collected_at IS NULL
+          AND 'smart_candidate' IN UNNEST(c.tags)
+    """
+    if limit is not None:
+        query += f"\n        LIMIT {int(limit)}"
+    return [dict(row) for row in client().query(query).result()]
+
+
+def existing_transfer_signatures_by_wallet(
+    wallet_ids: list[str],
+) -> dict[str, set[str]]:
+    """Signatures already in raw_transfers, grouped by wallet — the dedup baseline
+    for transfer collection. Mirrors existing_signatures_by_wallet (raw_swaps)."""
+    if not wallet_ids:
+        return {}
+    query = f"""
+        SELECT wallet_id, signature
+        FROM `{_table("raw_transfers")}`
+        WHERE wallet_id IN UNNEST(@wids)
+    """
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[bigquery.ArrayQueryParameter("wids", "STRING", wallet_ids)]
+    )
+    result: dict[str, set[str]] = {}
+    for row in client().query(query, job_config=job_config).result():
+        result.setdefault(row["wallet_id"], set()).add(row["signature"])
+    return result
+
+
+def insert_transfer_rows(rows: list[dict]):
+    """Bulk-load pre-built rows into raw_transfers. Rows are built by the generic
+    build_raw_swap_rows (same shape), just a different target table."""
+    _load_rows("raw_transfers", rows)
+
+
+def mark_wallets_transfers_collected(wallet_ids: list[str]):
+    """Stamp transfers_collected_at=now so re-runs skip these wallets."""
+    if not wallet_ids:
+        return
+    query = f"""
+        UPDATE `{_table("wallets")}`
+        SET transfers_collected_at = CURRENT_TIMESTAMP()
+        WHERE wallet_id IN UNNEST(@wids)
+    """
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[bigquery.ArrayQueryParameter("wids", "STRING", wallet_ids)]
+    )
+    client().query(query, job_config=job_config).result()
+
+
+# ---------------------------------------------------------------------------
 # raw_swaps
 # ---------------------------------------------------------------------------
 def existing_signatures_by_wallet(wallet_ids: list[str]) -> dict[str, set[str]]:

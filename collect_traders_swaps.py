@@ -92,7 +92,10 @@ def main():
 
     stats = asyncio.run(
         run_collection(
-            wallets, process, lambda ids: bq.bulk_update_wallet_status(ids, "ok")
+            wallets,
+            process,
+            lambda ids: bq.bulk_update_wallet_status(ids, "ok"),
+            bq.insert_raw_swap_rows,
         )
     )
 

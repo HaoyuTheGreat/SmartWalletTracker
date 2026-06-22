@@ -93,7 +93,11 @@ def main(limit=None):
     async def process(client, w, rows_q):
         await _process_wallet(client, w, rows_q, sig_map, oldest_map)
 
-    stats = asyncio.run(run_collection(wallets, process, bq.mark_wallets_backfilled))
+    stats = asyncio.run(
+        run_collection(
+            wallets, process, bq.mark_wallets_backfilled, bq.insert_raw_swap_rows
+        )
+    )
 
     api_errors = stats["errors"]
     if wallets and api_errors > len(wallets) * 0.5:

@@ -11,6 +11,7 @@ Stage order (data dependencies require sequential execution):
   3. collect_traders_swaps  : fetch new swaps → raw_swaps
   4. analyze_wallets        : parse new swaps → analyzed_swaps
   5. filter_traders         : classify wallets → wallet_classifications
+  6. collect_transfers      : fetch transfers for smart candidates → raw_transfers
 
 Failure policy:
   - Step1: ingest_wallets failure => log a warning and continue (existing wallets still get processed).
@@ -27,6 +28,11 @@ Failure policy:
   -
   - Step5: filter_traders.py
   - 纯程序运行，没有外部依赖
+  -
+  - Step6: collect_transfers (non-fatal) — pulls transfer history for smart
+  -   candidates (for the upcoming PnL fix; not used downstream yet). Soft-fail:
+  -   the core swap pipeline already succeeded, and failed wallets stay unmarked
+  -   so they're retried next run (the auto-retry that swap already has).
 
 Local debugging: python main.py
 Cloud Run:       same — python main.py
@@ -38,6 +44,7 @@ import traceback
 
 import analyze_wallets
 import collect_traders_swaps
+import collect_transfers
 import fetch_sol_prices
 import filter_traders
 import ingest_wallets
@@ -102,7 +109,7 @@ def main():
     # Step 1: ingest_wallets — non-fatal on failure (adapter may be down,
     # pipeline should still process the wallets we already track).
     try:
-        timings["ingest_wallets"] = run_step("1/5 ingest_wallets", ingest_wallets.main)
+        timings["ingest_wallets"] = run_step("1/6 ingest_wallets", ingest_wallets.main)
     except Exception:
         print(
             "[ingest_wallets] non-fatal — continuing with existing wallets", flush=True
@@ -111,20 +118,35 @@ def main():
 
     try:
         timings["fetch_sol_prices"] = run_step(
-            "2/5 fetch_sol_prices", fetch_sol_prices.fetch_sol_prices
+            "2/6 fetch_sol_prices", fetch_sol_prices.fetch_sol_prices
         )
         timings["collect_traders_swaps"] = run_step(
-            "3/5 collect_traders_swaps", collect_traders_swaps.main
+            "3/6 collect_traders_swaps", collect_traders_swaps.main
         )
         timings["analyze_wallets"] = run_step(
-            "4/5 analyze_wallets", analyze_wallets.main
+            "4/6 analyze_wallets", analyze_wallets.main
         )
-        timings["filter_traders"] = run_step("5/5 filter_traders", filter_traders.main)
+        timings["filter_traders"] = run_step("5/6 filter_traders", filter_traders.main)
     except Exception:
         # total time the entire pipeline took to run, now time - start time.
         total = time.time() - overall_start
         print(f"\nPipeline FAILED after {total:.1f}s total", flush=True)
         sys.exit(1)
+
+    # Step 6: collect_transfers — non-fatal. Runs AFTER filter_traders because it
+    # targets smart_candidate wallets (the tags step 5 just wrote). Soft-fail: the
+    # core swap pipeline already succeeded above; any wallets that fail here stay
+    # unmarked and are retried on the next daily run (same auto-retry as swap).
+    try:
+        timings["collect_transfers"] = run_step(
+            "6/6 collect_transfers", collect_transfers.main
+        )
+    except Exception:
+        print(
+            "[collect_transfers] non-fatal — failed wallets retried next run",
+            flush=True,
+        )
+        timings["collect_transfers"] = -1.0
 
     total = time.time() - overall_start
     print(f"\n{'='*60}")
