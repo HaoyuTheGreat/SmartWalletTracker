@@ -53,7 +53,11 @@ from lib.secrets import get_secret
 sys.stdout.reconfigure(encoding="utf-8")
 
 HELIUS_API_KEY = get_secret("HELIUS_API_KEY")
-MAX_TX_PER_WALLET = 2000  # Hard cap per wallet per run to bound API spend
+MAX_TX_PER_WALLET = 2000  # Daily per-wallet cap to bound API spend
+# Backfill per-wallet cap. Smart swing traders rarely exceed a few thousand
+# lifetime swaps, so 10k covers them while still stopping a mislabeled market
+# maker before it runs away (MMs do 50k+/yr). Daily collection keeps the 2k cap.
+BACKFILL_MAX_TX = 10000
 PAGE_SIZE = 100
 # Flush the cross-wallet row buffer at this size. ~5000 rows × ~10KB raw_json
 # ≈ 50MB peak — bounds memory regardless of how many wallets a run processes.
@@ -135,25 +139,36 @@ async def _fetch_page(client: httpx.AsyncClient, url: str, label: str):
     raise CollectionError(f"{label}: failed after {MAX_ATTEMPTS} attempts — {last_err}")
 
 
-async def iter_new_swaps(client: httpx.AsyncClient, address: str, existing_sigs: set):
+async def iter_new_swaps(
+    client: httpx.AsyncClient,
+    address: str,
+    existing_sigs: set,
+    *,
+    start_before: str | None = None,
+    max_tx: int = MAX_TX_PER_WALLET,
+    stop_at_known: bool = True,
+):
     """
-    Async-yield pages of NEW SWAP txs for a wallet, newest-first, stopping at a
-    known signature (incremental) or at MAX_TX_PER_WALLET (cost cap).
+    Async-yield pages of SWAP txs for a wallet, in two modes:
 
-    Streams page-by-page instead of accumulating the whole wallet: at any moment
-    only one page (~100 txs) is held in memory, so memory stays bounded no matter
-    how many txs a wallet has. Pages within a wallet are sequential (each needs
-    the previous page's `before` cursor); concurrency is across wallets.
+    Daily (defaults): start at the newest tx, page back, and STOP at the first
+    signature we already have (stop_at_known=True) — incremental refresh.
 
-    Raises CollectionError on a HARD failure; ends normally (no yield) when there
-    is genuinely nothing new. The raise-vs-return split is the streaming
-    equivalent of the old None-vs-[] return — the caller must never mistake a
-    failure for "up to date".
+    Backfill (start_before=<oldest known sig>, stop_at_known=False, max_tx=
+    BACKFILL_MAX_TX): start just BELOW the oldest tx we have and page OLDER,
+    filling history beneath the daily cap. There's no overlap to stop on, so a
+    known sig is just skipped (not a stop signal); traversal ends at a short page
+    (the wallet's true beginning) or at max_tx.
+
+    Either way it streams page-by-page (~one page held at a time), and a short
+    page (< PAGE_SIZE) is the "reached the end" signal. Raises CollectionError on
+    a HARD failure; ends normally when there's nothing more — the caller must
+    never mistake a failure for "up to date".
     """
     fetched = 0
-    before = None
+    before = start_before
 
-    while fetched < MAX_TX_PER_WALLET:
+    while fetched < max_tx:
         # Host is mainnet.helius-rpc.com (per the Helius dashboard) — the old
         # api-mainnet.helius-rpc.com alias was retired and now 404s.
         url = (
@@ -182,13 +197,15 @@ async def iter_new_swaps(client: httpx.AsyncClient, address: str, existing_sigs:
             if not sig:
                 continue
             if sig in existing_sigs:
-                # Helius returns newest-first: hitting a known sig means
-                # everything older is also already in BQ.
-                stop_early = True
-                break
+                if stop_at_known:
+                    # Daily, newest-first: a known sig means everything older is
+                    # already in BQ — stop.
+                    stop_early = True
+                    break
+                continue  # backfill: skip a dup but keep paging older
             fresh.append(tx)
             fetched += 1
-            if fetched >= MAX_TX_PER_WALLET:
+            if fetched >= max_tx:
                 break
 
         if fresh:
@@ -246,7 +263,46 @@ async def _worker(client, work_q, rows_q, sig_map):
             print(f"[{wallet_id}] failed (no swaps found)")
 
 
-async def _writer(rows_q, stats):
+async def _backfill_worker(client, work_q, rows_q, sig_map, oldest_map):
+    """Like _worker, but pages OLDER than each wallet's oldest known signature
+    (reverse traversal) up to BACKFILL_MAX_TX. got=0 just means the wallet was
+    already at its true beginning — still 'done' (mark backfilled). A failure
+    leaves the wallet unmarked so the next backfill run retries it; rows already
+    flushed are deduped (their sigs are in the snapshot)."""
+    while True:
+        try:
+            w = work_q.get_nowait()
+        except asyncio.QueueEmpty:
+            return
+
+        wallet_id = w["wallet_id"]
+        address = w["address"]
+        existing_sigs = sig_map.get(wallet_id, set())
+
+        got = 0
+        try:
+            async for batch in iter_new_swaps(
+                client,
+                address,
+                existing_sigs,
+                start_before=oldest_map.get(wallet_id),
+                max_tx=BACKFILL_MAX_TX,
+                stop_at_known=False,
+            ):
+                got += len(batch)
+                await rows_q.put(("rows", wallet_id, batch))
+        except CollectionError as e:
+            await rows_q.put(("done", wallet_id, "error"))
+            print(f"[{wallet_id}] backfill error — will retry next run: {e}")
+            continue
+
+        # got>0 (filled older history) or got==0 (already at its beginning) →
+        # either way the wallet is now fully backfilled.
+        await rows_q.put(("done", wallet_id, "ok"))
+        print(f"[{wallet_id}] backfilled {got} older swaps")
+
+
+async def _writer(rows_q, stats, mark_ok_fn):
     """The ONLY coroutine that touches the row buffer and BigQuery, so there are
     no races. Accumulates rows from every worker into one buffer; flushes a full
     buffer to raw_swaps, THEN marks the wallets whose rows are now persisted ok
@@ -267,9 +323,9 @@ async def _writer(rows_q, stats):
             print(f"  flushed {len(buffer)} rows to raw_swaps")
             buffer.clear()
         if pending_ok:
-            await loop.run_in_executor(
-                None, bq.bulk_update_wallet_status, list(pending_ok), "ok"
-            )
+            # mark_ok_fn marks a batch of completed wallet_ids: status=ok for
+            # daily collection, backfilled_at=now for backfill.
+            await loop.run_in_executor(None, mark_ok_fn, list(pending_ok))
             pending_ok.clear()
 
     while True:
@@ -293,8 +349,13 @@ async def _writer(rows_q, stats):
     await flush()  # final partial flush of whatever's left in the jar
 
 
-async def _collect_async(wallets, sig_map):
-    """Drive CONCURRENCY workers + one writer over a shared httpx client."""
+async def _collect_async(wallets, make_worker, mark_ok_fn):
+    """Drive CONCURRENCY workers + one writer over a shared httpx client.
+
+    make_worker(client, work_q, rows_q) builds one worker coroutine (daily vs
+    backfill differ only in this); mark_ok_fn marks a batch of completed
+    wallet_ids (status=ok for daily, backfilled_at for backfill).
+    """
     stats = {"failed": [], "errors": 0}
     work_q: asyncio.Queue = asyncio.Queue()
     for w in wallets:
@@ -302,9 +363,9 @@ async def _collect_async(wallets, sig_map):
     rows_q: asyncio.Queue = asyncio.Queue(maxsize=ROWS_QUEUE_MAX)
 
     async with httpx.AsyncClient(timeout=30) as client:
-        writer = asyncio.create_task(_writer(rows_q, stats))
+        writer = asyncio.create_task(_writer(rows_q, stats, mark_ok_fn))
         workers = [
-            asyncio.create_task(_worker(client, work_q, rows_q, sig_map))
+            asyncio.create_task(make_worker(client, work_q, rows_q))
             for _ in range(CONCURRENCY)
         ]
         await asyncio.gather(*workers)  # all wallets processed
@@ -329,7 +390,14 @@ def main():
     sig_map = bq.existing_signatures_by_wallet([w["wallet_id"] for w in wallets])
     print(f"Loaded signature snapshot for {len(sig_map)} wallets")
 
-    stats = asyncio.run(_collect_async(wallets, sig_map))
+    def make_worker(client, work_q, rows_q):
+        return _worker(client, work_q, rows_q, sig_map)
+
+    stats = asyncio.run(
+        _collect_async(
+            wallets, make_worker, lambda ids: bq.bulk_update_wallet_status(ids, "ok")
+        )
+    )
 
     if stats["failed"]:
         bq.bulk_update_wallet_status(stats["failed"], "failed")
@@ -351,5 +419,49 @@ def main():
     print(f"Done in {time.monotonic() - start:.1f}s")
 
 
+def backfill_main(limit=None):
+    """One-off, re-runnable backfill of older history for smart-candidate wallets
+    whose stats are based on a 2000-tx-truncated window. Self-targeting (picks up
+    newly clipped smart candidates, skips already-backfilled ones via
+    backfilled_at) and crash-safe (resumes from the oldest sig in BQ). Reuses the
+    daily async machinery with a reverse-traversal worker + a backfilled marker.
+    """
+    start = time.monotonic()
+
+    wallets = bq.fetch_wallets_needing_backfill(limit=limit)
+    print(f"Found {len(wallets)} wallets needing backfill")
+    if not wallets:
+        return
+
+    wids = [w["wallet_id"] for w in wallets]
+    sig_map = bq.existing_signatures_by_wallet(wids)
+    oldest_map = bq.oldest_signatures_by_wallet(wids)
+    print(f"Loaded snapshot + oldest-cursor for {len(wids)} wallets")
+
+    def make_worker(client, work_q, rows_q):
+        return _backfill_worker(client, work_q, rows_q, sig_map, oldest_map)
+
+    stats = asyncio.run(_collect_async(wallets, make_worker, bq.mark_wallets_backfilled))
+
+    api_errors = stats["errors"]
+    if wallets and api_errors > len(wallets) * 0.5:
+        raise RuntimeError(
+            f"Backfill hard-failed on {api_errors}/{len(wallets)} wallets — "
+            "likely an endpoint/auth outage. Failing the run loudly."
+        )
+    if api_errors:
+        print(f"{api_errors} wallets had API errors (will retry next backfill run)")
+
+    print(f"Backfill done in {time.monotonic() - start:.1f}s")
+
+
 if __name__ == "__main__":
-    main()
+    # python collect_traders_swaps.py              → daily incremental collection
+    # python collect_traders_swaps.py --backfill    → backfill ALL eligible wallets
+    # python collect_traders_swaps.py --backfill 10 → backfill only 10 (test run)
+    if "--backfill" in sys.argv:
+        i = sys.argv.index("--backfill")
+        n = sys.argv[i + 1] if i + 1 < len(sys.argv) else ""
+        backfill_main(limit=int(n) if n.isdigit() else None)
+    else:
+        main()

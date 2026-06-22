@@ -114,6 +114,72 @@ def bulk_update_wallet_status(wallet_ids: list[str], status: str):
     client().query(query, job_config=job_config).result()
 
 
+def fetch_wallets_needing_backfill(limit: int | None = None) -> list[dict]:
+    """Wallets whose deep history is worth pulling: their LATEST classification is
+    both smart_candidate (we care about them) and data_clipped (stats built on a
+    2000-tx-truncated window), and they haven't been backfilled yet.
+
+    Self-targeting + idempotent: re-running picks up newly clipped smart
+    candidates and skips ones already stamped backfilled_at. wallet_classifications
+    is append-only, so we take the most recent row per wallet.
+    """
+    query = f"""
+        WITH latest AS (
+          SELECT wallet_id, tags,
+                 ROW_NUMBER() OVER (PARTITION BY wallet_id ORDER BY classified_at DESC) AS rn
+          FROM `{_table("wallet_classifications")}`
+        )
+        SELECT w.address, w.wallet_id
+        FROM `{_table("wallets")}` w
+        JOIN latest c ON c.wallet_id = w.wallet_id AND c.rn = 1
+        WHERE w.backfilled_at IS NULL
+          AND 'smart_candidate' IN UNNEST(c.tags)
+          AND 'data_clipped' IN UNNEST(c.tags)
+    """
+    if limit is not None:
+        query += f"\n        LIMIT {int(limit)}"
+    return [dict(row) for row in client().query(query).result()]
+
+
+def oldest_signatures_by_wallet(wallet_ids: list[str]) -> dict[str, str]:
+    """The OLDEST signature we already have per wallet — the starting `before`
+    cursor for a reverse (older-than) backfill traversal. ONE query."""
+    if not wallet_ids:
+        return {}
+    query = f"""
+        SELECT wallet_id, signature FROM (
+          SELECT wallet_id, signature,
+                 ROW_NUMBER() OVER (PARTITION BY wallet_id ORDER BY tx_timestamp ASC) AS rn
+          FROM `{_table("raw_swaps")}`
+          WHERE wallet_id IN UNNEST(@wids)
+        )
+        WHERE rn = 1
+    """
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[bigquery.ArrayQueryParameter("wids", "STRING", wallet_ids)]
+    )
+    return {
+        row["wallet_id"]: row["signature"]
+        for row in client().query(query, job_config=job_config).result()
+    }
+
+
+def mark_wallets_backfilled(wallet_ids: list[str]):
+    """Stamp backfilled_at=now so re-runs skip these wallets (whether they were
+    fully traversed or stopped at the safety cap). ONE UPDATE."""
+    if not wallet_ids:
+        return
+    query = f"""
+        UPDATE `{_table("wallets")}`
+        SET backfilled_at = CURRENT_TIMESTAMP()
+        WHERE wallet_id IN UNNEST(@wids)
+    """
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[bigquery.ArrayQueryParameter("wids", "STRING", wallet_ids)]
+    )
+    client().query(query, job_config=job_config).result()
+
+
 # ---------------------------------------------------------------------------
 # raw_swaps
 # ---------------------------------------------------------------------------
