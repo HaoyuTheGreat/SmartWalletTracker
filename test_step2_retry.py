@@ -11,7 +11,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import httpx
 
-import collect_traders_swaps as c
+from lib import async_collect as c
 
 _BAD_JSON = object()  # sentinel: response body that does NOT parse as JSON
 
@@ -34,7 +34,7 @@ def make_client(get_side_effect):
     return client
 
 
-@patch("collect_traders_swaps.asyncio.sleep", new_callable=AsyncMock)
+@patch("lib.async_collect.asyncio.sleep", new_callable=AsyncMock)
 def run(_sleep):
     # 1. 429 then 200 → retry once, then succeed.
     client = make_client([make_response(429, text="rate limited"),
