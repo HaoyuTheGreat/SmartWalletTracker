@@ -15,6 +15,7 @@ wallet_classifications is append-only — every run produces a new snapshot, whi
 lets us later answer "how did this wallet's classification change between last week and this week".
 """
 
+import sys
 from datetime import datetime, timezone
 
 from lib import bq
@@ -279,18 +280,27 @@ def classify_wallet(wallet_id, address, raw_swaps, analyzed_swaps, transfers):
 CLASSIFY_BATCH_SIZE = 25
 
 
-def main():
-    # Incremental: only classify wallets whose analyzed_swaps are newer than
-    # their last classification. Cuts the per-run cost from "re-scan every
-    # wallet daily" to "only what actually changed since yesterday."
-    pending_ids = bq.fetch_wallets_needing_classification()
-    if not pending_ids:
-        print("No wallets need re-classification — all up to date.")
-        return
+def main(reclassify_all=False):
+    if reclassify_all:
+        # Full re-classify: re-evaluate EVERY wallet with the current logic. Use
+        # after a classification-logic change (e.g. transfer exclusion) to apply
+        # it to wallets that wouldn't otherwise be re-classified (no new data).
+        # The daily pipeline stays incremental; this is a manual one-off:
+        #   python filter_traders.py --all
+        wallets = bq.fetch_all_wallets()
+        print(f"Full re-classify: {len(wallets)} wallets")
+    else:
+        # Incremental: only classify wallets whose analyzed_swaps are newer than
+        # their last classification. Cuts the per-run cost from "re-scan every
+        # wallet daily" to "only what actually changed since yesterday."
+        pending_ids = bq.fetch_wallets_needing_classification()
+        if not pending_ids:
+            print("No wallets need re-classification — all up to date.")
+            return
+        wallets = bq.fetch_all_wallets()
+        pending_set = set(pending_ids)
+        wallets = [w for w in wallets if w["wallet_id"] in pending_set]
 
-    wallets = bq.fetch_all_wallets()
-    pending_set = set(pending_ids)
-    wallets = [w for w in wallets if w["wallet_id"] in pending_set]
     classified_at = datetime.now(timezone.utc).isoformat()
 
     n_batches = (len(wallets) + CLASSIFY_BATCH_SIZE - 1) // CLASSIFY_BATCH_SIZE
@@ -354,4 +364,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # python filter_traders.py        → incremental (only wallets with new data)
+    # python filter_traders.py --all  → full re-classify of every wallet
+    main(reclassify_all="--all" in sys.argv)
