@@ -31,6 +31,7 @@
 | 14 ★ | 2026-06-17 | Helius credit waste: a dry-run disproves my own optimization |
 | 15 | 2026-06-19 | Step 4 (analyze) unbounded fetch, chunked before backfill |
 | 16 ★ | 2026-06-19 | Helius host retired + a silent failure that hid it for a day |
+| 17 | 2026-06-23 | Wallet explorer slow on every open (no cache + cold start + BQ latency) |
 
 ---
 
@@ -240,6 +241,22 @@
 **Recovery**: reset the ~1,550 polluted wallets (`last_collected_at = NULL`, status → `pending`) and re-ran; data recovered, warehouse now past 300K transactions.
 
 **Lesson**: an external dependency breaking is inevitable; what you control is how your system *reacts*. The same Helius failure, with fail-loud code, would have alerted on day one — instead a swallowed error hid it for a day and corrupted state. Silent failures don't just hide problems, they pollute. Second lesson: the cheapest way to nail an incident's true cause is to read an append-only column and reconstruct the timeline, not to trust memory.
+
+---
+
+## 17 · 2026-06-23 — Wallet explorer slow to load on every open
+
+**Problem**: Opening the wallet explorer (`/explore`) took ~1–2s every time — sometimes several seconds — slow on *every* open, not just the first.
+
+**Cause** (measured, not guessed — `curl -w` showed `ttfb ≈ total ≈ 1.0s`, so the time is all server-side, not network): three costs stacked. (1) `/explore` is a client component that re-fetches `GET /api/wallets` on every open / sort / page change, with no caching. (2) That endpoint runs a fresh BigQuery query per call (QUALIFY ROW_NUMBER over the 24K-row append-only `wallet_classifications` + join + sort); BigQuery is OLAP with a ~1s latency floor even warm. (3) Cloud Run scales to zero, so the first request after idle adds a multi-second cold start. The wallet list only changes once/day (after the pipeline), yet every open re-queried BQ for unchanged data.
+
+**Fix**:
+- **A — in-process TTL cache** on the list endpoint (300s), keyed by `(tag, sort, limit, offset)`, plus a `Cache-Control: max-age=300` header so the browser caches too. Repeat opens / sort toggles / pagination are served from memory, never touching BigQuery.
+- **B — Cloud Run `min-instances=1`** so the service stays warm (no cold start) and the in-process cache survives between requests.
+
+**Result**: cold-start spikes gone; repeat opens effectively instant (cache hit) instead of ~1s+ each. Staleness bounded to 5 min — negligible for data that changes once a day.
+
+**Lesson**: measure before optimizing — `ttfb ≈ total` proved the cost was 100% server-side, pointing straight at caching + a warm instance rather than rewriting the SQL. And caching is trivially correct when the data has a known refresh cadence: with a once-a-day pipeline, bounded staleness makes the hard part of caching (invalidation) disappear.
 
 ---
 

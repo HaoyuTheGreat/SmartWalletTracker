@@ -5,7 +5,9 @@ Joins the latest snapshot from `wallet_classifications` with the `wallets`
 table so each row carries both identity (address) and classification metrics.
 """
 
-from fastapi import APIRouter, Query
+import time
+
+from fastapi import APIRouter, Query, Response
 from google.cloud import bigquery
 
 from api.schemas import WalletPage, WalletSummary
@@ -22,9 +24,17 @@ VALID_SORTS = {
     "classified_at",
 }
 
+# The wallet list changes at most once/day (after the pipeline). Cache results
+# in-process so repeat opens / sort toggles / pagination don't re-hit BigQuery
+# (~1s each). TTL-bounded so a fresh classification still surfaces within minutes.
+# Paired with Cloud Run min-instances=1, the warm instance keeps this cache hot.
+_LIST_CACHE: dict[tuple, tuple[float, WalletPage]] = {}
+_LIST_CACHE_TTL = 300  # seconds
+
 
 @router.get("", response_model=WalletPage)
 def list_wallets(
+    response: Response,
     tag: str | None = Query(
         default=None,
         description="Filter wallets whose latest classification has this tag (e.g. 'smart_candidate').",
@@ -52,6 +62,12 @@ def list_wallets(
     """
     if sort not in VALID_SORTS:
         sort = "total_pnl_sol"
+
+    response.headers["Cache-Control"] = f"public, max-age={_LIST_CACHE_TTL}"
+    cache_key = (tag, sort, limit, offset)
+    cached = _LIST_CACHE.get(cache_key)
+    if cached and (time.monotonic() - cached[0]) < _LIST_CACHE_TTL:
+        return cached[1]
 
     query = f"""
         WITH latest AS (
@@ -90,4 +106,6 @@ def list_wallets(
         data = dict(row)
         total = data.pop("total_count")
         rows.append(WalletSummary(**data))
-    return WalletPage(rows=rows, total=total)
+    page = WalletPage(rows=rows, total=total)
+    _LIST_CACHE[cache_key] = (time.monotonic(), page)
+    return page
