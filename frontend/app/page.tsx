@@ -8,7 +8,7 @@ import type { DashboardStats } from "@/lib/types";
  * HomePage — quant-terminal style landing.
  *
  * Server component: stats are fetched server-side from the FastAPI service
- * with ISR (1h revalidate), so visitors get real numbers pre-rendered with
+ * with ISR (5min revalidate), so visitors get real numbers pre-rendered with
  * zero client-side loading state and no CORS involvement. If the API is
  * unreachable (cold start timeout, outage) we fall back to a recent static
  * snapshot and mark the live-dot grey — the homepage never blanks.
@@ -37,7 +37,7 @@ async function getStats(): Promise<{ stats: DashboardStats; live: boolean }> {
   if (base) {
     try {
       const res = await fetch(`${base}/api/stats/dashboard`, {
-        next: { revalidate: 3600 },
+        next: { revalidate: 300 },
       });
       if (res.ok) {
         // Merge over the fallback so a missing field (e.g. an older API
