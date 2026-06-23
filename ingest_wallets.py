@@ -31,7 +31,7 @@ load_dotenv()
 # The Dune query returns a big pool (~5000); we drip-feed to bound Helius API
 # cost on the next stage. Pool is exhausted over time; candidates come ordered
 # by volume DESC, so each day we promote the next tier down.
-DAILY_PROMOTION_LIMIT = 45  # raised 20 -> 45 (more headroom on the Helius Dev plan)
+DAILY_PROMOTION_LIMIT = 150  # drip the ~3000-candidate pool down over ~3 weeks (Dev plan)
 
 
 def _utcnow_iso() -> str:

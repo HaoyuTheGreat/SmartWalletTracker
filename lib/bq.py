@@ -63,17 +63,21 @@ def fetch_all_wallets() -> list[dict]:
     return [dict(row) for row in client().query(query).result()]
 
 
-def fetch_wallets_needing_collection(max_age_hours: int = 48) -> list[dict]:
+def fetch_wallets_needing_collection(max_age_hours: int = 20) -> list[dict]:
     """
     Wallets that either have never been collected, or were collected >N hours ago.
     Skips wallets marked as 'failed' permanently.
 
-    Default 48h (was 24h): ~65% of daily-eligible wallets had no new swaps, so a
-    24h window spent more Helius credits than needed. A 48h window roughly halves
-    collection volume and smooths day-to-day load, at the cost of new swaps
-    surfacing up to 2 days late — fine for a months-horizon tracker. Conservative
-    middle ground; can shorten back toward 24h as the pipeline is optimized. See
-    ADR 015 for why a per-wallet signature probe was rejected in favor of this.
+    Default 20h = effectively daily. The pipeline runs once/day, so a wallet
+    collected in yesterday's run (~24h ago) must be eligible in today's run. 24h
+    wouldn't work: TIMESTAMP_DIFF truncates to whole hours and the run takes a few
+    minutes, so ~24h-ago reads as 23 (< 24) and the wallet gets skipped. 20h leaves
+    margin for run-time jitter → every wallet refreshes daily.
+
+    Was 48h (every other day) to halve Helius credit spend (ADR 015); reverted to
+    daily now that the Dev plan removed the credit pressure and we want next-day-
+    fresh data. NOTE the budget interaction: daily refresh of the full population
+    is ~Nwallets × ~100 credits/day; watch this as the candidate pool grows.
     """
     query = f"""
         SELECT address, wallet_id
