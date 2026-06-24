@@ -46,10 +46,11 @@ ROWS_QUEUE_MAX = 50
 # Hard ceiling on request INITIATIONS per second across all workers. Independent
 # of per-request speed, so fast "up to date" checks can't burst over the limit.
 # 40 still left ~11% of wallets 429-ing at full scale, so the Enhanced API's
-# effective limit is below the headline 50 RPS (it's the ~100x-cost endpoint) —
-# 25 gives comfortable margin. Tune up cautiously if 429s stay at zero. See
-# _RateLimiter.
-REQUESTS_PER_SEC = 25
+# effective limit is below the headline 50 RPS (it's the ~100x-cost endpoint).
+# 25 held at ~2% on a 1764-wallet run, but climbed to ~5% (106/2010) once the
+# fleet grew + the window went daily, so dropped to 20 for more margin. Tune up
+# cautiously only if 429s stay at zero. See _RateLimiter.
+REQUESTS_PER_SEC = 20
 
 # In-run retry policy for a single page fetch. 429/5xx are transient → retry with
 # backoff. 401/403/400 are persistent → fail fast. 404 is AMBIGUOUS on this API:
