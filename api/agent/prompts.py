@@ -32,7 +32,9 @@ WALLETS_SCHEMA = """Table: wallets
   source_token_mint: STRING        — that token's Solana mint address
   discovered_at: TIMESTAMP         — when this wallet entered the tracker
   last_collected_at: TIMESTAMP     — most recent swap collection
-  collection_status: STRING        — collection pipeline status
+  collection_status: STRING        — 'ok' (transactions successfully collected) |
+                                     'failed' (collection gave up; treated as no longer tracked).
+                                     "Currently tracked / active wallets" = collection_status = 'ok'.
   status: STRING                   — 'active' | 'filtered_out' | 'archived'
   filter_reason: STRING            — if filtered out, the reason (inherited from wallet_candidates)
   promoted_from: STRING            — source name: 'dune' | 'manual' | 'birdeye' | ...
@@ -112,6 +114,9 @@ RULES = """Rules when writing SQL:
    NEVER invent columns.
 8. When a user question is ambiguous (e.g. "最近的钱包" could mean
    newly-discovered OR recently-active), ASK for clarification before SQL.
+9. "How many wallets are we tracking / active wallets" = COUNT with
+   WHERE collection_status = 'ok'. Do NOT COUNT(*) the whole wallets table —
+   that includes 'failed' wallets we've stopped tracking.
 
 Rules when presenting results:
 - Cite concrete numbers from the result ("281 active wallets"), not generic phrases.

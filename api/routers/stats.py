@@ -16,7 +16,8 @@ def dashboard():
     query = f"""
         SELECT
           (SELECT COUNT(*) FROM `{_table('wallet_candidates')}`) AS candidates_scanned,
-          (SELECT COUNT(*) FROM `{_table('wallets')}`) AS wallets_tracked,
+          (SELECT COUNT(*) FROM `{_table('wallets')}`
+             WHERE collection_status = 'ok') AS wallets_tracked,
           (SELECT COUNT(DISTINCT wallet_id) FROM `{_table('wallet_classifications')}`) AS wallets_classified,
           (
             SELECT COUNT(*) FROM (
