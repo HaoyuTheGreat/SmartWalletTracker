@@ -43,7 +43,12 @@ Note: no partition / clustering — small table (hundreds of rows).
 
 ANALYZED_SWAPS_SCHEMA = """Table: analyzed_swaps
   wallet_id: STRING NOT NULL       — FK to wallets.wallet_id
-  signature: STRING NOT NULL       — Solana tx signature; unique per wallet_id (app-layer dedup, NOT an enforced PK)
+  signature: STRING NOT NULL       — Solana tx signature. One row = one swap from ONE
+    tracked wallet's perspective; the logical key is (wallet_id, signature). A single
+    on-chain tx can appear as SEVERAL rows — one per tracked wallet involved in it —
+    so signature is NOT globally unique in this table (unique only per wallet_id).
+    Counting: "how many swap RECORDS" -> COUNT(*); "how many swap TRANSACTIONS"
+    (distinct on-chain txs) -> COUNT(DISTINCT signature). Same rule for raw_swaps.
   swap_time: TIMESTAMP NOT NULL    — on-chain time of the swap
   sol_price_usd: FLOAT64           — SOL/USD price at swap_time
   sol_spent: FLOAT64               — SOL amount spent in this swap; 0 if SOL not involved or if this side is a sell
