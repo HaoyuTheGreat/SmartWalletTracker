@@ -37,6 +37,7 @@ data/
 scripts/
 notes/
 DesignDoc.txt
+eval/
 # === Personal / not for public ===
 Notes.py
 TODO.md
